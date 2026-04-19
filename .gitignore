@@ -9,7 +9,7 @@ dist/
 .idea/
 .vscode/
 .claude/
-public/og-image.jpg
-public/logo.png
-public/favicon-32.png
-public/apple-touch-icon.png
+assets/og-image.jpg
+assets/logo.png
+assets/favicon-32.png
+assets/apple-touch-icon.png
