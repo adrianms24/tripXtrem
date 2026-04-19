@@ -1767,152 +1767,46 @@ tr:hover td{background:#fafafa;}
 // ════════════════════════
 // DATA
 // ════════════════════════
-const CATS = {
-  Agua:{cards:[
-    // SURF
-    {sport:'SURF',icon:'🏄',loc:'Zarautz, País Vasco',rating:4.8,reviews:42,diff:'Baja',price:45,oldPrice:null,lat:43.284,lng:-2.234,dur:'2-3h',cat:'Agua',badge:'hot',spots:2,views:18,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1502680390548-bdbac40a5e46?w=600',extras:['Neopreno','Tabla','Instructor','Foto HD']},
-    {sport:'SURF',icon:'🏄',loc:'Mundaka, País Vasco',rating:5.0,reviews:28,diff:'Media',price:60,oldPrice:null,lat:43.406,lng:-2.697,dur:'3h',cat:'Agua',badge:'popular',spots:5,views:12,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=600',extras:['Neopreno','Tabla','Vídeo']},
-    {sport:'SURF',icon:'🏄',loc:'Playa de Somo, Cantabria',rating:4.7,reviews:19,diff:'Alta',price:40,oldPrice:52,lat:43.464,lng:-3.793,dur:'2h',cat:'Agua',badge:'new',spots:8,views:6,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',extras:['Neopreno','Tabla','Seguro']},
-    {sport:'SURF',icon:'🏄',loc:'Playa de las Américas, Tenerife',rating:4.6,reviews:35,diff:'Baja',price:50,oldPrice:null,lat:28.056,lng:-16.729,dur:'2h',cat:'Agua',badge:null,spots:6,views:8,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1502680390548-bdbac40a5e46?w=600',extras:['Tabla','Instructor','Foto']},
-    {sport:'SURF',icon:'🏄',loc:'El Palmar, Cádiz',rating:4.9,reviews:61,diff:'Baja',price:38,oldPrice:null,lat:36.329,lng:-6.064,dur:'2h',cat:'Agua',badge:'popular',spots:4,views:15,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=600',extras:['Neopreno','Tabla','Snack']},
-    // KITESURF
-    {sport:'KITESURF',icon:'🪁',loc:'Tarifa, Cádiz',rating:4.8,reviews:67,diff:'Alta',price:90,oldPrice:null,lat:36.014,lng:-5.607,dur:'4h',cat:'Agua',badge:'hot',spots:3,views:24,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Arnés','Instructor','Seguro']},
-    {sport:'KITESURF',icon:'🪁',loc:'Fuerteventura, Canarias',rating:4.9,reviews:53,diff:'Media',price:85,oldPrice:110,lat:28.359,lng:-14.053,dur:'3h',cat:'Agua',badge:'new',spots:5,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Neopreno','Vídeo']},
-    {sport:'KITESURF',icon:'🪁',loc:'Valdevaqueros, Cádiz',rating:4.7,reviews:39,diff:'Media',price:80,oldPrice:null,lat:36.058,lng:-5.685,dur:'3h',cat:'Agua',badge:null,spots:7,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Arnés','Instructor']},
-    // RAFTING
-    {sport:'RAFTING',icon:'🚣',loc:'Río Noguera, Lleida',rating:4.9,reviews:51,diff:'Media',price:55,oldPrice:null,lat:42.417,lng:0.894,dur:'3h',cat:'Agua',badge:null,spots:6,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Casco','Neopreno','Guía','Snack']},
-    {sport:'RAFTING',icon:'🚣',loc:'Río Genil, Granada',rating:4.6,reviews:27,diff:'Alta',price:60,oldPrice:null,lat:37.153,lng:-3.587,dur:'4h',cat:'Agua',badge:null,spots:8,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Casco','Guía','Seguro']},
-    {sport:'RAFTING',icon:'🚣',loc:'Río Ulla, Galicia',rating:4.5,reviews:18,diff:'Baja',price:45,oldPrice:null,lat:42.678,lng:-8.255,dur:'2.5h',cat:'Agua',badge:'new',spots:10,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Neopreno','Guía','Foto']},
-    // BUCEO
-    {sport:'BUCEO',icon:'🤿',loc:'Islas Medas, Girona',rating:4.6,reviews:33,diff:'Baja',price:70,oldPrice:85,lat:42.042,lng:3.221,dur:'2h',cat:'Agua',badge:'new',spots:4,views:7,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo completo','Instructor','Foto submarina']},
-    {sport:'BUCEO',icon:'🤿',loc:'Cabo de Palos, Murcia',rating:4.8,reviews:45,diff:'Media',price:75,oldPrice:null,lat:37.627,lng:-0.691,dur:'2.5h',cat:'Agua',badge:'popular',spots:3,views:11,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo','Guía','Seguro']},
-    {sport:'BUCEO',icon:'🤿',loc:'Lanzarote, Canarias',rating:4.9,reviews:58,diff:'Baja',price:80,oldPrice:95,lat:29.046,lng:-13.632,dur:'3h',cat:'Agua',badge:'hot',spots:2,views:20,lastBooked:'hace 20min',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo','Vídeo','Snack']},
-    // JET SKI
-    {sport:'JET SKI',icon:'🛥️',loc:'Benidorm, Alicante',rating:4.5,reviews:22,diff:'Baja',price:65,oldPrice:null,lat:38.536,lng:-0.132,dur:'1h',cat:'Agua',badge:null,spots:10,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1626618012641-bfbca5a31239?w=600',extras:['Moto','Chaleco','Instructor']},
-    {sport:'JET SKI',icon:'🛥️',loc:'Mallorca, Baleares',rating:4.7,reviews:31,diff:'Baja',price:75,oldPrice:null,lat:39.569,lng:2.650,dur:'1h',cat:'Agua',badge:'popular',spots:6,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1626618012641-bfbca5a31239?w=600',extras:['Moto','Chaleco','Foto']},
-    // WAKEBOARD
-    {sport:'WAKEBOARD',icon:'🏂',loc:'Empuriabrava, Girona',rating:4.7,reviews:17,diff:'Media',price:50,oldPrice:null,lat:42.249,lng:3.117,dur:'1.5h',cat:'Agua',badge:null,spots:7,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Chaleco','Instructor']},
-    {sport:'WAKEBOARD',icon:'🏂',loc:'Ibiza, Baleares',rating:4.6,reviews:24,diff:'Media',price:60,oldPrice:null,lat:38.906,lng:1.420,dur:'1h',cat:'Agua',badge:null,spots:5,views:7,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Neopreno','Vídeo']},
-    // COASTEERING
-    {sport:'COASTEERING',icon:'🏊',loc:'Costa Brava, Girona',rating:4.8,reviews:36,diff:'Alta',price:55,oldPrice:null,lat:41.869,lng:3.107,dur:'3h',cat:'Agua',badge:'hot',spots:4,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Neopreno','Casco','Guía','Seguro']},
-    {sport:'COASTEERING',icon:'🏊',loc:'San Juan de Gaztelugatxe, Vizcaya',rating:4.9,reviews:22,diff:'Alta',price:60,oldPrice:null,lat:43.445,lng:-2.781,dur:'3.5h',cat:'Agua',badge:'new',spots:3,views:8,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Equipo completo','Foto','Snack']},
-    // KAYAK EXTREMO
-    {sport:'KAYAK EXTREMO',icon:'🛶',loc:'Río Sella, Asturias',rating:4.7,reviews:44,diff:'Media',price:40,oldPrice:null,lat:43.349,lng:-5.075,dur:'3h',cat:'Agua',badge:'popular',spots:8,views:10,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Kayak','Pala','Guía']},
-    {sport:'KAYAK EXTREMO',icon:'🛶',loc:'Menorca, Baleares',rating:4.8,reviews:29,diff:'Baja',price:35,oldPrice:null,lat:39.949,lng:3.824,dur:'2.5h',cat:'Agua',badge:null,spots:12,views:6,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Kayak','Snorkel','Guía']},
-    // HYDROSPEED
-    {sport:'HYDROSPEED',icon:'💧',loc:'Río Gállego, Huesca',rating:4.6,reviews:14,diff:'Alta',price:65,oldPrice:null,lat:42.430,lng:-0.407,dur:'2h',cat:'Agua',badge:'new',spots:4,views:6,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Neopreno','Casco','Seguro']},
-    {sport:'HYDROSPEED',icon:'💧',loc:'Río Esera, Huesca',rating:4.8,reviews:11,diff:'Alta',price:70,oldPrice:null,lat:42.485,lng:0.455,dur:'2.5h',cat:'Agua',badge:null,spots:3,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Equipo completo','Guía']},
-    // CLIFF DIVING
-    {sport:'CLIFF DIVING',icon:'🤸',loc:'Sa Calobra, Mallorca',rating:4.9,reviews:19,diff:'Alta',price:95,oldPrice:null,lat:39.851,lng:2.807,dur:'3h',cat:'Agua',badge:'hot',spots:2,views:17,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Guía experto','Seguro premium','Vídeo drone']},
-    {sport:'CLIFF DIVING',icon:'🤸',loc:'Acantilados de Maro, Málaga',rating:4.7,reviews:12,diff:'Alta',price:85,oldPrice:null,lat:36.745,lng:-3.847,dur:'2.5h',cat:'Agua',badge:null,spots:3,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Guía','Seguro','Foto']}
-  ]},
-  Aire:{cards:[
-    // PARAPENTE
-    {sport:'PARAPENTE',icon:'🪂',loc:'Gandía, Valencia',rating:4.9,reviews:74,diff:'Media',price:80,oldPrice:null,lat:38.967,lng:-0.182,dur:'30-60min',cat:'Aire',badge:'popular',spots:3,views:21,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vuelo biplaza','Vídeo','Fotos HD','Seguro']},
-    {sport:'PARAPENTE',icon:'🪂',loc:'Tenerife Norte, Canarias',rating:4.8,reviews:52,diff:'Media',price:90,oldPrice:null,lat:28.417,lng:-16.362,dur:'45min',cat:'Aire',badge:null,spots:4,views:13,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Vídeo','Fotos']},
-    {sport:'PARAPENTE',icon:'🪂',loc:'Ager, Lleida',rating:4.7,reviews:33,diff:'Baja',price:70,oldPrice:null,lat:42.006,lng:0.770,dur:'30min',cat:'Aire',badge:null,spots:6,views:5,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Seguro','Foto']},
-    // PARACAIDISMO
-    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Empuriabrava, Girona',rating:5.0,reviews:112,diff:'Alta',price:180,oldPrice:null,lat:42.249,lng:3.115,dur:'30min',cat:'Aire',badge:'hot',spots:1,views:34,lastBooked:'hace 10min',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Salto tándem','Instructor','Vídeo 4K','Diploma']},
-    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Sevilla',rating:4.8,reviews:67,diff:'Alta',price:195,oldPrice:230,lat:37.418,lng:-5.893,dur:'30min',cat:'Aire',badge:'popular',spots:3,views:22,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Tándem','Vídeo','Fotos','Seguro']},
-    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Madrid (Ocaña)',rating:4.7,reviews:43,diff:'Alta',price:175,oldPrice:null,lat:39.956,lng:-3.498,dur:'30min',cat:'Aire',badge:null,spots:5,views:15,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Tándem','Instructor','Foto']},
-    // WINGSUIT
-    {sport:'WINGSUIT',icon:'🦸',loc:'Sierra Nevada, Granada',rating:4.7,reviews:29,diff:'Alta',price:250,oldPrice:300,lat:37.094,lng:-3.394,dur:'20min',cat:'Aire',badge:'new',spots:2,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Traje wingsuit','Instructor elite','GoPro','Seguro premium']},
-    {sport:'WINGSUIT',icon:'🦸',loc:'Ordesa, Huesca',rating:4.9,reviews:15,diff:'Alta',price:280,oldPrice:null,lat:42.630,lng:-0.054,dur:'25min',cat:'Aire',badge:'hot',spots:1,views:18,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Equipo pro','Vídeo drone','Seguro premium']},
-    // BUNGEE
-    {sport:'BUNGEE',icon:'🪢',loc:'Nerja, Málaga',rating:4.5,reviews:41,diff:'Media',price:65,oldPrice:null,lat:36.748,lng:-3.869,dur:'15min',cat:'Aire',badge:null,spots:7,views:8,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Salto','Vídeo','Certificado']},
-    {sport:'BUNGEE',icon:'🪢',loc:'Lloret de Mar, Girona',rating:4.6,reviews:28,diff:'Media',price:55,oldPrice:null,lat:41.700,lng:2.845,dur:'15min',cat:'Aire',badge:null,spots:9,views:5,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Salto','Foto','Seguro']},
-    // BASE JUMP
-    {sport:'BASE JUMP',icon:'🏗️',loc:'Montserrat, Barcelona',rating:4.9,reviews:8,diff:'Alta',price:320,oldPrice:null,lat:41.594,lng:1.838,dur:'Jornada',cat:'Aire',badge:'hot',spots:1,views:25,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Instructor elite','Equipo pro','GoPro','Seguro premium']},
-    {sport:'BASE JUMP',icon:'🏗️',loc:'Ronda, Málaga',rating:4.8,reviews:6,diff:'Alta',price:350,oldPrice:null,lat:36.746,lng:-5.161,dur:'Jornada',cat:'Aire',badge:'new',spots:2,views:19,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Equipo completo','Vídeo drone','Seguro']},
-    // ALA DELTA
-    {sport:'ALA DELTA',icon:'🪽',loc:'Tenerife Sur, Canarias',rating:4.8,reviews:38,diff:'Media',price:120,oldPrice:null,lat:28.045,lng:-16.563,dur:'1h',cat:'Aire',badge:null,spots:4,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vuelo biplaza','Fotos','Seguro']},
-    {sport:'ALA DELTA',icon:'🪽',loc:'Lanzarote, Canarias',rating:4.7,reviews:21,diff:'Media',price:110,oldPrice:null,lat:29.035,lng:-13.634,dur:'45min',cat:'Aire',badge:null,spots:5,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Vídeo','Seguro']},
-    // ACROBACIA AEREA
-    {sport:'ACROBACIA AEREA',icon:'✈️',loc:'Sabadell, Barcelona',rating:4.9,reviews:16,diff:'Alta',price:199,oldPrice:250,lat:41.520,lng:2.101,dur:'40min',cat:'Aire',badge:'new',spots:2,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33447cc?w=600',extras:['Avión acrobático','Piloto experto','Vídeo','Seguro']},
-    {sport:'ACROBACIA AEREA',icon:'✈️',loc:'Córdoba',rating:4.7,reviews:11,diff:'Alta',price:185,oldPrice:null,lat:37.884,lng:-4.786,dur:'35min',cat:'Aire',badge:null,spots:4,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33447cc?w=600',extras:['Avión','Piloto','GoPro']},
-    // TIROLINA
-    {sport:'TIROLINA',icon:'🏗️',loc:'Comares, Málaga',rating:4.6,reviews:48,diff:'Baja',price:30,oldPrice:null,lat:36.849,lng:-4.248,dur:'30min',cat:'Aire',badge:'popular',spots:12,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Arnés','Casco','Foto']},
-    {sport:'TIROLINA',icon:'🏗️',loc:'Valle de Tena, Huesca',rating:4.8,reviews:34,diff:'Media',price:35,oldPrice:null,lat:42.737,lng:-0.323,dur:'45min',cat:'Aire',badge:null,spots:8,views:5,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Arnés','Casco','Seguro']},
-    // SPEED RIDING
-    {sport:'SPEED RIDING',icon:'⚡',loc:'Formigal, Huesca',rating:4.8,reviews:7,diff:'Alta',price:280,oldPrice:null,lat:42.764,lng:-0.382,dur:'2h',cat:'Aire',badge:'hot',spots:1,views:15,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vela speed','Esquís','Instructor elite','Seguro premium']},
-    {sport:'SPEED RIDING',icon:'⚡',loc:'Sierra Nevada, Granada',rating:4.7,reviews:5,diff:'Alta',price:270,oldPrice:null,lat:37.096,lng:-3.396,dur:'2h',cat:'Aire',badge:'new',spots:2,views:11,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Equipo completo','Instructor','Vídeo']}
-  ]},
-  Nieve:{cards:[
-    // FREERIDE
-    {sport:'FREERIDE',icon:'⛷️',loc:'Baqueira, Lleida',rating:4.8,reviews:56,diff:'Alta',price:120,oldPrice:null,lat:42.689,lng:0.931,dur:'Jornada',cat:'Nieve',badge:'popular',spots:4,views:15,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía montaña','ARVA','Pala','Sonda']},
-    {sport:'FREERIDE',icon:'⛷️',loc:'Formigal, Huesca',rating:4.7,reviews:38,diff:'Alta',price:110,oldPrice:null,lat:42.764,lng:-0.380,dur:'Jornada',cat:'Nieve',badge:null,spots:5,views:10,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía','ARVA','Seguro']},
-    {sport:'FREERIDE',icon:'⛷️',loc:'Sierra Nevada, Granada',rating:4.6,reviews:24,diff:'Media',price:95,oldPrice:null,lat:37.095,lng:-3.393,dur:'6h',cat:'Nieve',badge:'new',spots:7,views:6,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía','Equipo seguridad','Snack']},
-    // HELIESQUI
-    {sport:'HELIESQUI',icon:'🚁',loc:'Candanchú, Huesca',rating:5.0,reviews:23,diff:'Alta',price:350,oldPrice:420,lat:42.784,lng:-0.523,dur:'Jornada',cat:'Nieve',badge:'hot',spots:2,views:19,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Helicóptero','Guía elite','ARVA','Comida montaña']},
-    {sport:'HELIESQUI',icon:'🚁',loc:'Valle de Arán, Lleida',rating:4.9,reviews:17,diff:'Alta',price:380,oldPrice:450,lat:42.700,lng:0.850,dur:'Jornada',cat:'Nieve',badge:'popular',spots:1,views:22,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Helicóptero','Guía','Seguro premium']},
-    // ICE CLIMBING
-    {sport:'ICE CLIMBING',icon:'🧊',loc:'Panticosa, Huesca',rating:4.6,reviews:17,diff:'Alta',price:95,oldPrice:null,lat:42.718,lng:-0.289,dur:'4h',cat:'Nieve',badge:'new',spots:6,views:4,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Piolets','Crampones','Guía','Seguro']},
-    {sport:'ICE CLIMBING',icon:'🧊',loc:'Benasque, Huesca',rating:4.8,reviews:12,diff:'Alta',price:100,oldPrice:null,lat:42.607,lng:0.522,dur:'5h',cat:'Nieve',badge:null,spots:4,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo completo','Guía','Foto']},
-    // SNOWBOARD
-    {sport:'SNOWBOARD',icon:'🏂',loc:'Baqueira, Lleida',rating:4.7,reviews:44,diff:'Media',price:75,oldPrice:null,lat:42.690,lng:0.933,dur:'Jornada',cat:'Nieve',badge:'popular',spots:8,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Tabla','Botas','Monitor','Forfait']},
-    {sport:'SNOWBOARD',icon:'🏂',loc:'Sierra Nevada, Granada',rating:4.6,reviews:36,diff:'Baja',price:65,oldPrice:null,lat:37.093,lng:-3.391,dur:'Jornada',cat:'Nieve',badge:null,spots:10,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Tabla','Forfait','Monitor']},
-    // SNOWKITE
-    {sport:'SNOWKITE',icon:'🪁',loc:'Cerdanya, Girona',rating:4.5,reviews:9,diff:'Alta',price:130,oldPrice:null,lat:42.432,lng:1.847,dur:'4h',cat:'Nieve',badge:'new',spots:3,views:5,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Kite nieve','Tabla','Instructor','Seguro']},
-    {sport:'SNOWKITE',icon:'🪁',loc:'Boi Taüll, Lleida',rating:4.7,reviews:7,diff:'Alta',price:140,oldPrice:null,lat:42.478,lng:0.829,dur:'4h',cat:'Nieve',badge:null,spots:4,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo completo','Instructor']},
-    // MUSHING
-    {sport:'MUSHING',icon:'🐕',loc:'Baqueira, Lleida',rating:4.8,reviews:31,diff:'Baja',price:85,oldPrice:null,lat:42.691,lng:0.929,dur:'1.5h',cat:'Nieve',badge:'popular',spots:6,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Trineo','Musher guía','Manta','Chocolate caliente']},
-    {sport:'MUSHING',icon:'🐕',loc:'Grandvalira, Andorra',rating:4.9,reviews:22,diff:'Baja',price:95,oldPrice:null,lat:42.554,lng:1.734,dur:'2h',cat:'Nieve',badge:null,spots:4,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Trineo','Guía','Foto']},
-    // SPEED SKIING
-    {sport:'SPEED SKIING',icon:'💨',loc:'Formigal, Huesca',rating:4.7,reviews:5,diff:'Alta',price:200,oldPrice:null,lat:42.766,lng:-0.378,dur:'3h',cat:'Nieve',badge:'hot',spots:2,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Casco aero','Traje speed','Coach','Seguro premium']},
-    {sport:'SPEED SKIING',icon:'💨',loc:'La Molina, Girona',rating:4.5,reviews:4,diff:'Alta',price:190,oldPrice:null,lat:42.336,lng:1.944,dur:'3h',cat:'Nieve',badge:'new',spots:3,views:8,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo speed','Coach','Vídeo']},
-    // SKICROSS
-    {sport:'SKICROSS',icon:'🎿',loc:'Cerler, Huesca',rating:4.6,reviews:19,diff:'Alta',price:85,oldPrice:null,lat:42.556,lng:0.531,dur:'Jornada',cat:'Nieve',badge:null,spots:6,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Forfait','Monitor','Seguro']},
-    {sport:'SKICROSS',icon:'🎿',loc:'Masella, Girona',rating:4.5,reviews:14,diff:'Media',price:70,oldPrice:null,lat:42.337,lng:1.936,dur:'Jornada',cat:'Nieve',badge:null,spots:8,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Forfait','Monitor','Foto']}
-  ]},
-  Tierra:{cards:[
-    // ESCALADA
-    {sport:'ESCALADA',icon:'🧗',loc:'Montserrat, Barcelona',rating:4.9,reviews:88,diff:'Media',price:50,oldPrice:null,lat:41.593,lng:1.835,dur:'4-6h',cat:'Tierra',badge:'popular',spots:5,views:13,lastBooked:'hace 1.5h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Casco','Cuerda','Guía certificado']},
-    {sport:'ESCALADA',icon:'🧗',loc:'El Chorro, Málaga',rating:4.8,reviews:54,diff:'Alta',price:55,oldPrice:null,lat:36.920,lng:-4.746,dur:'5h',cat:'Tierra',badge:'hot',spots:3,views:15,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
-    {sport:'ESCALADA',icon:'🧗',loc:'Siurana, Tarragona',rating:4.9,reviews:41,diff:'Alta',price:60,oldPrice:null,lat:41.255,lng:0.936,dur:'6h',cat:'Tierra',badge:null,spots:4,views:10,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Guía','Seguro']},
-    // VIA FERRATA
-    {sport:'VIA FERRATA',icon:'⛰️',loc:'Riglos, Huesca',rating:4.8,reviews:44,diff:'Alta',price:45,oldPrice:60,lat:42.367,lng:-0.674,dur:'5h',cat:'Tierra',badge:null,spots:8,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Casco','Guía','Snack']},
-    {sport:'VIA FERRATA',icon:'⛰️',loc:'Montserrat, Barcelona',rating:4.7,reviews:32,diff:'Media',price:40,oldPrice:null,lat:41.596,lng:1.833,dur:'4h',cat:'Tierra',badge:'popular',spots:6,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
-    {sport:'VIA FERRATA',icon:'⛰️',loc:'Ronda, Málaga',rating:4.6,reviews:21,diff:'Media',price:35,oldPrice:null,lat:36.744,lng:-5.164,dur:'3.5h',cat:'Tierra',badge:'new',spots:10,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Guía','Seguro']},
-    // MTB ENDURO
-    {sport:'ENDURO MTB',icon:'🚵',loc:'Ainsa, Huesca',rating:4.7,reviews:31,diff:'Alta',price:65,oldPrice:null,lat:42.419,lng:0.137,dur:'6h',cat:'Tierra',badge:'new',spots:3,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici enduro','Casco','Protecciones','Guía']},
-    {sport:'ENDURO MTB',icon:'🚵',loc:'La Fenasosa, Alicante',rating:4.6,reviews:18,diff:'Media',price:55,oldPrice:null,lat:38.476,lng:-0.802,dur:'5h',cat:'Tierra',badge:null,spots:6,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici','Casco','Guía']},
-    {sport:'ENDURO MTB',icon:'🚵',loc:'Valle de Arán, Lleida',rating:4.8,reviews:25,diff:'Alta',price:70,oldPrice:null,lat:42.702,lng:0.852,dur:'Jornada',cat:'Tierra',badge:'popular',spots:4,views:12,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici pro','Protecciones','Guía','Snack']},
-    // ESPELEOLOGIA
-    {sport:'ESPELEOLOGIA',icon:'🕳️',loc:'Cuenca',rating:4.5,reviews:16,diff:'Media',price:40,oldPrice:50,lat:40.069,lng:-2.134,dur:'4h',cat:'Tierra',badge:null,spots:9,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Frontal','Casco','Mono','Guía']},
-    {sport:'ESPELEOLOGIA',icon:'🕳️',loc:'Nerja, Málaga',rating:4.7,reviews:28,diff:'Baja',price:35,oldPrice:null,lat:36.750,lng:-3.871,dur:'3h',cat:'Tierra',badge:'popular',spots:8,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Frontal','Casco','Guía','Foto']},
-    // BARRANQUISMO
-    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Sierra de Guara, Huesca',rating:4.9,reviews:63,diff:'Alta',price:60,oldPrice:null,lat:42.296,lng:-0.116,dur:'5h',cat:'Tierra',badge:'hot',spots:3,views:18,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Neopreno','Casco','Arnés','Guía','Snack']},
-    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Río Verde, Granada',rating:4.7,reviews:37,diff:'Media',price:45,oldPrice:null,lat:36.843,lng:-3.545,dur:'4h',cat:'Tierra',badge:'popular',spots:5,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
-    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Ordesa, Huesca',rating:4.8,reviews:29,diff:'Alta',price:65,oldPrice:null,lat:42.634,lng:-0.058,dur:'6h',cat:'Tierra',badge:null,spots:4,views:8,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Neopreno','Guía','Seguro']},
-    // DOWNHILL
-    {sport:'DOWNHILL',icon:'🚴',loc:'Bike Park La Molina, Girona',rating:4.7,reviews:26,diff:'Alta',price:55,oldPrice:null,lat:42.338,lng:1.946,dur:'Jornada',cat:'Tierra',badge:'new',spots:5,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici DH','Casco integral','Protecciones','Forfait']},
-    {sport:'DOWNHILL',icon:'🚴',loc:'Vallnord, Andorra',rating:4.8,reviews:34,diff:'Alta',price:65,oldPrice:null,lat:42.543,lng:1.486,dur:'Jornada',cat:'Tierra',badge:'popular',spots:3,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici pro','Forfait','Guía','Seguro']},
-    // MOTOCROSS
-    {sport:'MOTOCROSS',icon:'🏍️',loc:'Circuito de Bellpuig, Lleida',rating:4.6,reviews:22,diff:'Alta',price:90,oldPrice:null,lat:41.625,lng:1.004,dur:'3h',cat:'Tierra',badge:null,spots:4,views:8,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Moto','Casco','Protecciones','Instructor']},
-    {sport:'MOTOCROSS',icon:'🏍️',loc:'Talavera, Toledo',rating:4.5,reviews:15,diff:'Media',price:80,oldPrice:null,lat:39.963,lng:-4.834,dur:'2h',cat:'Tierra',badge:'new',spots:6,views:5,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Moto','Equipamiento','Monitor']},
-    // PARKOUR
-    {sport:'PARKOUR',icon:'🤸‍♂️',loc:'Madrid Centro',rating:4.7,reviews:33,diff:'Media',price:30,oldPrice:null,lat:40.415,lng:-3.703,dur:'2h',cat:'Tierra',badge:'popular',spots:10,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Coach certificado','Calentamiento','Vídeo']},
-    {sport:'PARKOUR',icon:'🤸‍♂️',loc:'Barcelona, Poblenou',rating:4.8,reviews:27,diff:'Media',price:35,oldPrice:null,lat:41.403,lng:2.204,dur:'2h',cat:'Tierra',badge:null,spots:8,views:7,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Coach','Foto','Seguro']},
-    // ALPINISMO
-    {sport:'ALPINISMO',icon:'🗻',loc:'Picos de Europa, Asturias',rating:4.9,reviews:42,diff:'Alta',price:150,oldPrice:null,lat:43.198,lng:-4.832,dur:'2 días',cat:'Tierra',badge:'hot',spots:2,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía UIAGM','Equipo alta montaña','Refugio','Comida']},
-    {sport:'ALPINISMO',icon:'🗻',loc:'Mulhacén, Granada',rating:4.8,reviews:35,diff:'Alta',price:130,oldPrice:null,lat:37.053,lng:-3.311,dur:'2 días',cat:'Tierra',badge:'popular',spots:3,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía','Equipo','Refugio']},
-    {sport:'ALPINISMO',icon:'🗻',loc:'Aneto, Huesca',rating:5.0,reviews:28,diff:'Alta',price:170,oldPrice:200,lat:42.631,lng:0.657,dur:'2 días',cat:'Tierra',badge:null,spots:2,views:20,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía UIAGM','Material técnico','Seguro premium']},
-    // QUAD
-    {sport:'QUAD',icon:'🛞',loc:'Ruta Quads, Málaga',rating:4.5,reviews:39,diff:'Baja',price:50,oldPrice:65,lat:36.720,lng:-4.420,dur:'1h',cat:'Tierra',badge:'popular',spots:8,views:13,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Casco','Guía','Foto']},
-    {sport:'QUAD',icon:'🛞',loc:'Lanzarote, Canarias',rating:4.7,reviews:28,diff:'Baja',price:55,oldPrice:null,lat:29.047,lng:-13.630,dur:'1.5h',cat:'Tierra',badge:null,spots:6,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Casco','Ruta volcánica']},
-    {sport:'QUAD',icon:'🛞',loc:'Gran Canaria',rating:4.6,reviews:22,diff:'Baja',price:60,oldPrice:null,lat:27.953,lng:-15.591,dur:'2h',cat:'Tierra',badge:'new',spots:5,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Guía','Snack']},
-    // SANDBOARD
-    {sport:'SANDBOARD',icon:'🏜️',loc:'Dunas Maspalomas, Gran Canaria',rating:4.5,reviews:18,diff:'Baja',price:35,oldPrice:null,lat:27.739,lng:-15.580,dur:'2h',cat:'Tierra',badge:null,spots:10,views:5,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Tabla sand','Protección','Instructor']},
-    {sport:'SANDBOARD',icon:'🏜️',loc:'Dunas de Corrubedo, A Coruña',rating:4.4,reviews:11,diff:'Baja',price:30,oldPrice:null,lat:42.554,lng:-9.050,dur:'1.5h',cat:'Tierra',badge:'new',spots:12,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Tabla','Instructor','Foto']},
-    // HIGHLINE
-    {sport:'SLACKLINE ALTURA',icon:'🌉',loc:'Montserrat, Barcelona',rating:4.9,reviews:9,diff:'Alta',price:120,oldPrice:null,lat:41.595,lng:1.837,dur:'4h',cat:'Tierra',badge:'hot',spots:2,views:14,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Línea pro','Arnés','Instructor elite','Seguro premium']},
-    {sport:'SLACKLINE ALTURA',icon:'🌉',loc:'El Torcal, Málaga',rating:4.8,reviews:6,diff:'Alta',price:110,oldPrice:null,lat:36.953,lng:-4.543,dur:'3.5h',cat:'Tierra',badge:'new',spots:3,views:10,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Instructor','Vídeo']},
-    // RALLY RAID
-    {sport:'RALLY RAID',icon:'🏎️',loc:'Desierto Tabernas, Almería',rating:4.8,reviews:14,diff:'Alta',price:180,oldPrice:220,lat:37.006,lng:-2.389,dur:'Jornada',cat:'Tierra',badge:'hot',spots:2,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['4x4 rally','Co-piloto','Equipo','Comida']},
-    {sport:'RALLY RAID',icon:'🏎️',loc:'Bardenas Reales, Navarra',rating:4.7,reviews:11,diff:'Alta',price:170,oldPrice:null,lat:42.208,lng:-1.535,dur:'Jornada',cat:'Tierra',badge:'new',spots:3,views:11,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['4x4','Co-piloto','Vídeo']}
-  ]}
-};
-const ALL=Object.values(CATS).flatMap(d=>d.cards);
+// CATS se carga dinámicamente desde /api/experiences
+let CATS = { Agua:{cards:[]}, Aire:{cards:[]}, Nieve:{cards:[]}, Tierra:{cards:[]} };
+let ALL = [];
+
+async function loadExperiences(){
+  try{
+    const r = await fetch('/api/experiences', { headers:{'Accept':'application/json'} });
+    if(!r.ok) throw new Error('api '+r.status);
+    const j = await r.json();
+    const exps = Array.isArray(j.experiences) ? j.experiences : [];
+    CATS = { Agua:{cards:[]}, Aire:{cards:[]}, Nieve:{cards:[]}, Tierra:{cards:[]} };
+    exps.forEach(e=>{
+      const card = {
+        sport: e.sport, icon: e.icon || '🌍',
+        loc: e.location || '',
+        rating: parseFloat(e.rating)||0, reviews: parseInt(e.reviews)||0,
+        diff: e.diff || 'Media',
+        price: parseFloat(e.price)||0,
+        oldPrice: e.old_price ? parseFloat(e.old_price) : null,
+        lat: parseFloat(e.lat), lng: parseFloat(e.lng),
+        dur: e.dur || '', cat: e.category,
+        badge: e.badge || null,
+        spots: parseInt(e.spots)||0,
+        views: 0, lastBooked: '',
+        img: e.img || '',
+        extras: Array.isArray(e.extras) ? e.extras : [],
+        provider: e.provider_name || null
+      };
+      if(CATS[card.cat]) CATS[card.cat].cards.push(card);
+    });
+    ALL = Object.values(CATS).flatMap(d=>d.cards);
+    renderFiltered();
+    if(mainMap) updateMarkers(ALL);
+  }catch(err){
+    console.error('[experiences] fetch failed:', err);
+    ALL = [];
+    renderFiltered();
+  }
+}
+
 const REVIEWS=[
   {name:'Laura M.',av:'#ef4444',stars:5,date:'mar 2025',text:'Increíble experiencia, instructores top y el ambiente con el grupo genial. Ya estoy planeando la siguiente.'},
   {name:'Carlos B.',av:'#3b82f6',stars:5,date:'mar 2025',text:'Organización perfecta desde el primer momento. Equipo en perfecto estado y ubicación espectacular.'},
@@ -2105,7 +1999,10 @@ function renderFiltered(){
   if(mc)mc.textContent=cards.length+' activa'+(cards.length!==1?'s':'');
   if(!cl)return;
   if(!cards.length){
-    cl.innerHTML='<div style="text-align:center;padding:50px 20px;color:var(--mu)"><div style="font-size:44px;margin-bottom:12px">🔍</div><p style="font-size:14px;font-weight:700">Sin resultados</p><p style="font-size:13px;margin-top:6px">Prueba cambiando los filtros</p><button class="btn-g" style="margin-top:14px;font-size:13px;padding:8px 18px" onclick="activeDiffs.clear();maxPrice=400;document.querySelectorAll(\'.fchip\').forEach(b=>b.className=\'fchip\');document.getElementById(\'priceR\').value=400;document.getElementById(\'priceV\').textContent=\'400€\';renderFiltered()">Quitar filtros</button></div>';
+    const noData = ALL.length===0;
+    cl.innerHTML = noData
+      ? '<div style="text-align:center;padding:60px 24px;color:var(--mu);grid-column:1/-1;"><div style="font-size:54px;margin-bottom:14px">🚀</div><p style="font-size:18px;font-weight:800;color:var(--dk);font-family:Syne,sans-serif">Próximamente</p><p style="font-size:14px;margin:8px 0 20px;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.6">Estamos incorporando las mejores empresas de deportes extremos del mundo. Apúntate y serás de los primeros en reservar.</p><button class="btn-g" style="padding:10px 22px;font-size:13px" onclick="openWaitlist(\'\',\'\')">Únete a la lista →</button></div>'
+      : '<div style="text-align:center;padding:50px 20px;color:var(--mu);grid-column:1/-1;"><div style="font-size:44px;margin-bottom:12px">🔍</div><p style="font-size:14px;font-weight:700">Sin resultados</p><p style="font-size:13px;margin-top:6px">Prueba cambiando los filtros</p><button class="btn-g" style="margin-top:14px;font-size:13px;padding:8px 18px" onclick="activeDiffs.clear();maxPrice=400;document.querySelectorAll(\'.fchip\').forEach(b=>b.className=\'fchip\');document.getElementById(\'priceR\').value=400;document.getElementById(\'priceV\').textContent=\'400€\';renderFiltered()">Quitar filtros</button></div>';
     updateMarkers([]);return;
   }
   cl.innerHTML=cards.map((c,i)=>{
@@ -2423,8 +2320,38 @@ function pfGoStep(n){
   if(n===6)pfFillSummary();
 }
 function pfNext(){
-  if(pfStep===6){savePF();closeOv('ov-partner');toast('🎉 Solicitud enviada. Te contactaremos en 24-48h.');updAdmBadge();return;}
+  if(pfStep===6){ submitPartnerApply(); return; }
   pfGoStep(pfStep+1);
+}
+async function submitPartnerApply(){
+  const btn=document.getElementById('pf-next');
+  const companyName=(document.getElementById('pf-nombre').value||'').trim();
+  const contactName=companyName; // TODO: campo específico contacto; usamos empresa por ahora
+  const email=(document.getElementById('pf-email').value||'').trim().toLowerCase();
+  const phone=(document.getElementById('pf-tel').value||'').trim();
+  const website=(document.getElementById('pf-web').value||'').trim();
+  const description=(document.getElementById('pf-desc').value||'').trim();
+  const sport=document.getElementById('pf-tipo').value||'';
+  const city=(document.getElementById('pf-ciudad').value||'').trim();
+  const paisMap={'España':'ES','Portugal':'PT','Francia':'FR','Italia':'IT'};
+  const country=paisMap[document.getElementById('pf-pais').value]||'ES';
+  if(!companyName||!email){toast('⚠️ Faltan datos obligatorios');pfGoStep(2);return;}
+  btn.disabled=true;btn.textContent='Enviando...';
+  try{
+    const r=await fetch('/api/partner-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      company_name:companyName,contact_name:contactName,email,phone,website,
+      country,city,sports:sport,description,
+      gdpr:true,company:''
+    })});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error||'Error');
+    savePF();closeOv('ov-partner');
+    toast('🎉 Solicitud enviada. Te contactaremos en 24-48h.');
+    updAdmBadge();
+  }catch(ex){
+    toast('❌ '+(ex.message||'Error al enviar'));
+    btn.disabled=false;btn.textContent='✅ Enviar solicitud';
+  }
 }
 function pfPrev(){if(pfStep>1)pfGoStep(pfStep-1);}
 function selSvc(el){if(el.classList.contains('disabled'))return;document.querySelectorAll('.svc-card:not(.disabled)').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
@@ -2698,6 +2625,7 @@ document.addEventListener('mouseleave',e=>{
 // ════ INIT ════
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(initMainMap,300);
+  loadExperiences();
   animStats();
   renderFiltered();
   startCountdown();
