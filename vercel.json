@@ -1,9 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "destination": "/tripxtrem_23.html" },
     { "source": "/favicon.svg", "destination": "/public/favicon.svg" },
     { "source": "/favicon-32.png", "destination": "/public/favicon-32.png" },
     { "source": "/apple-touch-icon.png", "destination": "/public/apple-touch-icon.png" },
@@ -12,7 +11,10 @@
     { "source": "/sitemap.xml", "destination": "/public/sitemap.xml" },
     { "source": "/og-image.jpg", "destination": "/public/og-image.jpg" },
     { "source": "/logo.png", "destination": "/public/logo.png" },
-    { "source": "/legal/:slug", "destination": "/legal/:slug.html" }
+    { "source": "/legal/aviso-legal", "destination": "/legal/aviso-legal.html" },
+    { "source": "/legal/privacidad", "destination": "/legal/privacidad.html" },
+    { "source": "/legal/cookies", "destination": "/legal/cookies.html" },
+    { "source": "/legal/terminos", "destination": "/legal/terminos.html" }
   ],
   "headers": [
     {
