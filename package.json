@@ -1,0 +1,21 @@
+{
+  "name": "tripxtrem",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TripXtrem — Marketplace Nº1 de turismo de aventura en España",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site — no build step'",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "resend": "^4.1.2"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

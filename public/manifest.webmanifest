@@ -1,0 +1,13 @@
+{
+  "name": "TripXtrem",
+  "short_name": "TripXtrem",
+  "description": "Marketplace Nº1 de turismo de aventura en España",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#22c55e",
+  "lang": "es",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}

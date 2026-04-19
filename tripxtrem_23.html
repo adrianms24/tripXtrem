@@ -2,22 +2,80 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TripXtrem — Nº1 en Viajes Extremos en España</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#22c55e">
+<title>TripXtrem — Marketplace Nº1 de Turismo de Aventura en España</title>
+<meta name="description" content="Reserva deportes extremos en España: surf, kitesurf, paracaidismo, parapente, escalada, rafting y más. +40 actividades, packs completos con alojamiento y transporte. Apúntate para acceso anticipado.">
+<meta name="keywords" content="turismo aventura España, deportes extremos, surf Zarautz, kitesurf Tarifa, paracaidismo Empuriabrava, parapente, escalada, rafting Lleida, heliesquí, packs aventura">
+<meta name="author" content="TripXtrem">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://tripxtrem.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TripXtrem">
+<meta property="og:title" content="TripXtrem — Marketplace Nº1 de Turismo de Aventura en España">
+<meta property="og:description" content="Reserva deportes extremos en España: surf, kitesurf, paracaidismo, parapente, escalada y más. Packs completos con alojamiento y transporte.">
+<meta property="og:url" content="https://tripxtrem.com/">
+<meta property="og:image" content="https://tripxtrem.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TripXtrem — Marketplace de turismo de aventura en España">
+<meta property="og:locale" content="es_ES">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TripXtrem — Turismo de Aventura en España">
+<meta name="twitter:description" content="Reserva deportes extremos: surf, kitesurf, paracaidismo, parapente, escalada. Packs con alojamiento y transporte.">
+<meta name="twitter:image" content="https://tripxtrem.com/og-image.jpg">
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"TripXtrem","url":"https://tripxtrem.com","logo":"https://tripxtrem.com/logo.png","description":"Marketplace Nº1 de turismo de aventura en España","sameAs":[],"address":{"@type":"PostalAddress","addressCountry":"ES"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"TripXtrem","url":"https://tripxtrem.com","potentialAction":{"@type":"SearchAction","target":"https://tripxtrem.com/?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+<!-- Preconnect performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://a.basemaps.cartocdn.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Analytics (Plausible — no cookies, GDPR-friendly) -->
+<script defer data-domain="tripxtrem.com" src="https://plausible.io/js/script.tagged-events.js"></script>
+<script>window.plausible = window.plausible || function(){(window.plausible.q = window.plausible.q || []).push(arguments)}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
+  /* ── Brand ── */
   --g:#22c55e;--gd:#16a34a;--gl:#dcfce7;
   --r:#ef4444;--o:#f59e0b;--b:#3b82f6;
   --dk:#111827;--mu:#6b7280;--mu2:#9ca3af;
   --border:#e5e7eb;--bg:#f8fafc;--w:#fff;
-  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06);
-  --ANH:36px; /* announcement bar */
-  --NH:68px;  /* nav height */
-  --CBH:84px; /* cat bar height */
+  /* ── Shadows (elevation) ── */
+  --sh-sm:0 1px 2px rgba(0,0,0,.05);
+  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);
+  --sh-md:0 4px 16px rgba(0,0,0,.08);
+  --sh-lg:0 8px 30px rgba(0,0,0,.12);
+  /* ── Typography scale (1.2 ratio) ── */
+  --fs-xs:10px;--fs-sm:12px;--fs-base:13px;--fs-md:15px;--fs-lg:18px;--fs-xl:22px;--fs-2xl:28px;--fs-3xl:36px;
+  /* ── Spacing (4px grid) ── */
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
+  /* ── Radii ── */
+  --r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:18px;--r-pill:100px;
+  /* ── Layout heights ── */
+  --ANH:36px;--NH:64px;--CTBH:48px;--CBH:76px;
+  /* ── Category colors ── */
+  --c-agua:#0ea5e9;--c-agua-bg:#e0f2fe;--c-agua-dk:#0369a1;
+  --c-aire:#f59e0b;--c-aire-bg:#fef3c7;--c-aire-dk:#b45309;
+  --c-nieve:#8b5cf6;--c-nieve-bg:#ede9fe;--c-nieve-dk:#6d28d9;
+  --c-tierra:#22c55e;--c-tierra-bg:#dcfce7;--c-tierra-dk:#16a34a;
+  /* ── Buttons ── */
+  --btn-sm:var(--sp-1) var(--sp-3);--btn-md:var(--sp-2) var(--sp-5);--btn-lg:var(--sp-3) var(--sp-6);
 }
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--dk);overflow-x:hidden;}
 input,select,textarea,button{font-family:'Outfit',sans-serif;}
@@ -104,6 +162,8 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
   display:flex;align-items:center;gap:8px;
   z-index:1;
 }
+.btn-map{border:1.5px solid var(--g);background:var(--gl);border-radius:22px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--gd);white-space:nowrap;transition:all .2s;}
+.btn-map:hover{background:var(--g);color:#fff;}
 .btn-host{border:1.5px solid var(--border);background:#fff;border-radius:22px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--dk);white-space:nowrap;}
 .btn-host:hover{background:#f7f7f7;}
 .nav-menu{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:22px;padding:5px 5px 5px 12px;cursor:pointer;background:#fff;}
@@ -113,10 +173,52 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .nav-av{width:32px;height:32px;border-radius:50%;background:var(--dk);color:var(--g);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;position:relative;}
 .av-dot{position:absolute;top:-2px;right:-2px;width:10px;height:10px;background:var(--r);border-radius:50%;border:2px solid #fff;}
 
+/* ═══ CATEGORY TABS ═══ */
+#cat-tabs{
+  position:fixed;
+  top:calc(var(--ANH) + var(--NH));
+  left:0;right:0;
+  z-index:999;
+  height:var(--CTBH);
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;
+  padding:0 40px;
+}
+.ct-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:var(--sp-2) var(--sp-4);border-radius:var(--r-md);
+  border:1.5px solid transparent;
+  background:#f9fafb;cursor:pointer;
+  font-size:var(--fs-base);font-weight:700;color:var(--mu);
+  transition:all .2s;white-space:nowrap;
+}
+.ct-btn:hover{box-shadow:var(--sh-sm);}
+.ct-icon{font-size:16px;line-height:1;}
+/* ── Category colors ── */
+.ct-todo{color:var(--dk);}
+.ct-todo.on{background:var(--dk);color:#fff;border-color:var(--dk);}
+.ct-agua{color:var(--c-agua-dk);}
+.ct-agua.on{background:var(--c-agua-bg);color:var(--c-agua-dk);border-color:var(--c-agua);}
+.ct-agua:hover{background:var(--c-agua-bg);}
+.ct-aire{color:var(--c-aire-dk);}
+.ct-aire.on{background:var(--c-aire-bg);color:var(--c-aire-dk);border-color:var(--c-aire);}
+.ct-aire:hover{background:var(--c-aire-bg);}
+.ct-nieve{color:var(--c-nieve-dk);}
+.ct-nieve.on{background:var(--c-nieve-bg);color:var(--c-nieve-dk);border-color:var(--c-nieve);}
+.ct-nieve:hover{background:var(--c-nieve-bg);}
+.ct-tierra{color:var(--c-tierra-dk);}
+.ct-tierra.on{background:var(--c-tierra-bg);color:var(--c-tierra-dk);border-color:var(--c-tierra);}
+.ct-tierra:hover{background:var(--c-tierra-bg);}
+.ct-btn.on{font-weight:800;transform:none;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.ct-count{font-size:10px;background:rgba(0,0,0,.1);padding:1px 6px;border-radius:6px;font-weight:800;margin-left:2px;}
+.ct-btn.on .ct-count{background:rgba(255,255,255,.3);}
+
 /* ═══ CATEGORY BAR ═══ */
 #cat-bar{
   position:fixed;
-  top:calc(var(--ANH) + var(--NH));
+  top:calc(var(--ANH) + var(--NH) + var(--CTBH));
   left:0;right:0;
   z-index:998;
   height:var(--CBH);
@@ -127,7 +229,7 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
   overflow:hidden;
 }
 .cb-inner{
-  display:flex;align-items:stretch;gap:0;
+  display:flex;align-items:center;gap:0;
   overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
   height:100%;width:100%;
   scroll-behavior:smooth;
@@ -139,8 +241,8 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:6px;
-  padding:0 12px;
+  gap:4px;
+  padding:0 10px;
   cursor:pointer;
   border:none;
   background:transparent;
@@ -159,9 +261,9 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 
 /* Caja contenedora del icono — tamaño fijo, emoji centrado */
 .sp-box{
-  width:48px;
-  height:48px;
-  border-radius:12px;
+  width:42px;
+  height:42px;
+  border-radius:var(--r-md);
   background:#f9fafb;
   display:flex;
   align-items:center;
@@ -181,6 +283,30 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
   color:inherit;
   line-height:1;
 }
+/* ── Nivel de adrenalina ── */
+.sp-adr{
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.3px;
+  padding:1px 5px;
+  border-radius:6px;
+  line-height:1.2;
+  white-space:nowrap;
+  position:absolute;
+  top:4px;right:2px;
+}
+.adr-1{background:#dcfce7;color:#16a34a;} /* Bajo */
+.adr-2{background:#fef9c3;color:#a16207;} /* Medio */
+.adr-3{background:#ffedd5;color:#c2410c;} /* Alto */
+.adr-4{background:#fee2e2;color:#dc2626;} /* Extremo */
+.adr-5{background:#dc2626;color:#fff;animation:pulseAdr 1.5s infinite;} /* Mortal */
+@keyframes pulseAdr{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
+/* Borde rojo para los más arriesgados */
+.sp-btn.extreme .sp-box{
+  box-shadow:0 0 0 2px #ef4444, 0 0 8px rgba(239,68,68,.25);
+}
+.sp-btn.extreme .sp-label{color:#dc2626;}
+.sp-btn.extreme:hover .sp-label{color:#b91c1c;}
 .cb-sep{width:1px;height:24px;background:var(--border);flex-shrink:0;margin:0 4px;}
 .cb-arr{
   position:absolute;top:50%;transform:translateY(-50%);
@@ -227,80 +353,23 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 /* ═══ LAYOUT HEIGHTS ═══ */
 /* Total fijo encima: 36+68+84 = 188px */
 .page-content{
-  margin-top:188px;
+  margin-top:calc(var(--ANH) + var(--NH) + var(--CTBH) + var(--CBH));
 }
 
 /* ═══ HERO ═══ */
-.hero{
-  height:calc(100vh - 188px);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  overflow:hidden;
-}
-.hero-left{
-  background:#fff;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:32px 52px;
-  border-right:1px solid var(--border);
-  overflow-y:auto;
-  min-height:0;
-}
-.h-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.h-pill{display:flex;align-items:center;gap:5px;background:#f0fdf4;color:var(--gd);border:1px solid #bbf7d0;border-radius:18px;padding:4px 12px;font-size:12px;font-weight:700;}
-.h-rat{display:flex;align-items:center;gap:4px;font-size:12.5px;color:var(--mu);}
-.h-rat .st{color:var(--o);}
-.hero-h1{font-family:'Syne',sans-serif;font-size:44px;font-weight:900;line-height:1.05;color:var(--dk);margin-bottom:10px;letter-spacing:-1.2px;}
-.hero-h1 .hl{color:var(--g);}
-.hero-sub{font-size:15px;color:var(--mu);line-height:1.65;margin-bottom:20px;max-width:400px;}
-.hero-sub b{color:var(--dk);}
-
-/* Search widget */
-.h-search{background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.1);padding:6px;border:1px solid var(--border);margin-bottom:14px;}
-.hs-tabs{display:flex;gap:4px;margin-bottom:6px;padding:2px;}
-.hs-tab{padding:6px 14px;border-radius:18px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--mu);transition:all .18s;}
-.hs-tab.on{background:var(--g);color:#fff;}
-.hs-row{display:flex;align-items:stretch;}
-.hs-field{flex:1;padding:8px 13px;border-right:1px solid var(--border);}
-.hs-field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);margin-bottom:2px;}
-.hs-field select,.hs-field input{border:none;outline:none;font-size:13px;font-weight:600;color:var(--dk);width:100%;background:transparent;}
-.hs-btn{background:var(--r);color:#fff;border:none;border-radius:10px;padding:12px 18px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;}
-.hs-btn:hover{background:#dc2626;}
-
-/* Trust */
-.h-trust{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.ht-item{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--mu);}
-.ht-item strong{color:var(--dk);}
-.ht-avs{display:flex;}
-.ht-av{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;}
-.ht-av:first-child{margin-left:0;}
-.ht-sep{width:1px;height:14px;background:var(--border);}
-
-/* Hero right map */
-.hero-right{position:relative;overflow:hidden;height:calc(100vh - 188px);}
-#heroMap{width:100%;height:100%;min-height:400px;}
-.map-leg{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-radius:12px;padding:10px 14px;box-shadow:var(--sh);z-index:20;}
-.ml-item{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--dk);margin-bottom:4px;}
+/* ═══ MAP LEGEND ═══ */
+.ml-item{display:flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:600;color:var(--dk);margin-bottom:4px;}
 .ml-item:last-child{margin-bottom:0;}
 .ml-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.map-cta{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,10,20,.65));padding:22px 18px 14px;z-index:20;display:flex;align-items:center;justify-content:space-between;}
-.mct-text{color:#fff;}
-.mct-text h3{font-size:16px;font-weight:800;font-family:'Syne',sans-serif;}
-.mct-text p{font-size:12px;opacity:.75;margin-top:2px;}
 
 /* ═══ TRUST BAR ═══ */
-.trust-bar{background:var(--dk);padding:16px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
-.tb-item{display:flex;align-items:center;gap:9px;color:#fff;}
-.tb-icon{font-size:18px;}
-.tb-text b{display:block;font-size:14px;font-weight:700;}
-.tb-text span{color:rgba(255,255,255,.5);font-size:12px;}
-.tb-sep{width:1px;height:28px;background:rgba(255,255,255,.1);}
 
 /* ═══ SPLIT SECTION ═══ */
-.split{display:grid;grid-template-columns:420px 1fr;height:calc(100vh - 188px);}
+.split{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - var(--ANH) - var(--NH) - var(--CTBH) - var(--CBH));}
 
 /* SIDEBAR */
-.sb{display:flex;flex-direction:column;background:#fff;border-right:1px solid var(--border);overflow:hidden;}
-.sb-head{padding:12px 15px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.sb{display:flex;flex-direction:column;background:#fff;overflow-y:auto;overflow-x:hidden;}
+.sb-head{padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
 .sb-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
 .sb-row1 h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;}
 .sb-live{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--g);}
@@ -325,47 +394,78 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .sb-ticker{background:#f0fdf4;border-top:1px solid #bbf7d0;padding:7px 15px;font-size:12px;color:#166534;font-weight:600;display:flex;align-items:center;gap:5px;flex-shrink:0;}
 #ticker-text{transition:opacity .3s;}
 .ticker-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite;}
-.card-list{flex:1;overflow-y:auto;padding:10px 10px 80px;}
+.card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:14px 14px 80px;}
 
-/* ═══ EXPERIENCE CARDS ═══ */
-.ec{display:flex;background:#fff;border-radius:13px;border:1.5px solid var(--border);margin-bottom:9px;cursor:pointer;overflow:hidden;transition:all .22s;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-.ec:hover{border-color:var(--g);box-shadow:0 4px 16px rgba(34,197,94,.15);transform:translateY(-1px);}
+/* ═══ EXPERIENCE CARDS — Premium Vertical ═══ */
+.ec{display:flex;flex-direction:column;background:#fff;border-radius:var(--r-xl);border:1.5px solid var(--border);cursor:pointer;overflow:hidden;transition:all .2s;box-shadow:var(--sh-sm);}
+.ec:hover{border-color:var(--g);box-shadow:var(--sh-md);transform:translateY(-2px);}
 .ec.hl{border-color:var(--g);box-shadow:0 0 0 3px rgba(34,197,94,.2);}
-.ec-thumb{width:108px;min-height:118px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;}
+/* ── Image Carousel ── */
+.ec-thumb{position:relative;width:100%;height:200px;flex-shrink:0;overflow:hidden;}
+.ec-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.ec:hover .ec-thumb img{transform:scale(1.05);}
+.ec-thumb-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35) 0%,transparent 50%);}
+.ec-img-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;backdrop-filter:blur(4px);}
 .th-a{background:linear-gradient(145deg,#dbeafe,#bfdbfe);}
 .th-b{background:linear-gradient(145deg,#dcfce7,#bbf7d0);}
 .th-c{background:linear-gradient(145deg,#ede9fe,#ddd6fe);}
 .th-d{background:linear-gradient(145deg,#ffedd5,#fed7aa);}
-.ec-badge{position:absolute;top:7px;left:7px;padding:2px 7px;border-radius:7px;font-size:10px;font-weight:700;}
-.ecb-hot{background:#ef4444;color:#fff;}
-.ecb-new{background:var(--g);color:#fff;}
-.ecb-pop{background:#8b5cf6;color:#fff;}
-.ec-like{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
-.ec-like.on{color:var(--r);}
-.ec-body{flex:1;padding:11px 13px;display:flex;flex-direction:column;min-width:0;}
-.ec-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;}
-.ec-sport{font-size:13.5px;font-weight:800;color:var(--dk);}
-.ec-rat{display:flex;align-items:center;gap:2px;font-size:12.5px;font-weight:700;}
+.ec-badge{position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:8px;font-size:10.5px;font-weight:700;z-index:2;backdrop-filter:blur(4px);}
+.ecb-hot{background:rgba(239,68,68,.9);color:#fff;}
+.ecb-new{background:rgba(34,197,94,.9);color:#fff;}
+.ecb-pop{background:rgba(139,92,246,.9);color:#fff;}
+.ec-like{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;z-index:2;transition:all .2s;backdrop-filter:blur(4px);}
+.ec-like:hover{transform:scale(1.15);background:#fff;}
+.ec-like.on{color:var(--r);background:#fff;}
+.ec-cat-pill{position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.92);padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700;color:var(--dk);z-index:2;backdrop-filter:blur(4px);}
+/* ── Body ── */
+.ec-body{flex:1;padding:var(--sp-3) var(--sp-4) var(--sp-3);display:flex;flex-direction:column;}
+.ec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.ec-sport{font-size:var(--fs-md);font-weight:800;color:var(--dk);}
+.ec-loc{font-size:var(--fs-sm);color:var(--mu);margin-bottom:var(--sp-2);}
+.ec-rat{display:flex;align-items:center;gap:2px;font-size:var(--fs-sm);font-weight:700;}
 .ec-rat .s{color:var(--o);}
-.ec-rat .cnt{color:var(--mu);font-size:10.5px;font-weight:400;}
-.ec-loc{font-size:11.5px;color:var(--mu);margin-bottom:5px;}
-.ec-tags{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;}
-.ec-tag{padding:2px 6px;border-radius:7px;font-size:10.5px;font-weight:600;background:#f3f4f6;color:var(--mu);}
-.ec-tag-g{background:#f0fdf4;color:var(--gd);}
-.ec-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
-.ec-price{font-size:15px;font-weight:800;color:var(--dk);}
-.ec-old{font-size:11.5px;color:var(--mu);text-decoration:line-through;margin-left:3px;}
-.ec-save{font-size:10px;font-weight:700;background:var(--r);color:#fff;padding:1px 5px;border-radius:5px;margin-left:4px;}
+.ec-rat .cnt{color:var(--mu);font-size:var(--fs-xs);font-weight:400;}
+/* ── Extras Grid ── */
+.ec-extras{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.ec-extra{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--mu);background:#f9fafb;padding:4px 8px;border-radius:7px;}
+.ec-extra::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0;}
+/* ── Tags ── */
+.ec-tags{display:flex;gap:var(--sp-1);margin-bottom:var(--sp-2);flex-wrap:wrap;}
+.ec-tag{padding:2px 7px;border-radius:var(--r-sm);font-size:var(--fs-xs);font-weight:600;background:#f3f4f6;color:var(--mu);}
+/* ── Footer ── */
+.ec-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;}
+.ec-price-block{display:flex;flex-direction:column;}
+.ec-price{font-size:var(--fs-lg);font-weight:900;color:var(--dk);}
+.ec-old{font-size:var(--fs-sm);color:var(--mu);text-decoration:line-through;margin-left:3px;}
+.ec-save{font-size:var(--fs-xs);font-weight:700;background:var(--r);color:#fff;padding:1px 5px;border-radius:var(--r-sm);margin-left:4px;}
+.ec-pp{font-size:var(--fs-xs);color:var(--mu2);font-weight:500;}
 .ec-fomo{font-size:11px;font-weight:700;color:var(--r);margin-top:2px;}
-.ec-book{background:var(--g);color:#fff;border:none;border-radius:9px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
-.ec-book.urg{background:var(--r);}
+.ec-book{background:var(--g);color:#fff;border:none;border-radius:var(--r-md);padding:var(--btn-md);font-size:var(--fs-sm);font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s;}
+.ec-book:hover{background:var(--gd);}
+.ec-book.urg{background:var(--r);animation:pulseBtn 2s infinite;}
 .ec-book.wrn{background:var(--o);}
-.ec-social{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:3px;margin-top:4px;}
+@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4);}50%{box-shadow:0 0 0 8px rgba(239,68,68,0);}}
+.ec-social{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:3px;margin-top:6px;}
 .ec-social .pulse{width:5px;height:5px;border-radius:50%;background:var(--g);display:inline-block;animation:blink 1.5s infinite;}
-.ec-urgency{background:#fef2f2;border-top:1px solid #fecaca;padding:5px 13px;font-size:11px;font-weight:700;color:#991b1b;}
+/* ── Spots pill on image ── */
+.ec-spots-pill{position:absolute;bottom:10px;left:10px;background:rgba(239,68,68,.9);color:#fff;font-size:var(--fs-xs);font-weight:700;padding:3px 8px;border-radius:var(--r-sm);z-index:2;backdrop-filter:blur(4px);}
+/* ── Difficulty tags with color ── */
+.ec-tag-baja{background:#f0fdf4;color:var(--gd);}
+.ec-tag-media{background:#fef9c3;color:#a16207;}
+.ec-tag-alta{background:#fef2f2;color:#dc2626;}
+/* ── Card↔Map hover sync ── */
+.ec.map-hover{border-color:var(--g);box-shadow:0 0 0 3px rgba(34,197,94,.25);transform:translateY(-2px);}
+.ec-thumb{position:relative;width:100%;height:190px;flex-shrink:0;overflow:hidden;}
+/* ── Price range pills ── */
+.fchip-range{display:flex;gap:4px;}
+.fpill{padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--mu);transition:all .2s;}
+.fpill:hover{border-color:var(--mu2);}
+.fpill.on{background:var(--dk);color:#fff;border-color:var(--dk);}
+.fpill-€{color:var(--g)}.fpill-€€{color:var(--o)}.fpill-€€€{color:var(--r)}
 
 /* ═══ MAP SIDE ═══ */
-.map-side{position:relative;overflow:hidden;}
+.map-side{position:relative;overflow:hidden;height:100%;}
 #mainMap{width:100%;height:100%;min-height:400px;}
 .map-ctrl{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px;z-index:20;}
 .mc-btn{background:rgba(255,255,255,.97);border-radius:10px;box-shadow:var(--sh);padding:8px 13px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:6px;}
@@ -410,27 +510,47 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .pc-save{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--r);color:#fff;font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:8px;white-space:nowrap;}
 
 /* Packs grid */
-.packs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.pack-card{background:#fff;border-radius:18px;border:1.5px solid var(--border);overflow:hidden;transition:all .25s;cursor:pointer;}
+.packs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;}
+.pack-card{background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;transition:all .25s;cursor:pointer;position:relative;}
 .pack-card:hover{border-color:var(--g);box-shadow:0 8px 30px rgba(34,197,94,.15);transform:translateY(-4px);}
-.pack-hero{height:170px;display:flex;align-items:center;justify-content:center;font-size:50px;gap:10px;position:relative;}
+.pack-card.pack-feat{border-color:var(--g);box-shadow:0 0 0 2px var(--g),0 8px 30px rgba(34,197,94,.12);}
+.pack-best{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:10.5px;font-weight:800;padding:3px 14px;border-radius:0 0 10px 10px;z-index:3;letter-spacing:.4px;}
+.pack-hero{height:180px;display:flex;align-items:center;justify-content:center;font-size:50px;gap:10px;position:relative;overflow:hidden;}
+.pack-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.pack-hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.5),rgba(0,0,0,.25));}
+.pack-hero-icons{position:relative;z-index:2;display:flex;gap:10px;font-size:42px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.3));}
 .ph-a{background:linear-gradient(135deg,#0ea5e9,#38bdf8);}
 .ph-b{background:linear-gradient(135deg,var(--g),#4ade80);}
 .ph-c{background:linear-gradient(135deg,var(--dk),#374151);}
-.pack-tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;border-radius:9px;padding:3px 10px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.2);}
-.pack-hot{position:absolute;top:12px;right:12px;background:var(--o);color:#fff;border-radius:9px;padding:3px 10px;font-size:11px;font-weight:700;}
-.pack-body{padding:17px 19px;}
-.pack-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:4px;}
-.pack-desc{font-size:13px;color:var(--mu);line-height:1.5;margin-bottom:12px;}
-.pack-inc{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
-.pi{display:flex;align-items:center;gap:3px;font-size:12px;font-weight:600;background:#f9fafb;border-radius:7px;padding:3px 8px;border:1px solid var(--border);}
-.pack-foot{display:flex;align-items:center;justify-content:space-between;}
+.ph-d{background:linear-gradient(135deg,#f59e0b,#fbbf24);}
+.ph-e{background:linear-gradient(135deg,#8b5cf6,#a78bfa);}
+.ph-f{background:linear-gradient(135deg,#ef4444,#f87171);}
+.pack-tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;border-radius:9px;padding:3px 10px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.2);z-index:2;}
+.pack-hot{position:absolute;top:12px;right:12px;background:var(--o);color:#fff;border-radius:9px;padding:3px 10px;font-size:11px;font-weight:700;z-index:2;}
+.pack-dur{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:#fff;border-radius:8px;padding:3px 10px;font-size:11px;font-weight:700;z-index:2;}
+.pack-body{padding:18px 20px;}
+.pack-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:3px;}
+.pack-loc{font-size:12.5px;color:var(--mu);margin-bottom:10px;}
+.pack-desc{font-size:13px;color:var(--mu);line-height:1.5;margin-bottom:14px;}
+/* Pack route timeline */
+.pack-route{display:flex;align-items:flex-start;gap:0;margin-bottom:14px;position:relative;padding:8px 0;}
+.pr-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1;}
+.pr-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;background:#fff;border:2px solid var(--g);box-shadow:var(--sh-sm);margin-bottom:6px;position:relative;}
+.pr-step:nth-child(1) .pr-icon{border-color:var(--c-agua);background:var(--c-agua-bg);}
+.pr-step:nth-child(2) .pr-icon{border-color:var(--c-tierra);background:var(--c-tierra-bg);}
+.pr-step:nth-child(3) .pr-icon{border-color:var(--c-aire);background:var(--c-aire-bg);}
+.pr-step:nth-child(4) .pr-icon{border-color:var(--c-nieve);background:var(--c-nieve-bg);}
+.pr-label{font-size:9px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.3px;}
+.pr-val{font-size:11px;font-weight:700;color:var(--dk);text-align:center;max-width:80px;line-height:1.2;}
+.pack-route::before{content:'';position:absolute;top:27px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,var(--c-agua),var(--c-tierra),var(--c-aire),var(--c-nieve));border-radius:2px;z-index:0;}
+.pr-arrow{display:flex;align-items:center;color:var(--mu2);font-size:10px;margin-top:12px;flex-shrink:0;}
+.pack-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
 .pack-from{font-size:11px;color:var(--mu);}
 .pack-pr{display:flex;align-items:baseline;gap:5px;}
-.pack-price{font-size:22px;font-weight:900;color:var(--dk);}
-.pack-old{font-size:13px;color:var(--mu);text-decoration:line-through;}
-.pack-save{font-size:11.5px;font-weight:700;color:var(--g);}
-.pack-urg{font-size:11.5px;font-weight:600;color:var(--r);margin-top:10px;background:#fff5f5;border-radius:7px;padding:4px 9px;}
+.pack-price{font-size:24px;font-weight:900;color:var(--dk);}
+.pack-old{font-size:14px;color:var(--mu);text-decoration:line-through;}
+.pack-save{font-size:12px;font-weight:700;color:var(--g);margin-top:2px;}
+.pack-urg{font-size:11.5px;font-weight:600;color:var(--r);margin-top:12px;background:#fff5f5;border-radius:8px;padding:6px 10px;text-align:center;}
 
 /* How it works */
 .how-bg{background:var(--dk);padding:72px 60px;color:#fff;}
@@ -461,6 +581,24 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 
 /* Partner CTA */
 .partner-cta{background:linear-gradient(135deg,#f0fdf4,#dcfce7);padding:72px 60px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;border-top:1px solid #bbf7d0;}
+/* ═══ FOOTER ═══ */
+.tx-footer{background:var(--dk);color:#fff;padding:60px 60px 20px;}
+.tx-foot-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px;}
+.tx-foot-brand p{font-size:var(--fs-sm);color:rgba(255,255,255,.6);line-height:1.6;margin:10px 0 16px;max-width:340px;}
+.tx-foot-logo{font-family:'Syne',sans-serif;font-size:var(--fs-lg);font-weight:900;color:#fff;margin-bottom:4px;}
+.tx-foot-logo b{color:var(--g);}
+.tx-foot-social{display:flex;gap:10px;}
+.tx-foot-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:background .15s;}
+.tx-foot-social a:hover{background:rgba(34,197,94,.2);}
+.tx-foot-col h4{font-size:var(--fs-xs);font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#fff;margin-bottom:14px;}
+.tx-foot-col a{display:block;font-size:var(--fs-sm);color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:9px;transition:color .15s;}
+.tx-foot-col a:hover{color:var(--g);}
+.tx-foot-bot{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:var(--fs-xs);color:rgba(255,255,255,.4);max-width:1200px;margin:0 auto;}
+.tx-foot-legal{color:rgba(34,197,94,.7);}
+@media(max-width:720px){
+  .tx-footer{padding:40px 20px 16px;}
+  .tx-foot-inner{grid-template-columns:1fr;gap:28px;margin-bottom:28px;}
+}
 .pct-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:900;color:var(--dk);margin-bottom:8px;}
 .pct-sub{font-size:15.5px;color:var(--mu);max-width:460px;line-height:1.6;}
 .pct-stats{display:flex;gap:22px;margin-top:18px;}
@@ -486,6 +624,39 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .modal-sm{max-width:480px;}
 .modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:none;background:#f3f4f6;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:10;}
 .modal-close:hover{background:#e5e7eb;}
+
+/* ═══ WAITLIST MODAL ═══ */
+.modal-wl{max-width:480px;padding:28px 30px 24px;}
+.wl-head{text-align:center;margin-bottom:18px;}
+.wl-eyebrow{display:inline-block;font-size:var(--fs-xs);font-weight:800;color:var(--g);background:var(--gl);padding:4px 12px;border-radius:var(--r-pill);margin-bottom:12px;letter-spacing:.4px;text-transform:uppercase;}
+.wl-title{font-family:'Syne',sans-serif;font-size:var(--fs-xl);font-weight:900;color:var(--dk);line-height:1.15;margin-bottom:8px;letter-spacing:-.4px;}
+.wl-sub{font-size:var(--fs-sm);color:var(--mu);line-height:1.5;}
+.wl-sub b{color:var(--dk);}
+.wl-form{display:flex;flex-direction:column;gap:12px;}
+.wl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.wl-field{display:flex;flex-direction:column;gap:4px;}
+.wl-field label{font-size:var(--fs-xs);font-weight:700;color:var(--dk);text-transform:uppercase;letter-spacing:.3px;}
+.wl-field .wl-opt{color:var(--mu2);font-weight:500;text-transform:none;letter-spacing:0;}
+.wl-field input, .wl-field select{border:1.5px solid var(--border);border-radius:var(--r-md);padding:10px 12px;font-size:var(--fs-base);font-weight:500;color:var(--dk);background:#fff;transition:border-color .15s;}
+.wl-field input:focus, .wl-field select:focus{outline:none;border-color:var(--g);}
+.wl-selected{background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:var(--r-md);padding:10px 14px;font-size:var(--fs-sm);color:var(--gd);font-weight:600;display:flex;align-items:center;gap:8px;}
+.wl-selected b{color:var(--dk);}
+.wl-gdpr{display:flex;align-items:flex-start;gap:8px;font-size:var(--fs-xs);color:var(--mu);line-height:1.5;cursor:pointer;}
+.wl-gdpr input{margin-top:2px;flex-shrink:0;accent-color:var(--g);}
+.wl-gdpr a{color:var(--g);text-decoration:underline;}
+.wl-submit{background:var(--g);color:#fff;border:none;border-radius:var(--r-md);padding:14px 24px;font-size:var(--fs-md);font-weight:800;cursor:pointer;transition:background .15s;}
+.wl-submit:hover:not(:disabled){background:var(--gd);}
+.wl-submit:disabled{opacity:.6;cursor:not-allowed;}
+.wl-error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:var(--r-md);padding:10px 14px;font-size:var(--fs-sm);font-weight:600;text-align:center;}
+.wl-trust{text-align:center;font-size:var(--fs-xs);color:var(--mu);}
+.wl-success{text-align:center;padding:20px 0;animation:slideUp .3s ease;}
+.wl-success-icon{font-size:56px;margin-bottom:12px;}
+.wl-success h3{font-family:'Syne',sans-serif;font-size:var(--fs-xl);font-weight:900;color:var(--dk);margin-bottom:8px;}
+.wl-success p{font-size:var(--fs-sm);color:var(--mu);line-height:1.5;max-width:340px;margin:0 auto;}
+@media(max-width:500px){
+  .modal-wl{padding:22px 20px 20px;border-radius:var(--r-xl);}
+  .wl-row{grid-template-columns:1fr;}
+}
 .mh{padding:22px 26px 0;border-bottom:1px solid var(--border);}
 .mh h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;}
 
@@ -731,13 +902,13 @@ tr:hover td{background:#fafafa;}
 @media(max-width:1024px){.nav-pill{min-width:240px;width:34%;}.np-seg:nth-child(2){display:none;}}
 @media(max-width:900px){
   .nav-pill{display:none;}
-  .hero{grid-template-columns:1fr;height:auto;min-height:auto;}
-  .hero-right{height:45vh;min-height:280px;min-height:280px;}
+  #cat-tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 16px;gap:4px;}
+  #cat-tabs::-webkit-scrollbar{display:none;}
+  .ct-btn{padding:6px 14px;font-size:12px;}
   .split{grid-template-columns:1fr;height:auto;}
-  .sb{height:60vh;}
-  #mainMap{height:40vh;}
-  .trust-bar{padding:14px 20px;gap:10px;flex-wrap:wrap;}
-  .tb-sep{display:none;}
+  .sb{height:auto;max-height:none;}
+  .map-side{height:50vh;min-height:300px;}
+  .card-list{grid-template-columns:1fr;}
   .section{padding:50px 20px;}
   .packs-grid,.test-grid{grid-template-columns:1fr;}
   .how-grid{grid-template-columns:1fr 1fr;gap:20px;}
@@ -748,9 +919,6 @@ tr:hover td{background:#fafafa;}
   .pack-compare{margin:0 20px;}
 }
 @media(max-height:700px){
-  .hero-left{padding:20px 40px;justify-content:flex-start;}
-  .hero-h1{font-size:34px;margin-bottom:10px;}
-  .hero-sub{font-size:14px;margin-bottom:14px;}
 }
 </style>
 </head>
@@ -798,32 +966,84 @@ tr:hover td{background:#fafafa;}
   </div>
 </div>
 
+<!-- ═══ CATEGORY TABS ═══ -->
+<div id="cat-tabs">
+  <button class="ct-btn ct-todo on" onclick="setCatTab(this,'__ALL__')"><span class="ct-icon">🌍</span> Todo</button>
+  <button class="ct-btn ct-agua" onclick="setCatTab(this,'Agua')"><span class="ct-icon">💧</span> Agua</button>
+  <button class="ct-btn ct-aire" onclick="setCatTab(this,'Aire')"><span class="ct-icon">🌬️</span> Aire</button>
+  <button class="ct-btn ct-nieve" onclick="setCatTab(this,'Nieve')"><span class="ct-icon">❄️</span> Nieve</button>
+  <button class="ct-btn ct-tierra" onclick="setCatTab(this,'Tierra')"><span class="ct-icon">🌍</span> Tierra</button>
+</div>
+
 <!-- ═══ CATEGORY BAR ═══ -->
 <div id="cat-bar">
   <button class="cb-arr cb-arr-l" id="cb-l" onclick="scrollCB(-200)">&#8249;</button>
   <div class="cb-inner" id="cb-inner">
-    <button class="sp-btn on" onclick="setS(this,'','')"><span class="sp-box">🌍</span><span class="sp-label">Todo</span></button>
-    <div class="cb-sep"></div>
-    <button class="sp-btn" onclick="setS(this,'Agua','SURF')"><span class="sp-box">🏄</span><span class="sp-label">Surf</span></button>
-    <button class="sp-btn" onclick="setS(this,'Agua','KITESURF')"><span class="sp-box">🪁</span><span class="sp-label">Kitesurf</span></button>
-    <button class="sp-btn" onclick="setS(this,'Agua','RAFTING')"><span class="sp-box">🚣</span><span class="sp-label">Rafting</span></button>
-    <button class="sp-btn" onclick="setS(this,'Agua','BUCEO')"><span class="sp-box">🤿</span><span class="sp-label">Buceo</span></button>
-    <button class="sp-btn" onclick="setS(this,'Agua','JET SKI')"><span class="sp-box">🛥️</span><span class="sp-label">Jet Ski</span></button>
-    <button class="sp-btn" onclick="setS(this,'Agua','WAKEBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Wakeboard</span></button>
-    <div class="cb-sep"></div>
-    <button class="sp-btn" onclick="setS(this,'Aire','PARAPENTE')"><span class="sp-box">🪂</span><span class="sp-label">Parapente</span></button>
-    <button class="sp-btn" onclick="setS(this,'Aire','PARACAIDISMO')"><span class="sp-box">🛩️</span><span class="sp-label">Paracaidismo</span></button>
-    <button class="sp-btn" onclick="setS(this,'Aire','WINGSUIT')"><span class="sp-box">🦸</span><span class="sp-label">Wingsuit</span></button>
-    <button class="sp-btn" onclick="setS(this,'Aire','BUNGEE')"><span class="sp-box">🪢</span><span class="sp-label">Bungee</span></button>
-    <div class="cb-sep"></div>
-    <button class="sp-btn" onclick="setS(this,'Nieve','FREERIDE')"><span class="sp-box">⛷️</span><span class="sp-label">Freeride</span></button>
-    <button class="sp-btn" onclick="setS(this,'Nieve','HELIESQUI')"><span class="sp-box">🚁</span><span class="sp-label">Heliesquí</span></button>
-    <button class="sp-btn" onclick="setS(this,'Nieve','ICE CLIMBING')"><span class="sp-box">🧊</span><span class="sp-label">Ice Climbing</span></button>
-    <div class="cb-sep"></div>
-    <button class="sp-btn" onclick="setS(this,'Tierra','ESCALADA')"><span class="sp-box">🧗</span><span class="sp-label">Escalada</span></button>
-    <button class="sp-btn" onclick="setS(this,'Tierra','VIA FERRATA')"><span class="sp-box">⛰️</span><span class="sp-label">Vía Ferrata</span></button>
-    <button class="sp-btn" onclick="setS(this,'Tierra','ENDURO MTB')"><span class="sp-box">🚵</span><span class="sp-label">MTB Enduro</span></button>
-    <button class="sp-btn" onclick="setS(this,'Tierra','ESPELEOLOGIA')"><span class="sp-box">🕳️</span><span class="sp-label">Espeleología</span></button>
+    <button class="sp-btn on" data-cat="all" onclick="setS(this,'','')"><span class="sp-box">🌍</span><span class="sp-label">Todo</span></button>
+
+    <!-- ── AGUA ── -->
+    <div class="cb-sep" data-cat="Agua"></div>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SURF')"><span class="sp-box">🏄</span><span class="sp-label">Surf</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KITESURF')"><span class="sp-box">🪁</span><span class="sp-label">Kitesurf</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','RAFTING')"><span class="sp-box">🚣</span><span class="sp-label">Rafting</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BUCEO')"><span class="sp-box">🤿</span><span class="sp-label">Buceo</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','JET SKI')"><span class="sp-box">🛥️</span><span class="sp-label">Jet Ski</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WAKEBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Wakeboard</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BODYBOARD')"><span class="sp-box">🌊</span><span class="sp-label">Bodyboard</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WINDSURF')"><span class="sp-box">🏄‍♂️</span><span class="sp-label">Windsurf</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KAYAK EXTREMO')"><span class="sp-box">🛶</span><span class="sp-label">Kayak Extremo</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','HYDROSPEED')"><span class="sp-box">💧</span><span class="sp-label">Hydrospeed</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','COASTEERING')"><span class="sp-box">🏊</span><span class="sp-label">Coasteering</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','CLIFF DIVING')"><span class="sp-box">🤸</span><span class="sp-label">Cliff Diving</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','PADDLE SURF')"><span class="sp-box">🧍</span><span class="sp-label">Paddle Surf</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SNORKEL')"><span class="sp-box">🐠</span><span class="sp-label">Snorkel</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','BUCEO CUEVAS')"><span class="sp-box">🦈</span><span class="sp-label">Buceo Cuevas</span><span class="sp-adr adr-5">MORTAL</span></button>
+
+    <!-- ── AIRE ── -->
+    <div class="cb-sep" data-cat="Aire"></div>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARAPENTE')"><span class="sp-box">🪂</span><span class="sp-label">Parapente</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARACAIDISMO')"><span class="sp-box">🛩️</span><span class="sp-label">Paracaidismo</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','WINGSUIT')"><span class="sp-box">🦸</span><span class="sp-label">Wingsuit</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','BUNGEE')"><span class="sp-box">🪢</span><span class="sp-label">Bungee</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','BASE JUMP')"><span class="sp-box">🏗️</span><span class="sp-label">BASE Jump</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ALA DELTA')"><span class="sp-box">🪽</span><span class="sp-label">Ala Delta</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ACROBACIA AEREA')"><span class="sp-box">✈️</span><span class="sp-label">Acrobacia Aérea</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','GLOBO AEROSTATICO')"><span class="sp-box">🎈</span><span class="sp-label">Globo</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','TIROLINA')"><span class="sp-box">🏗️</span><span class="sp-label">Tirolina</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARATRIKE')"><span class="sp-box">🛞</span><span class="sp-label">Paratrike</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','SPEED RIDING')"><span class="sp-box">⚡</span><span class="sp-label">Speed Riding</span><span class="sp-adr adr-5">MORTAL</span></button>
+
+    <!-- ── NIEVE ── -->
+    <div class="cb-sep" data-cat="Nieve"></div>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','FREERIDE')"><span class="sp-box">⛷️</span><span class="sp-label">Freeride</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','HELIESQUI')"><span class="sp-box">🚁</span><span class="sp-label">Heliesquí</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ICE CLIMBING')"><span class="sp-box">🧊</span><span class="sp-label">Ice Climbing</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Snowboard</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ESQUI ALPINO')"><span class="sp-box">⛷️</span><span class="sp-label">Esquí Alpino</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','AVALANCHA SKIING')"><span class="sp-box">🏔️</span><span class="sp-label">Avalanche Ski</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWKITE')"><span class="sp-box">🪁</span><span class="sp-label">Snowkite</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','MUSHING')"><span class="sp-box">🐕</span><span class="sp-label">Mushing</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','RAQUETAS')"><span class="sp-box">🥾</span><span class="sp-label">Raquetas</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','SPEED SKIING')"><span class="sp-box">💨</span><span class="sp-label">Speed Skiing</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SKICROSS')"><span class="sp-box">🎿</span><span class="sp-label">Skicross</span><span class="sp-adr adr-3">ALTO</span></button>
+
+    <!-- ── TIERRA ── -->
+    <div class="cb-sep" data-cat="Tierra"></div>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESCALADA')"><span class="sp-box">🧗</span><span class="sp-label">Escalada</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','VIA FERRATA')"><span class="sp-box">⛰️</span><span class="sp-label">Vía Ferrata</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ENDURO MTB')"><span class="sp-box">🚵</span><span class="sp-label">MTB Enduro</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESPELEOLOGIA')"><span class="sp-box">🕳️</span><span class="sp-label">Espeleología</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','BARRANQUISMO')"><span class="sp-box">🏞️</span><span class="sp-label">Barranquismo</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','DOWNHILL')"><span class="sp-box">🚴</span><span class="sp-label">Downhill</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TRAIL RUNNING')"><span class="sp-box">🏃</span><span class="sp-label">Trail Running</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','MOTOCROSS')"><span class="sp-box">🏍️</span><span class="sp-label">Motocross</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','QUAD')"><span class="sp-box">🛞</span><span class="sp-label">Quad</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','PARKOUR')"><span class="sp-box">🤸‍♂️</span><span class="sp-label">Parkour</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','RALLY RAID')"><span class="sp-box">🏎️</span><span class="sp-label">Rally Raid</span><span class="sp-adr adr-4">EXTREMO</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','ALPINISMO')"><span class="sp-box">🗻</span><span class="sp-label">Alpinismo</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','SANDBOARD')"><span class="sp-box">🏜️</span><span class="sp-label">Sandboard</span><span class="sp-adr adr-2">MEDIO</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TIRO CON ARCO')"><span class="sp-box">🏹</span><span class="sp-label">Tiro con Arco</span><span class="sp-adr adr-1">BAJO</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','SLACKLINE ALTURA')"><span class="sp-box">🌉</span><span class="sp-label">Highline</span><span class="sp-adr adr-5">MORTAL</span></button>
   </div>
   <button class="cb-arr cb-arr-r show" id="cb-r" onclick="scrollCB(200)">&#8250;</button>
 </div>
@@ -852,143 +1072,48 @@ tr:hover td{background:#fafafa;}
 <!-- ═══ PAGE LANDING ═══ -->
 <div class="page active" id="page-landing">
 
-<!-- HERO -->
-<div class="hero page-content">
-  <div class="hero-left">
-    <div class="h-eyebrow">
-      <div class="h-pill">🏆 Marketplace Nº1 España</div>
-      <div class="h-rat"><span class="st">★★★★★</span> <strong>4.9</strong> · 1.847 reservas</div>
-    </div>
-    <h1 class="hero-h1">Deja de soñarlo.<br>Resérvalo hoy.<br><span class="hl">Empieza ya.</span></h1>
-    <p class="hero-sub">El marketplace Nº1 de aventura en España. <b>+1.800 grupos</b> ya lo hicieron. <b>Plazas limitadas. Reserva antes que otro.</b></p>
-    <div class="h-search">
-      <div class="hs-tabs">
-        <button class="hs-tab on" onclick="hsTab(this)">🏄 Deporte</button>
-        <button class="hs-tab" onclick="hsTab(this)">📦 Pack completo</button>
-        <button class="hs-tab" onclick="hsTab(this)">🏠 Con alojamiento</button>
-      </div>
-      <div class="hs-row">
-        <div class="hs-field">
-          <label>¿Qué actividad?</label>
-          <select><option>Surf, Kitesurf, Rafting...</option><option>Surf</option><option>Kitesurf</option><option>Rafting</option><option>Parapente</option><option>Escalada</option><option>Paracaidismo</option></select>
-        </div>
-        <div class="hs-field">
-          <label>¿Dónde?</label>
-          <input type="text" placeholder="País Vasco, Cádiz...">
-        </div>
-        <div class="hs-field" style="border-right:none">
-          <label>¿Cuántos?</label>
-          <select><option>Solo yo</option><option>2 personas</option><option>3-5</option><option>6-10</option><option>+10</option></select>
-        </div>
-        <button class="hs-btn" onclick="scrollToMap()">🔥 Ver disponibilidad →</button>
-      </div>
-    </div>
-    <div class="h-trust">
-      <div class="ht-item">
-        <div class="ht-avs">
-          <div class="ht-av" style="background:#ef4444;z-index:3">L</div>
-          <div class="ht-av" style="background:#3b82f6;z-index:2">C</div>
-          <div class="ht-av" style="background:#8b5cf6;z-index:1">A</div>
-          <div class="ht-av" style="background:#f59e0b;z-index:0">M</div>
-        </div>
-        <span><strong>+1.800 grupos</strong> este mes</span>
-      </div>
-      <div class="ht-sep"></div>
-      <div class="ht-item">🛡️ <strong>Seguro</strong> incluido</div>
-      <div class="ht-sep"></div>
-      <div class="ht-item">⚡ Confirmación <strong>&lt;2h</strong></div>
-      <div class="ht-sep"></div>
-      <div class="ht-item">💳 Pago <strong>100% seguro</strong></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div id="heroMap"></div>
-    <div class="map-leg">
-      <div class="ml-item"><div class="ml-dot" style="background:#22c55e"></div>Dificultad Baja</div>
-      <div class="ml-item"><div class="ml-dot" style="background:#f59e0b"></div>Dificultad Media</div>
-      <div class="ml-item"><div class="ml-dot" style="background:#ef4444"></div>Dificultad Alta</div>
-    </div>
-    <div class="map-cta">
-      <div class="mct-text">
-        <h3>🔴 <span id="hero-live">20 actividades</span> con plazas abiertas</h3>
-        <p>Clic en cualquier pin para ver precio, rating y reservar al instante</p>
-      </div>
-      <button style="background:var(--r);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer" onclick="scrollToMap()">Ver plazas →</button>
-    </div>
-  </div>
-</div>
-
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="tb-item"><span class="tb-icon">🔴</span><div class="tb-text"><b id="tb-n">47 reservas hoy · en vivo</b><span>actualizando en tiempo real</span></div></div>
-  <div class="tb-sep"></div>
-  <div class="tb-item"><span class="tb-icon">⭐</span><div class="tb-text"><b>4.9/5 · +1.847 reseñas</b><span>verificadas de aventureros reales</span></div></div>
-  <div class="tb-sep"></div>
-  <div class="tb-item"><span class="tb-icon">🛡️</span><div class="tb-text"><b>Seguro de accidentes</b><span>incluido en el 100% de reservas</span></div></div>
-  <div class="tb-sep"></div>
-  <div class="tb-item"><span class="tb-icon">⚡</span><div class="tb-text"><b>Confirmación en &lt;2h</b><span>el partner te escribe hoy mismo</span></div></div>
-  <div class="tb-sep"></div>
-  <div class="tb-item"><span class="tb-icon">🔄</span><div class="tb-text"><b>Cancelación gratis</b><span>hasta 48h antes sin coste</span></div></div>
-</div>
-
-<!-- SPLIT MAP + CARDS -->
-<div class="split" id="mapSection">
+<!-- SPLIT MAP + CARDS (unified landing) -->
+<div class="split page-content" id="mapSection">
   <div class="sb">
     <div class="sb-head">
       <div class="sb-row1">
-        <h3>Experiencias disponibles</h3>
-        <div class="sb-live"><div class="sb-dot"></div>En vivo</div>
-      </div>
-      <div class="pack-nudge">
-        <span>💡 Los packs ahorran <b>61€ de media</b> vs reservar suelto</span>
-        <button onclick="document.getElementById('packs-s').scrollIntoView({behavior:'smooth'})">Ver packs →</button>
+        <div class="sort-cnt" id="sort-cnt"><b>0</b> experiencias</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="sb-live"><div class="sb-dot"></div>En vivo</div>
+          <select class="sort-sel" onchange="doSort(this.value)">
+            <option value="rating">★ Valorados</option>
+            <option value="price-asc">€ Menor precio</option>
+            <option value="price-desc">€ Mayor precio</option>
+          </select>
+        </div>
       </div>
       <div class="filter-row">
         <button class="fchip" onclick="toggleDiff(this,'Baja')">🟢 Baja</button>
         <button class="fchip" onclick="toggleDiff(this,'Media')">🟡 Media</button>
         <button class="fchip" onclick="toggleDiff(this,'Alta')">🔴 Alta</button>
-        <div class="fchip-price">Precio <input type="range" min="0" max="400" value="400" id="priceR" oninput="setPrice(this.value)"> <strong id="priceV">400€</strong></div>
+        <div class="fchip-price">Hasta <input type="range" min="0" max="400" value="400" id="priceR" oninput="setPrice(this.value)"> <strong id="priceV">400€</strong></div>
       </div>
       <div class="af-row" id="afRow"></div>
     </div>
-    <div class="sort-bar">
-      <div class="sort-cnt" id="sort-cnt"><b>0</b> experiencias</div>
-      <select class="sort-sel" onchange="doSort(this.value)">
-        <option value="rating">Mejor valorados</option>
-        <option value="price-asc">Precio: menor a mayor</option>
-        <option value="price-desc">Precio: mayor a menor</option>
-      </select>
-    </div>
-    <div class="sb-ticker"><div class="ticker-dot"></div><span id="ticker-text">Miguel A. reservó Surf en Zarautz · hace 2 min</span></div>
     <div class="card-list" id="card-list"></div>
   </div>
   <div class="map-side">
-    <div id="mainMap"></div>
-    <div class="map-ctrl">
+    <div id="mainMap" style="width:100%;height:100%;"></div>
+    <div class="map-ctrl" style="position:absolute;top:12px;left:12px;z-index:500;">
       <div class="mc-btn" onclick="if(mainMap)mainMap.setView([40.2,-3.5],6)">🗺️ España</div>
       <div class="mc-btn" onclick="toast('📍 Usando tu ubicación...')">📍 Mi ubicación</div>
     </div>
-    <div class="map-bot">
+    <div class="map-bot" style="position:absolute;bottom:12px;left:12px;z-index:500;">
       <div style="display:flex;gap:7px">
         <div class="mb-pill"><span style="width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;animation:blink 1.5s infinite"></span><span id="map-cnt">20 activas</span></div>
         <div class="mb-pill">⚡ En vivo</div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- PACK COMPARISON -->
-<div class="pack-compare" style="margin-top:60px">
-  <div>
-    <div style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">💡 ¿Solo la actividad?</div>
-    <div class="pc-title">Los packs ahorran 61€ de media</div>
-    <div class="pc-sub">Actividad + Alojamiento + Transporte · Un precio · Cero estrés.</div>
-  </div>
-  <div class="pc-boxes">
-    <div class="pc-box"><div class="pc-bl">Solo actividad</div><div class="pc-bp">45€</div></div>
-    <span style="font-size:22px">→</span>
-    <div class="pc-box feat"><div class="pc-save">AHORRA 61€</div><div class="pc-bl">Pack completo</div><div class="pc-bp">189€</div></div>
-    <button class="btn-g" onclick="document.getElementById('packs-s').scrollIntoView({behavior:'smooth'})">Ver packs →</button>
+    <div style="position:absolute;bottom:12px;right:12px;z-index:500;display:flex;gap:6px;">
+      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#22c55e"></div>Baja</div>
+      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#f59e0b"></div>Media</div>
+      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#ef4444"></div>Alta</div>
+    </div>
   </div>
 </div>
 
@@ -996,52 +1121,178 @@ tr:hover td{background:#fafafa;}
 <div class="section" style="background:#fff" id="packs-s">
   <div class="sec-head">
     <div>
-      <div class="sec-ey">🚀 Nuevo · Packs completos</div>
-      <div class="sec-title">Todo en un clic.<br>Deporte + Alojamiento + Transporte.</div>
-      <div class="sec-sub">Para los que no quieren perder tiempo organizando.</div>
+      <div class="sec-ey">🚀 Packs Todo Incluido · Deporte + Hotel + Transporte + Restaurante</div>
+      <div class="sec-title">Un precio. Cero estrés.<br>La aventura completa.</div>
+      <div class="sec-sub">Cada pack incluye la actividad, alojamiento, transporte y un restaurante con experiencia gastronómica extrema. Solo tienes que aparecer.</div>
     </div>
     <button class="sec-link">Ver todos los packs →</button>
   </div>
   <div class="packs-grid">
-    <div class="pack-card">
-      <div class="pack-hero ph-a"><span>🏄</span><span>🏠</span><span>🚗</span><div class="pack-tag">💧 Agua</div><div class="pack-hot">🔥 Nº1</div></div>
+
+    <!-- PACK 1: Surf Zarautz -->
+    <div class="pack-card pack-feat">
+      <div class="pack-best">MAS VENDIDO</div>
+      <div class="pack-hero ph-a">
+        <div class="pack-hero-icons"><span>🏄</span><span>🏨</span><span>🚐</span><span>🍽️</span></div>
+        <div class="pack-tag">💧 Agua</div><div class="pack-hot">🔥 Nº1</div><div class="pack-dur">3 días / 2 noches</div>
+      </div>
       <div class="pack-body">
-        <div class="pack-title">Pack Surf Zarautz</div>
-        <div class="pack-desc">3 días de surf, alojamiento y traslados desde Bilbao.</div>
-        <div class="pack-inc"><div class="pi">🏄 3 sesiones</div><div class="pi">🏠 2 noches</div><div class="pi">🚗 Traslados</div><div class="pi">🍳 Desayuno</div></div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">189€</span><span class="pack-old">247€</span></div><div class="pack-save">Ahorras 58€ (24%)</div></div>
-          <button class="btn-g" onclick="toast('📦 Pack Surf Zarautz')">Ver pack →</button>
+        <div class="pack-title">Pack Surf Total Zarautz</div>
+        <div class="pack-loc">📍 Zarautz, País Vasco</div>
+        <div class="pack-desc">3 sesiones de surf con instructor, hotel surf house, transfer desde Bilbao y cena en asador vasco con parrilla al rojo vivo.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">🏄</div><div class="pr-label">Deporte</div><div class="pr-val">3 sesiones surf</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transfer</div><div class="pr-val">Desde Bilbao</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Surf House 2 noch.</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🔥</div><div class="pr-label">Restaurante</div><div class="pr-val">Asador vasco</div></div>
         </div>
-        <div class="pack-urg">🔥 Solo 3 plazas · 8 personas lo miran ahora</div>
+        <div class="pack-foot">
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">189€</span><span class="pack-old">290€</span></div><div class="pack-save">Ahorras 101€ (35%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Surf Total Zarautz','Zarautz, País Vasco')">Quiero este pack →</button>
+        </div>
+        <div class="pack-urg">🔥 Solo 3 plazas · 12 personas lo miran ahora</div>
       </div>
     </div>
+
+    <!-- PACK 2: Kitesurf Tarifa -->
     <div class="pack-card">
-      <div class="pack-hero ph-b"><span>🪁</span><span>🏨</span><span>🌊</span><div class="pack-tag">🌬️ Aire+Agua</div></div>
+      <div class="pack-hero ph-b">
+        <div class="pack-hero-icons"><span>🪁</span><span>🏖️</span><span>✈️</span><span>🐙</span></div>
+        <div class="pack-tag">🌬️ Agua + Viento</div><div class="pack-dur">5 días / 4 noches</div>
+      </div>
       <div class="pack-body">
-        <div class="pack-title">Pack Kitesurf Tarifa</div>
-        <div class="pack-desc">5 días en el meca mundial del kitesurf. Clases, hotel y transfer.</div>
-        <div class="pack-inc"><div class="pi">🪁 5 clases</div><div class="pi">🏨 4 noches</div><div class="pi">✈️ Transfer</div><div class="pi">🛡️ Seguro</div></div>
+        <div class="pack-title">Pack Kitesurf Tarifa Premium</div>
+        <div class="pack-loc">📍 Tarifa, Cádiz</div>
+        <div class="pack-desc">5 días de kite en la meca del viento. Hotel boutique frente al mar, transfer desde aeropuerto y cena marisquería con atún rojo de almadraba.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">🪁</div><div class="pr-label">Deporte</div><div class="pr-val">5 clases kite</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">✈️</div><div class="pr-label">Transfer</div><div class="pr-val">Aeropuerto</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏖️</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel boutique 4n</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🐙</div><div class="pr-label">Restaurante</div><div class="pr-val">Marisquería</div></div>
+        </div>
         <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">349€</span><span class="pack-old">430€</span></div><div class="pack-save">Ahorras 81€ (19%)</div></div>
-          <button class="btn-g" onclick="toast('📦 Pack Kitesurf Tarifa')">Ver pack →</button>
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">399€</span><span class="pack-old">560€</span></div><div class="pack-save">Ahorras 161€ (29%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Kitesurf Tarifa Premium','Tarifa, Cádiz')">Quiero este pack →</button>
         </div>
         <div class="pack-urg">⏰ Precio especial caduca el domingo</div>
       </div>
     </div>
+
+    <!-- PACK 3: Paracaidismo + Aventura Empuriabrava -->
     <div class="pack-card">
-      <div class="pack-hero ph-c"><span>🏔️</span><span>🏄</span><span>🪂</span><div class="pack-tag">🌍 Multi-aventura</div></div>
+      <div class="pack-hero ph-f">
+        <div class="pack-hero-icons"><span>🛩️</span><span>🏨</span><span>🚗</span><span>🥩</span></div>
+        <div class="pack-tag">⚡ Adrenalina máxima</div><div class="pack-hot">EXTREMO</div><div class="pack-dur">2 días / 1 noche</div>
+      </div>
       <div class="pack-body">
-        <div class="pack-title">Pack Aventura Total España</div>
-        <div class="pack-desc">7 días con surf, parapente y escalada. La experiencia definitiva.</div>
-        <div class="pack-inc"><div class="pi">🏄 Surf</div><div class="pi">🪂 Parapente</div><div class="pi">🧗 Escalada</div><div class="pi">🚐 Van</div><div class="pi">🏕️ 6 noches</div></div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">699€</span><span class="pack-old">920€</span></div><div class="pack-save">Ahorras 221€ (24%)</div></div>
-          <button class="btn-g" onclick="toast('📦 Pack Aventura Total')">Ver pack →</button>
+        <div class="pack-title">Pack Paracaidismo Empuriabrava</div>
+        <div class="pack-loc">📍 Empuriabrava, Girona</div>
+        <div class="pack-desc">Salto tándem desde 4000m con vídeo 4K. Noche en hotel rural, transfer y cena BBQ extrema con carne a la brasa y cerveza artesana.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">🛩️</div><div class="pr-label">Deporte</div><div class="pr-val">Salto 4000m</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🚗</div><div class="pr-label">Transfer</div><div class="pr-val">Barcelona</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel rural 1n</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🥩</div><div class="pr-label">Restaurante</div><div class="pr-val">BBQ extrema</div></div>
         </div>
-        <div class="pack-urg">🏆 34 grupos lo reservaron este mes</div>
+        <div class="pack-foot">
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">249€</span><span class="pack-old">350€</span></div><div class="pack-save">Ahorras 101€ (29%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Paracaidismo Empuriabrava','Empuriabrava, Girona')">Quiero este pack →</button>
+        </div>
+        <div class="pack-urg">🔥 1 plaza restante · muy demandado</div>
       </div>
     </div>
+
+    <!-- PACK 4: Nieve Baqueira -->
+    <div class="pack-card">
+      <div class="pack-hero ph-e">
+        <div class="pack-hero-icons"><span>⛷️</span><span>🏔️</span><span>🚐</span><span>🧀</span></div>
+        <div class="pack-tag">❄️ Nieve</div><div class="pack-dur">4 días / 3 noches</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-title">Pack Freeride Baqueira</div>
+        <div class="pack-loc">📍 Baqueira-Beret, Lleida</div>
+        <div class="pack-desc">Freeride con guía UIAGM, hotel de montaña con spa, transfer desde Barcelona y cena fondue en refugio de alta montaña con vistas al valle.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">⛷️</div><div class="pr-label">Deporte</div><div class="pr-val">3 jornadas freeride</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transfer</div><div class="pr-val">Barcelona</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏔️</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel + spa</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🧀</div><div class="pr-label">Restaurante</div><div class="pr-val">Fondue refugio</div></div>
+        </div>
+        <div class="pack-foot">
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">449€</span><span class="pack-old">640€</span></div><div class="pack-save">Ahorras 191€ (30%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Freeride Baqueira','Baqueira-Beret, Lleida')">Quiero este pack →</button>
+        </div>
+        <div class="pack-urg">❄️ Temporada alta · plazas limitadas</div>
+      </div>
+    </div>
+
+    <!-- PACK 5: Multi-Aventura España -->
+    <div class="pack-card pack-feat">
+      <div class="pack-best">MEJOR VALORADO</div>
+      <div class="pack-hero ph-c">
+        <div class="pack-hero-icons"><span>🏄</span><span>🪂</span><span>🧗</span><span>🍷</span></div>
+        <div class="pack-tag">🌍 Multi-aventura</div><div class="pack-hot">TOP</div><div class="pack-dur">7 días / 6 noches</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-title">Pack Aventura Total España</div>
+        <div class="pack-loc">📍 País Vasco → Valencia → Barcelona</div>
+        <div class="pack-desc">La ruta definitiva: surf en Zarautz, parapente en Gandía y escalada en Montserrat. Van equipada, hostales con encanto y ruta gastro con cata de vinos extrema.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">🏄</div><div class="pr-label">Deportes</div><div class="pr-val">Surf+Para+Escal</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transporte</div><div class="pr-val">Van equipada</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏕️</div><div class="pr-label">Alojamiento</div><div class="pr-val">6 noches hostales</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🍷</div><div class="pr-label">Restaurante</div><div class="pr-val">Ruta gastro</div></div>
+        </div>
+        <div class="pack-foot">
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">699€</span><span class="pack-old">1.050€</span></div><div class="pack-save">Ahorras 351€ (33%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Aventura Total España','Multi-ubicación')">Quiero este pack →</button>
+        </div>
+        <div class="pack-urg">🏆 42 grupos lo reservaron este mes</div>
+      </div>
+    </div>
+
+    <!-- PACK 6: Canarias Volcánica -->
+    <div class="pack-card">
+      <div class="pack-hero ph-f">
+        <div class="pack-hero-icons"><span>🛞</span><span>🤿</span><span>🏨</span><span>🌶️</span></div>
+        <div class="pack-tag">🌋 Volcánica</div><div class="pack-hot">NUEVO</div><div class="pack-dur">5 días / 4 noches</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-title">Pack Canarias Volcánica</div>
+        <div class="pack-loc">📍 Lanzarote + Fuerteventura</div>
+        <div class="pack-desc">Ruta en quad por volcanes, buceo en reserva marina, hotel boutique con vistas y cena en restaurante El Diablo donde cocinan con calor volcánico real.</div>
+        <div class="pack-route">
+          <div class="pr-step"><div class="pr-icon">🛞</div><div class="pr-label">Deportes</div><div class="pr-val">Quad + Buceo</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">⛴️</div><div class="pr-label">Transporte</div><div class="pr-val">Ferry inter-islas</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel boutique 4n</div></div>
+          <div class="pr-arrow">→</div>
+          <div class="pr-step"><div class="pr-icon">🌋</div><div class="pr-label">Restaurante</div><div class="pr-val">El Diablo</div></div>
+        </div>
+        <div class="pack-foot">
+          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">529€</span><span class="pack-old">740€</span></div><div class="pack-save">Ahorras 211€ (29%)</div></div>
+          <button class="btn-g" onclick="openWaitlist('Pack Canarias Volcánica','Lanzarote + Fuerteventura')">Quiero este pack →</button>
+        </div>
+        <div class="pack-urg">🌴 Disponible todo el año</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1099,6 +1350,44 @@ tr:hover td{background:#fafafa;}
     <button class="btn-lg btn-lg-ol" onclick="toast('📞 Abriendo contacto...')">Hablar con el equipo</button>
   </div>
 </div>
+
+<!-- FOOTER -->
+<footer class="tx-footer">
+  <div class="tx-foot-inner">
+    <div class="tx-foot-brand">
+      <div class="tx-foot-logo">Trip<b>Xtrem</b></div>
+      <p>Marketplace Nº1 de turismo de aventura en España. Reserva deportes extremos con garantía total.</p>
+      <div class="tx-foot-social">
+        <a href="#" aria-label="Instagram" rel="noopener">📷</a>
+        <a href="#" aria-label="Twitter/X" rel="noopener">𝕏</a>
+        <a href="#" aria-label="TikTok" rel="noopener">🎵</a>
+      </div>
+    </div>
+    <div class="tx-foot-col">
+      <h4>Explorar</h4>
+      <a href="#mapSection">Experiencias</a>
+      <a href="#packs-s">Packs</a>
+      <a href="#" onclick="openPartner();return false">Hazte partner</a>
+    </div>
+    <div class="tx-foot-col">
+      <h4>Legal</h4>
+      <a href="/legal/aviso-legal">Aviso legal</a>
+      <a href="/legal/privacidad">Privacidad</a>
+      <a href="/legal/cookies">Cookies</a>
+      <a href="/legal/terminos">Términos</a>
+    </div>
+    <div class="tx-foot-col">
+      <h4>Contacto</h4>
+      <a href="mailto:hola@tripxtrem.com">hola@tripxtrem.com</a>
+      <a href="mailto:partners@tripxtrem.com">partners@tripxtrem.com</a>
+      <a href="mailto:prensa@tripxtrem.com">prensa@tripxtrem.com</a>
+    </div>
+  </div>
+  <div class="tx-foot-bot">
+    <span>© <span id="tx-year">2026</span> TripXtrem · Hecho en España 🇪🇸</span>
+    <span class="tx-foot-legal">En fase de lanzamiento · Las reservas estarán disponibles próximamente</span>
+  </div>
+</footer>
 
 </div><!-- /page-landing -->
 
@@ -1163,7 +1452,59 @@ tr:hover td{background:#fafafa;}
 </div>
 </div>
 
+
 <!-- ═══ MODALS ═══ -->
+
+<!-- WAITLIST -->
+<div class="ov" id="ov-waitlist">
+<div class="modal modal-wl">
+  <button class="modal-close" onclick="closeOv('ov-waitlist')">✕</button>
+  <div class="wl-head">
+    <div class="wl-eyebrow">🚀 Lanzamos muy pronto</div>
+    <h2 class="wl-title">Sé de los primeros en reservar</h2>
+    <p class="wl-sub">Te avisamos por email en cuanto esté disponible tu experiencia. <b>Sin spam, sin coste</b>.</p>
+  </div>
+  <form id="wl-form" class="wl-form" onsubmit="submitWaitlist(event)" novalidate>
+    <div class="wl-selected" id="wl-selected" style="display:none"></div>
+    <div class="wl-field">
+      <label>Nombre</label>
+      <input type="text" name="name" id="wl-name" placeholder="Tu nombre" required minlength="2" maxlength="80">
+    </div>
+    <div class="wl-field">
+      <label>Email</label>
+      <input type="email" name="email" id="wl-email" placeholder="tu@email.com" required autocomplete="email">
+    </div>
+    <div class="wl-row">
+      <div class="wl-field">
+        <label>Actividad favorita</label>
+        <select name="activity" id="wl-activity">
+          <option value="">— Cualquiera —</option>
+          <option>Surf</option><option>Kitesurf</option><option>Rafting</option><option>Buceo</option><option>Parapente</option><option>Paracaidismo</option><option>Wingsuit</option><option>Escalada</option><option>Barranquismo</option><option>Freeride / Heliesquí</option><option>Alpinismo</option><option>MTB Enduro / Downhill</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="wl-field">
+        <label>Código postal <span class="wl-opt">(opcional)</span></label>
+        <input type="text" name="postal_code" id="wl-postal" placeholder="28001" maxlength="10" pattern="[0-9A-Za-z\- ]*">
+      </div>
+    </div>
+    <!-- Honeypot — bots rellenan, humanos no -->
+    <input type="text" name="company" id="wl-hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;height:0;width:0;">
+    <label class="wl-gdpr">
+      <input type="checkbox" name="gdpr" id="wl-gdpr" required>
+      <span>Acepto recibir emails sobre el lanzamiento. Puedo darme de baja en cualquier momento. <a href="/legal/privacidad" target="_blank" rel="noopener">Política de privacidad</a>.</span>
+    </label>
+    <button type="submit" class="wl-submit" id="wl-submit">Apúntame a la lista →</button>
+    <div class="wl-error" id="wl-error" style="display:none"></div>
+    <div class="wl-trust">🔒 Tu email nunca se comparte · Cancelación en 1 clic</div>
+  </form>
+  <div class="wl-success" id="wl-success" style="display:none">
+    <div class="wl-success-icon">🎉</div>
+    <h3>¡Ya estás dentro!</h3>
+    <p>Te hemos enviado un email de confirmación. Serás de los primeros en saber cuándo abrimos reservas.</p>
+    <button class="btn-g" onclick="closeOv('ov-waitlist')" style="margin-top:18px;padding:10px 22px;">Perfecto</button>
+  </div>
+</div>
+</div>
 
 <!-- FICHA -->
 <div class="ov" id="ov-ficha">
@@ -1223,7 +1564,7 @@ tr:hover td{background:#fafafa;}
     </div>
     <div class="ficha-btns">
       <button class="btn-ol" onclick="openRevs()">⭐ Reseñas</button>
-      <button class="btn-g" style="font-size:14px;padding:12px 24px;background:var(--r)" onclick="openPay()">⚡ Reservar ahora →</button>
+      <button class="btn-g" style="font-size:14px;padding:12px 24px;background:var(--r)" onclick="openWaitlistFromFicha()">⚡ Avísame cuando abra →</button>
     </div>
   </div>
 </div>
@@ -1428,32 +1769,147 @@ tr:hover td{background:#fafafa;}
 // ════════════════════════
 const CATS = {
   Agua:{cards:[
-    {sport:'SURF',icon:'🏄',loc:'Zarautz, País Vasco',rating:4.8,reviews:42,diff:'Baja',price:45,oldPrice:null,lat:43.284,lng:-2.234,dur:'2-3h',cat:'Agua',badge:'hot',spots:2,views:18,lastBooked:'hace 1h'},
-    {sport:'SURF',icon:'🏄',loc:'Mundaka, País Vasco',rating:5.0,reviews:28,diff:'Media',price:60,oldPrice:null,lat:43.406,lng:-2.697,dur:'3h',cat:'Agua',badge:'popular',spots:5,views:12,lastBooked:'hace 3h'},
-    {sport:'SURF',icon:'🏄',loc:'Playa de Somo, Cantabria',rating:4.7,reviews:19,diff:'Alta',price:40,oldPrice:52,lat:43.464,lng:-3.793,dur:'2h',cat:'Agua',badge:'new',spots:8,views:6,lastBooked:'hace 5h'},
-    {sport:'KITESURF',icon:'🪁',loc:'Tarifa, Cádiz',rating:4.8,reviews:67,diff:'Alta',price:90,oldPrice:null,lat:36.014,lng:-5.607,dur:'4h',cat:'Agua',badge:'hot',spots:3,views:24,lastBooked:'hace 30min'},
-    {sport:'RAFTING',icon:'🚣',loc:'Río Noguera, Lleida',rating:4.9,reviews:51,diff:'Media',price:55,oldPrice:null,lat:42.417,lng:0.894,dur:'3h',cat:'Agua',badge:null,spots:6,views:9,lastBooked:'hace 2h'},
-    {sport:'BUCEO',icon:'🤿',loc:'Islas Medas, Girona',rating:4.6,reviews:33,diff:'Baja',price:70,oldPrice:85,lat:42.042,lng:3.221,dur:'2h',cat:'Agua',badge:'new',spots:4,views:7,lastBooked:'ayer'},
-    {sport:'JET SKI',icon:'🛥️',loc:'Benidorm, Alicante',rating:4.5,reviews:22,diff:'Baja',price:65,oldPrice:null,lat:38.536,lng:-0.132,dur:'1h',cat:'Agua',badge:null,spots:10,views:5,lastBooked:'hace 4h'},
-    {sport:'WAKEBOARD',icon:'🏂',loc:'Empuriabrava, Girona',rating:4.7,reviews:17,diff:'Media',price:50,oldPrice:null,lat:42.249,lng:3.117,dur:'1.5h',cat:'Agua',badge:null,spots:7,views:4,lastBooked:'ayer'}
+    // SURF
+    {sport:'SURF',icon:'🏄',loc:'Zarautz, País Vasco',rating:4.8,reviews:42,diff:'Baja',price:45,oldPrice:null,lat:43.284,lng:-2.234,dur:'2-3h',cat:'Agua',badge:'hot',spots:2,views:18,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1502680390548-bdbac40a5e46?w=600',extras:['Neopreno','Tabla','Instructor','Foto HD']},
+    {sport:'SURF',icon:'🏄',loc:'Mundaka, País Vasco',rating:5.0,reviews:28,diff:'Media',price:60,oldPrice:null,lat:43.406,lng:-2.697,dur:'3h',cat:'Agua',badge:'popular',spots:5,views:12,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=600',extras:['Neopreno','Tabla','Vídeo']},
+    {sport:'SURF',icon:'🏄',loc:'Playa de Somo, Cantabria',rating:4.7,reviews:19,diff:'Alta',price:40,oldPrice:52,lat:43.464,lng:-3.793,dur:'2h',cat:'Agua',badge:'new',spots:8,views:6,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',extras:['Neopreno','Tabla','Seguro']},
+    {sport:'SURF',icon:'🏄',loc:'Playa de las Américas, Tenerife',rating:4.6,reviews:35,diff:'Baja',price:50,oldPrice:null,lat:28.056,lng:-16.729,dur:'2h',cat:'Agua',badge:null,spots:6,views:8,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1502680390548-bdbac40a5e46?w=600',extras:['Tabla','Instructor','Foto']},
+    {sport:'SURF',icon:'🏄',loc:'El Palmar, Cádiz',rating:4.9,reviews:61,diff:'Baja',price:38,oldPrice:null,lat:36.329,lng:-6.064,dur:'2h',cat:'Agua',badge:'popular',spots:4,views:15,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=600',extras:['Neopreno','Tabla','Snack']},
+    // KITESURF
+    {sport:'KITESURF',icon:'🪁',loc:'Tarifa, Cádiz',rating:4.8,reviews:67,diff:'Alta',price:90,oldPrice:null,lat:36.014,lng:-5.607,dur:'4h',cat:'Agua',badge:'hot',spots:3,views:24,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Arnés','Instructor','Seguro']},
+    {sport:'KITESURF',icon:'🪁',loc:'Fuerteventura, Canarias',rating:4.9,reviews:53,diff:'Media',price:85,oldPrice:110,lat:28.359,lng:-14.053,dur:'3h',cat:'Agua',badge:'new',spots:5,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Neopreno','Vídeo']},
+    {sport:'KITESURF',icon:'🪁',loc:'Valdevaqueros, Cádiz',rating:4.7,reviews:39,diff:'Media',price:80,oldPrice:null,lat:36.058,lng:-5.685,dur:'3h',cat:'Agua',badge:null,spots:7,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',extras:['Kite','Arnés','Instructor']},
+    // RAFTING
+    {sport:'RAFTING',icon:'🚣',loc:'Río Noguera, Lleida',rating:4.9,reviews:51,diff:'Media',price:55,oldPrice:null,lat:42.417,lng:0.894,dur:'3h',cat:'Agua',badge:null,spots:6,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Casco','Neopreno','Guía','Snack']},
+    {sport:'RAFTING',icon:'🚣',loc:'Río Genil, Granada',rating:4.6,reviews:27,diff:'Alta',price:60,oldPrice:null,lat:37.153,lng:-3.587,dur:'4h',cat:'Agua',badge:null,spots:8,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Casco','Guía','Seguro']},
+    {sport:'RAFTING',icon:'🚣',loc:'Río Ulla, Galicia',rating:4.5,reviews:18,diff:'Baja',price:45,oldPrice:null,lat:42.678,lng:-8.255,dur:'2.5h',cat:'Agua',badge:'new',spots:10,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Neopreno','Guía','Foto']},
+    // BUCEO
+    {sport:'BUCEO',icon:'🤿',loc:'Islas Medas, Girona',rating:4.6,reviews:33,diff:'Baja',price:70,oldPrice:85,lat:42.042,lng:3.221,dur:'2h',cat:'Agua',badge:'new',spots:4,views:7,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo completo','Instructor','Foto submarina']},
+    {sport:'BUCEO',icon:'🤿',loc:'Cabo de Palos, Murcia',rating:4.8,reviews:45,diff:'Media',price:75,oldPrice:null,lat:37.627,lng:-0.691,dur:'2.5h',cat:'Agua',badge:'popular',spots:3,views:11,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo','Guía','Seguro']},
+    {sport:'BUCEO',icon:'🤿',loc:'Lanzarote, Canarias',rating:4.9,reviews:58,diff:'Baja',price:80,oldPrice:95,lat:29.046,lng:-13.632,dur:'3h',cat:'Agua',badge:'hot',spots:2,views:20,lastBooked:'hace 20min',img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600',extras:['Equipo','Vídeo','Snack']},
+    // JET SKI
+    {sport:'JET SKI',icon:'🛥️',loc:'Benidorm, Alicante',rating:4.5,reviews:22,diff:'Baja',price:65,oldPrice:null,lat:38.536,lng:-0.132,dur:'1h',cat:'Agua',badge:null,spots:10,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1626618012641-bfbca5a31239?w=600',extras:['Moto','Chaleco','Instructor']},
+    {sport:'JET SKI',icon:'🛥️',loc:'Mallorca, Baleares',rating:4.7,reviews:31,diff:'Baja',price:75,oldPrice:null,lat:39.569,lng:2.650,dur:'1h',cat:'Agua',badge:'popular',spots:6,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1626618012641-bfbca5a31239?w=600',extras:['Moto','Chaleco','Foto']},
+    // WAKEBOARD
+    {sport:'WAKEBOARD',icon:'🏂',loc:'Empuriabrava, Girona',rating:4.7,reviews:17,diff:'Media',price:50,oldPrice:null,lat:42.249,lng:3.117,dur:'1.5h',cat:'Agua',badge:null,spots:7,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Chaleco','Instructor']},
+    {sport:'WAKEBOARD',icon:'🏂',loc:'Ibiza, Baleares',rating:4.6,reviews:24,diff:'Media',price:60,oldPrice:null,lat:38.906,lng:1.420,dur:'1h',cat:'Agua',badge:null,spots:5,views:7,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Neopreno','Vídeo']},
+    // COASTEERING
+    {sport:'COASTEERING',icon:'🏊',loc:'Costa Brava, Girona',rating:4.8,reviews:36,diff:'Alta',price:55,oldPrice:null,lat:41.869,lng:3.107,dur:'3h',cat:'Agua',badge:'hot',spots:4,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Neopreno','Casco','Guía','Seguro']},
+    {sport:'COASTEERING',icon:'🏊',loc:'San Juan de Gaztelugatxe, Vizcaya',rating:4.9,reviews:22,diff:'Alta',price:60,oldPrice:null,lat:43.445,lng:-2.781,dur:'3.5h',cat:'Agua',badge:'new',spots:3,views:8,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Equipo completo','Foto','Snack']},
+    // KAYAK EXTREMO
+    {sport:'KAYAK EXTREMO',icon:'🛶',loc:'Río Sella, Asturias',rating:4.7,reviews:44,diff:'Media',price:40,oldPrice:null,lat:43.349,lng:-5.075,dur:'3h',cat:'Agua',badge:'popular',spots:8,views:10,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Kayak','Pala','Guía']},
+    {sport:'KAYAK EXTREMO',icon:'🛶',loc:'Menorca, Baleares',rating:4.8,reviews:29,diff:'Baja',price:35,oldPrice:null,lat:39.949,lng:3.824,dur:'2.5h',cat:'Agua',badge:null,spots:12,views:6,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Kayak','Snorkel','Guía']},
+    // HYDROSPEED
+    {sport:'HYDROSPEED',icon:'💧',loc:'Río Gállego, Huesca',rating:4.6,reviews:14,diff:'Alta',price:65,oldPrice:null,lat:42.430,lng:-0.407,dur:'2h',cat:'Agua',badge:'new',spots:4,views:6,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Tabla','Neopreno','Casco','Seguro']},
+    {sport:'HYDROSPEED',icon:'💧',loc:'Río Esera, Huesca',rating:4.8,reviews:11,diff:'Alta',price:70,oldPrice:null,lat:42.485,lng:0.455,dur:'2.5h',cat:'Agua',badge:null,spots:3,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Equipo completo','Guía']},
+    // CLIFF DIVING
+    {sport:'CLIFF DIVING',icon:'🤸',loc:'Sa Calobra, Mallorca',rating:4.9,reviews:19,diff:'Alta',price:95,oldPrice:null,lat:39.851,lng:2.807,dur:'3h',cat:'Agua',badge:'hot',spots:2,views:17,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Guía experto','Seguro premium','Vídeo drone']},
+    {sport:'CLIFF DIVING',icon:'🤸',loc:'Acantilados de Maro, Málaga',rating:4.7,reviews:12,diff:'Alta',price:85,oldPrice:null,lat:36.745,lng:-3.847,dur:'2.5h',cat:'Agua',badge:null,spots:3,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1530866495561-507c83781b20?w=600',extras:['Guía','Seguro','Foto']}
   ]},
   Aire:{cards:[
-    {sport:'PARAPENTE',icon:'🪂',loc:'Gandía, Valencia',rating:4.9,reviews:74,diff:'Media',price:80,oldPrice:null,lat:38.967,lng:-0.182,dur:'30-60min',cat:'Aire',badge:'popular',spots:3,views:21,lastBooked:'hace 45min'},
-    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Empuriabrava, Girona',rating:5.0,reviews:112,diff:'Alta',price:180,oldPrice:null,lat:42.249,lng:3.115,dur:'30min',cat:'Aire',badge:'hot',spots:1,views:34,lastBooked:'hace 10min'},
-    {sport:'WINGSUIT',icon:'🦸',loc:'Sierra Nevada, Granada',rating:4.7,reviews:29,diff:'Alta',price:250,oldPrice:300,lat:37.094,lng:-3.394,dur:'20min',cat:'Aire',badge:'new',spots:2,views:11,lastBooked:'hace 2h'},
-    {sport:'BUNGEE',icon:'🪢',loc:'Nerja, Málaga',rating:4.5,reviews:41,diff:'Media',price:65,oldPrice:null,lat:36.748,lng:-3.869,dur:'15min',cat:'Aire',badge:null,spots:7,views:8,lastBooked:'ayer'},
-    {sport:'ALA DELTA',icon:'🏔️',loc:'Tenerife Sur',rating:4.8,reviews:38,diff:'Media',price:120,oldPrice:null,lat:28.045,lng:-16.563,dur:'1h',cat:'Aire',badge:null,spots:4,views:6,lastBooked:'hace 3h'}
+    // PARAPENTE
+    {sport:'PARAPENTE',icon:'🪂',loc:'Gandía, Valencia',rating:4.9,reviews:74,diff:'Media',price:80,oldPrice:null,lat:38.967,lng:-0.182,dur:'30-60min',cat:'Aire',badge:'popular',spots:3,views:21,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vuelo biplaza','Vídeo','Fotos HD','Seguro']},
+    {sport:'PARAPENTE',icon:'🪂',loc:'Tenerife Norte, Canarias',rating:4.8,reviews:52,diff:'Media',price:90,oldPrice:null,lat:28.417,lng:-16.362,dur:'45min',cat:'Aire',badge:null,spots:4,views:13,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Vídeo','Fotos']},
+    {sport:'PARAPENTE',icon:'🪂',loc:'Ager, Lleida',rating:4.7,reviews:33,diff:'Baja',price:70,oldPrice:null,lat:42.006,lng:0.770,dur:'30min',cat:'Aire',badge:null,spots:6,views:5,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Seguro','Foto']},
+    // PARACAIDISMO
+    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Empuriabrava, Girona',rating:5.0,reviews:112,diff:'Alta',price:180,oldPrice:null,lat:42.249,lng:3.115,dur:'30min',cat:'Aire',badge:'hot',spots:1,views:34,lastBooked:'hace 10min',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Salto tándem','Instructor','Vídeo 4K','Diploma']},
+    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Sevilla',rating:4.8,reviews:67,diff:'Alta',price:195,oldPrice:230,lat:37.418,lng:-5.893,dur:'30min',cat:'Aire',badge:'popular',spots:3,views:22,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Tándem','Vídeo','Fotos','Seguro']},
+    {sport:'PARACAIDISMO',icon:'🛩️',loc:'Madrid (Ocaña)',rating:4.7,reviews:43,diff:'Alta',price:175,oldPrice:null,lat:39.956,lng:-3.498,dur:'30min',cat:'Aire',badge:null,spots:5,views:15,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Tándem','Instructor','Foto']},
+    // WINGSUIT
+    {sport:'WINGSUIT',icon:'🦸',loc:'Sierra Nevada, Granada',rating:4.7,reviews:29,diff:'Alta',price:250,oldPrice:300,lat:37.094,lng:-3.394,dur:'20min',cat:'Aire',badge:'new',spots:2,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Traje wingsuit','Instructor elite','GoPro','Seguro premium']},
+    {sport:'WINGSUIT',icon:'🦸',loc:'Ordesa, Huesca',rating:4.9,reviews:15,diff:'Alta',price:280,oldPrice:null,lat:42.630,lng:-0.054,dur:'25min',cat:'Aire',badge:'hot',spots:1,views:18,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Equipo pro','Vídeo drone','Seguro premium']},
+    // BUNGEE
+    {sport:'BUNGEE',icon:'🪢',loc:'Nerja, Málaga',rating:4.5,reviews:41,diff:'Media',price:65,oldPrice:null,lat:36.748,lng:-3.869,dur:'15min',cat:'Aire',badge:null,spots:7,views:8,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Salto','Vídeo','Certificado']},
+    {sport:'BUNGEE',icon:'🪢',loc:'Lloret de Mar, Girona',rating:4.6,reviews:28,diff:'Media',price:55,oldPrice:null,lat:41.700,lng:2.845,dur:'15min',cat:'Aire',badge:null,spots:9,views:5,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Salto','Foto','Seguro']},
+    // BASE JUMP
+    {sport:'BASE JUMP',icon:'🏗️',loc:'Montserrat, Barcelona',rating:4.9,reviews:8,diff:'Alta',price:320,oldPrice:null,lat:41.594,lng:1.838,dur:'Jornada',cat:'Aire',badge:'hot',spots:1,views:25,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Instructor elite','Equipo pro','GoPro','Seguro premium']},
+    {sport:'BASE JUMP',icon:'🏗️',loc:'Ronda, Málaga',rating:4.8,reviews:6,diff:'Alta',price:350,oldPrice:null,lat:36.746,lng:-5.161,dur:'Jornada',cat:'Aire',badge:'new',spots:2,views:19,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33457cc?w=600',extras:['Equipo completo','Vídeo drone','Seguro']},
+    // ALA DELTA
+    {sport:'ALA DELTA',icon:'🪽',loc:'Tenerife Sur, Canarias',rating:4.8,reviews:38,diff:'Media',price:120,oldPrice:null,lat:28.045,lng:-16.563,dur:'1h',cat:'Aire',badge:null,spots:4,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vuelo biplaza','Fotos','Seguro']},
+    {sport:'ALA DELTA',icon:'🪽',loc:'Lanzarote, Canarias',rating:4.7,reviews:21,diff:'Media',price:110,oldPrice:null,lat:29.035,lng:-13.634,dur:'45min',cat:'Aire',badge:null,spots:5,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Biplaza','Vídeo','Seguro']},
+    // ACROBACIA AEREA
+    {sport:'ACROBACIA AEREA',icon:'✈️',loc:'Sabadell, Barcelona',rating:4.9,reviews:16,diff:'Alta',price:199,oldPrice:250,lat:41.520,lng:2.101,dur:'40min',cat:'Aire',badge:'new',spots:2,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33447cc?w=600',extras:['Avión acrobático','Piloto experto','Vídeo','Seguro']},
+    {sport:'ACROBACIA AEREA',icon:'✈️',loc:'Córdoba',rating:4.7,reviews:11,diff:'Alta',price:185,oldPrice:null,lat:37.884,lng:-4.786,dur:'35min',cat:'Aire',badge:null,spots:4,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1474623809196-26c1d33447cc?w=600',extras:['Avión','Piloto','GoPro']},
+    // TIROLINA
+    {sport:'TIROLINA',icon:'🏗️',loc:'Comares, Málaga',rating:4.6,reviews:48,diff:'Baja',price:30,oldPrice:null,lat:36.849,lng:-4.248,dur:'30min',cat:'Aire',badge:'popular',spots:12,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Arnés','Casco','Foto']},
+    {sport:'TIROLINA',icon:'🏗️',loc:'Valle de Tena, Huesca',rating:4.8,reviews:34,diff:'Media',price:35,oldPrice:null,lat:42.737,lng:-0.323,dur:'45min',cat:'Aire',badge:null,spots:8,views:5,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Arnés','Casco','Seguro']},
+    // SPEED RIDING
+    {sport:'SPEED RIDING',icon:'⚡',loc:'Formigal, Huesca',rating:4.8,reviews:7,diff:'Alta',price:280,oldPrice:null,lat:42.764,lng:-0.382,dur:'2h',cat:'Aire',badge:'hot',spots:1,views:15,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Vela speed','Esquís','Instructor elite','Seguro premium']},
+    {sport:'SPEED RIDING',icon:'⚡',loc:'Sierra Nevada, Granada',rating:4.7,reviews:5,diff:'Alta',price:270,oldPrice:null,lat:37.096,lng:-3.396,dur:'2h',cat:'Aire',badge:'new',spots:2,views:11,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1503507745735-71d07ce73e47?w=600',extras:['Equipo completo','Instructor','Vídeo']}
   ]},
   Nieve:{cards:[
-    {sport:'FREERIDE',icon:'⛷️',loc:'Baqueira, Lleida',rating:4.8,reviews:56,diff:'Alta',price:120,oldPrice:null,lat:42.689,lng:0.931,dur:'Jornada',cat:'Nieve',badge:'popular',spots:4,views:15,lastBooked:'hace 2h'},
-    {sport:'HELIESQUI',icon:'🚁',loc:'Candanchú, Huesca',rating:5.0,reviews:23,diff:'Alta',price:350,oldPrice:420,lat:42.784,lng:-0.523,dur:'Jornada',cat:'Nieve',badge:'hot',spots:2,views:19,lastBooked:'hace 1h'},
-    {sport:'ICE CLIMBING',icon:'🧊',loc:'Panticosa, Huesca',rating:4.6,reviews:17,diff:'Alta',price:95,oldPrice:null,lat:42.718,lng:-0.289,dur:'4h',cat:'Nieve',badge:'new',spots:6,views:4,lastBooked:'hace 6h'}
+    // FREERIDE
+    {sport:'FREERIDE',icon:'⛷️',loc:'Baqueira, Lleida',rating:4.8,reviews:56,diff:'Alta',price:120,oldPrice:null,lat:42.689,lng:0.931,dur:'Jornada',cat:'Nieve',badge:'popular',spots:4,views:15,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía montaña','ARVA','Pala','Sonda']},
+    {sport:'FREERIDE',icon:'⛷️',loc:'Formigal, Huesca',rating:4.7,reviews:38,diff:'Alta',price:110,oldPrice:null,lat:42.764,lng:-0.380,dur:'Jornada',cat:'Nieve',badge:null,spots:5,views:10,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía','ARVA','Seguro']},
+    {sport:'FREERIDE',icon:'⛷️',loc:'Sierra Nevada, Granada',rating:4.6,reviews:24,diff:'Media',price:95,oldPrice:null,lat:37.095,lng:-3.393,dur:'6h',cat:'Nieve',badge:'new',spots:7,views:6,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Guía','Equipo seguridad','Snack']},
+    // HELIESQUI
+    {sport:'HELIESQUI',icon:'🚁',loc:'Candanchú, Huesca',rating:5.0,reviews:23,diff:'Alta',price:350,oldPrice:420,lat:42.784,lng:-0.523,dur:'Jornada',cat:'Nieve',badge:'hot',spots:2,views:19,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Helicóptero','Guía elite','ARVA','Comida montaña']},
+    {sport:'HELIESQUI',icon:'🚁',loc:'Valle de Arán, Lleida',rating:4.9,reviews:17,diff:'Alta',price:380,oldPrice:450,lat:42.700,lng:0.850,dur:'Jornada',cat:'Nieve',badge:'popular',spots:1,views:22,lastBooked:'hace 30min',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Helicóptero','Guía','Seguro premium']},
+    // ICE CLIMBING
+    {sport:'ICE CLIMBING',icon:'🧊',loc:'Panticosa, Huesca',rating:4.6,reviews:17,diff:'Alta',price:95,oldPrice:null,lat:42.718,lng:-0.289,dur:'4h',cat:'Nieve',badge:'new',spots:6,views:4,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Piolets','Crampones','Guía','Seguro']},
+    {sport:'ICE CLIMBING',icon:'🧊',loc:'Benasque, Huesca',rating:4.8,reviews:12,diff:'Alta',price:100,oldPrice:null,lat:42.607,lng:0.522,dur:'5h',cat:'Nieve',badge:null,spots:4,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo completo','Guía','Foto']},
+    // SNOWBOARD
+    {sport:'SNOWBOARD',icon:'🏂',loc:'Baqueira, Lleida',rating:4.7,reviews:44,diff:'Media',price:75,oldPrice:null,lat:42.690,lng:0.933,dur:'Jornada',cat:'Nieve',badge:'popular',spots:8,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Tabla','Botas','Monitor','Forfait']},
+    {sport:'SNOWBOARD',icon:'🏂',loc:'Sierra Nevada, Granada',rating:4.6,reviews:36,diff:'Baja',price:65,oldPrice:null,lat:37.093,lng:-3.391,dur:'Jornada',cat:'Nieve',badge:null,spots:10,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Tabla','Forfait','Monitor']},
+    // SNOWKITE
+    {sport:'SNOWKITE',icon:'🪁',loc:'Cerdanya, Girona',rating:4.5,reviews:9,diff:'Alta',price:130,oldPrice:null,lat:42.432,lng:1.847,dur:'4h',cat:'Nieve',badge:'new',spots:3,views:5,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Kite nieve','Tabla','Instructor','Seguro']},
+    {sport:'SNOWKITE',icon:'🪁',loc:'Boi Taüll, Lleida',rating:4.7,reviews:7,diff:'Alta',price:140,oldPrice:null,lat:42.478,lng:0.829,dur:'4h',cat:'Nieve',badge:null,spots:4,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo completo','Instructor']},
+    // MUSHING
+    {sport:'MUSHING',icon:'🐕',loc:'Baqueira, Lleida',rating:4.8,reviews:31,diff:'Baja',price:85,oldPrice:null,lat:42.691,lng:0.929,dur:'1.5h',cat:'Nieve',badge:'popular',spots:6,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Trineo','Musher guía','Manta','Chocolate caliente']},
+    {sport:'MUSHING',icon:'🐕',loc:'Grandvalira, Andorra',rating:4.9,reviews:22,diff:'Baja',price:95,oldPrice:null,lat:42.554,lng:1.734,dur:'2h',cat:'Nieve',badge:null,spots:4,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Trineo','Guía','Foto']},
+    // SPEED SKIING
+    {sport:'SPEED SKIING',icon:'💨',loc:'Formigal, Huesca',rating:4.7,reviews:5,diff:'Alta',price:200,oldPrice:null,lat:42.766,lng:-0.378,dur:'3h',cat:'Nieve',badge:'hot',spots:2,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Casco aero','Traje speed','Coach','Seguro premium']},
+    {sport:'SPEED SKIING',icon:'💨',loc:'La Molina, Girona',rating:4.5,reviews:4,diff:'Alta',price:190,oldPrice:null,lat:42.336,lng:1.944,dur:'3h',cat:'Nieve',badge:'new',spots:3,views:8,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Equipo speed','Coach','Vídeo']},
+    // SKICROSS
+    {sport:'SKICROSS',icon:'🎿',loc:'Cerler, Huesca',rating:4.6,reviews:19,diff:'Alta',price:85,oldPrice:null,lat:42.556,lng:0.531,dur:'Jornada',cat:'Nieve',badge:null,spots:6,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Forfait','Monitor','Seguro']},
+    {sport:'SKICROSS',icon:'🎿',loc:'Masella, Girona',rating:4.5,reviews:14,diff:'Media',price:70,oldPrice:null,lat:42.337,lng:1.936,dur:'Jornada',cat:'Nieve',badge:null,spots:8,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600',extras:['Forfait','Monitor','Foto']}
   ]},
   Tierra:{cards:[
-    {sport:'ESCALADA',icon:'🧗',loc:'Montserrat, Barcelona',rating:4.9,reviews:88,diff:'Media',price:50,oldPrice:null,lat:41.593,lng:1.835,dur:'4-6h',cat:'Tierra',badge:'popular',spots:5,views:13,lastBooked:'hace 1.5h'},
-    {sport:'VIA FERRATA',icon:'⛰️',loc:'Riglos, Huesca',rating:4.8,reviews:44,diff:'Alta',price:45,oldPrice:60,lat:42.367,lng:-0.674,dur:'5h',cat:'Tierra',badge:null,spots:8,views:7,lastBooked:'hace 4h'},
-    {sport:'ENDURO MTB',icon:'🚵',loc:'Ainsa, Huesca',rating:4.7,reviews:31,diff:'Alta',price:65,oldPrice:null,lat:42.419,lng:0.137,dur:'6h',cat:'Tierra',badge:'new',spots:3,views:9,lastBooked:'hace 2h'},
-    {sport:'ESPELEOLOGIA',icon:'🕳️',loc:'Cuenca',rating:4.5,reviews:16,diff:'Media',price:40,oldPrice:50,lat:40.069,lng:-2.134,dur:'4h',cat:'Tierra',badge:null,spots:9,views:3,lastBooked:'ayer'}
+    // ESCALADA
+    {sport:'ESCALADA',icon:'🧗',loc:'Montserrat, Barcelona',rating:4.9,reviews:88,diff:'Media',price:50,oldPrice:null,lat:41.593,lng:1.835,dur:'4-6h',cat:'Tierra',badge:'popular',spots:5,views:13,lastBooked:'hace 1.5h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Casco','Cuerda','Guía certificado']},
+    {sport:'ESCALADA',icon:'🧗',loc:'El Chorro, Málaga',rating:4.8,reviews:54,diff:'Alta',price:55,oldPrice:null,lat:36.920,lng:-4.746,dur:'5h',cat:'Tierra',badge:'hot',spots:3,views:15,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
+    {sport:'ESCALADA',icon:'🧗',loc:'Siurana, Tarragona',rating:4.9,reviews:41,diff:'Alta',price:60,oldPrice:null,lat:41.255,lng:0.936,dur:'6h',cat:'Tierra',badge:null,spots:4,views:10,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Guía','Seguro']},
+    // VIA FERRATA
+    {sport:'VIA FERRATA',icon:'⛰️',loc:'Riglos, Huesca',rating:4.8,reviews:44,diff:'Alta',price:45,oldPrice:60,lat:42.367,lng:-0.674,dur:'5h',cat:'Tierra',badge:null,spots:8,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Casco','Guía','Snack']},
+    {sport:'VIA FERRATA',icon:'⛰️',loc:'Montserrat, Barcelona',rating:4.7,reviews:32,diff:'Media',price:40,oldPrice:null,lat:41.596,lng:1.833,dur:'4h',cat:'Tierra',badge:'popular',spots:6,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
+    {sport:'VIA FERRATA',icon:'⛰️',loc:'Ronda, Málaga',rating:4.6,reviews:21,diff:'Media',price:35,oldPrice:null,lat:36.744,lng:-5.164,dur:'3.5h',cat:'Tierra',badge:'new',spots:10,views:4,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Arnés','Guía','Seguro']},
+    // MTB ENDURO
+    {sport:'ENDURO MTB',icon:'🚵',loc:'Ainsa, Huesca',rating:4.7,reviews:31,diff:'Alta',price:65,oldPrice:null,lat:42.419,lng:0.137,dur:'6h',cat:'Tierra',badge:'new',spots:3,views:9,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici enduro','Casco','Protecciones','Guía']},
+    {sport:'ENDURO MTB',icon:'🚵',loc:'La Fenasosa, Alicante',rating:4.6,reviews:18,diff:'Media',price:55,oldPrice:null,lat:38.476,lng:-0.802,dur:'5h',cat:'Tierra',badge:null,spots:6,views:5,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici','Casco','Guía']},
+    {sport:'ENDURO MTB',icon:'🚵',loc:'Valle de Arán, Lleida',rating:4.8,reviews:25,diff:'Alta',price:70,oldPrice:null,lat:42.702,lng:0.852,dur:'Jornada',cat:'Tierra',badge:'popular',spots:4,views:12,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici pro','Protecciones','Guía','Snack']},
+    // ESPELEOLOGIA
+    {sport:'ESPELEOLOGIA',icon:'🕳️',loc:'Cuenca',rating:4.5,reviews:16,diff:'Media',price:40,oldPrice:50,lat:40.069,lng:-2.134,dur:'4h',cat:'Tierra',badge:null,spots:9,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Frontal','Casco','Mono','Guía']},
+    {sport:'ESPELEOLOGIA',icon:'🕳️',loc:'Nerja, Málaga',rating:4.7,reviews:28,diff:'Baja',price:35,oldPrice:null,lat:36.750,lng:-3.871,dur:'3h',cat:'Tierra',badge:'popular',spots:8,views:6,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Frontal','Casco','Guía','Foto']},
+    // BARRANQUISMO
+    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Sierra de Guara, Huesca',rating:4.9,reviews:63,diff:'Alta',price:60,oldPrice:null,lat:42.296,lng:-0.116,dur:'5h',cat:'Tierra',badge:'hot',spots:3,views:18,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Neopreno','Casco','Arnés','Guía','Snack']},
+    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Río Verde, Granada',rating:4.7,reviews:37,diff:'Media',price:45,oldPrice:null,lat:36.843,lng:-3.545,dur:'4h',cat:'Tierra',badge:'popular',spots:5,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Guía','Foto']},
+    {sport:'BARRANQUISMO',icon:'🏞️',loc:'Ordesa, Huesca',rating:4.8,reviews:29,diff:'Alta',price:65,oldPrice:null,lat:42.634,lng:-0.058,dur:'6h',cat:'Tierra',badge:null,spots:4,views:8,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Neopreno','Guía','Seguro']},
+    // DOWNHILL
+    {sport:'DOWNHILL',icon:'🚴',loc:'Bike Park La Molina, Girona',rating:4.7,reviews:26,diff:'Alta',price:55,oldPrice:null,lat:42.338,lng:1.946,dur:'Jornada',cat:'Tierra',badge:'new',spots:5,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici DH','Casco integral','Protecciones','Forfait']},
+    {sport:'DOWNHILL',icon:'🚴',loc:'Vallnord, Andorra',rating:4.8,reviews:34,diff:'Alta',price:65,oldPrice:null,lat:42.543,lng:1.486,dur:'Jornada',cat:'Tierra',badge:'popular',spots:3,views:14,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Bici pro','Forfait','Guía','Seguro']},
+    // MOTOCROSS
+    {sport:'MOTOCROSS',icon:'🏍️',loc:'Circuito de Bellpuig, Lleida',rating:4.6,reviews:22,diff:'Alta',price:90,oldPrice:null,lat:41.625,lng:1.004,dur:'3h',cat:'Tierra',badge:null,spots:4,views:8,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Moto','Casco','Protecciones','Instructor']},
+    {sport:'MOTOCROSS',icon:'🏍️',loc:'Talavera, Toledo',rating:4.5,reviews:15,diff:'Media',price:80,oldPrice:null,lat:39.963,lng:-4.834,dur:'2h',cat:'Tierra',badge:'new',spots:6,views:5,lastBooked:'hace 6h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Moto','Equipamiento','Monitor']},
+    // PARKOUR
+    {sport:'PARKOUR',icon:'🤸‍♂️',loc:'Madrid Centro',rating:4.7,reviews:33,diff:'Media',price:30,oldPrice:null,lat:40.415,lng:-3.703,dur:'2h',cat:'Tierra',badge:'popular',spots:10,views:11,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Coach certificado','Calentamiento','Vídeo']},
+    {sport:'PARKOUR',icon:'🤸‍♂️',loc:'Barcelona, Poblenou',rating:4.8,reviews:27,diff:'Media',price:35,oldPrice:null,lat:41.403,lng:2.204,dur:'2h',cat:'Tierra',badge:null,spots:8,views:7,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Coach','Foto','Seguro']},
+    // ALPINISMO
+    {sport:'ALPINISMO',icon:'🗻',loc:'Picos de Europa, Asturias',rating:4.9,reviews:42,diff:'Alta',price:150,oldPrice:null,lat:43.198,lng:-4.832,dur:'2 días',cat:'Tierra',badge:'hot',spots:2,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía UIAGM','Equipo alta montaña','Refugio','Comida']},
+    {sport:'ALPINISMO',icon:'🗻',loc:'Mulhacén, Granada',rating:4.8,reviews:35,diff:'Alta',price:130,oldPrice:null,lat:37.053,lng:-3.311,dur:'2 días',cat:'Tierra',badge:'popular',spots:3,views:12,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía','Equipo','Refugio']},
+    {sport:'ALPINISMO',icon:'🗻',loc:'Aneto, Huesca',rating:5.0,reviews:28,diff:'Alta',price:170,oldPrice:200,lat:42.631,lng:0.657,dur:'2 días',cat:'Tierra',badge:null,spots:2,views:20,lastBooked:'hace 45min',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Guía UIAGM','Material técnico','Seguro premium']},
+    // QUAD
+    {sport:'QUAD',icon:'🛞',loc:'Ruta Quads, Málaga',rating:4.5,reviews:39,diff:'Baja',price:50,oldPrice:65,lat:36.720,lng:-4.420,dur:'1h',cat:'Tierra',badge:'popular',spots:8,views:13,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Casco','Guía','Foto']},
+    {sport:'QUAD',icon:'🛞',loc:'Lanzarote, Canarias',rating:4.7,reviews:28,diff:'Baja',price:55,oldPrice:null,lat:29.047,lng:-13.630,dur:'1.5h',cat:'Tierra',badge:null,spots:6,views:9,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Casco','Ruta volcánica']},
+    {sport:'QUAD',icon:'🛞',loc:'Gran Canaria',rating:4.6,reviews:22,diff:'Baja',price:60,oldPrice:null,lat:27.953,lng:-15.591,dur:'2h',cat:'Tierra',badge:'new',spots:5,views:7,lastBooked:'hace 4h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Quad','Guía','Snack']},
+    // SANDBOARD
+    {sport:'SANDBOARD',icon:'🏜️',loc:'Dunas Maspalomas, Gran Canaria',rating:4.5,reviews:18,diff:'Baja',price:35,oldPrice:null,lat:27.739,lng:-15.580,dur:'2h',cat:'Tierra',badge:null,spots:10,views:5,lastBooked:'hace 5h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Tabla sand','Protección','Instructor']},
+    {sport:'SANDBOARD',icon:'🏜️',loc:'Dunas de Corrubedo, A Coruña',rating:4.4,reviews:11,diff:'Baja',price:30,oldPrice:null,lat:42.554,lng:-9.050,dur:'1.5h',cat:'Tierra',badge:'new',spots:12,views:3,lastBooked:'ayer',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['Tabla','Instructor','Foto']},
+    // HIGHLINE
+    {sport:'SLACKLINE ALTURA',icon:'🌉',loc:'Montserrat, Barcelona',rating:4.9,reviews:9,diff:'Alta',price:120,oldPrice:null,lat:41.595,lng:1.837,dur:'4h',cat:'Tierra',badge:'hot',spots:2,views:14,lastBooked:'hace 2h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Línea pro','Arnés','Instructor elite','Seguro premium']},
+    {sport:'SLACKLINE ALTURA',icon:'🌉',loc:'El Torcal, Málaga',rating:4.8,reviews:6,diff:'Alta',price:110,oldPrice:null,lat:36.953,lng:-4.543,dur:'3.5h',cat:'Tierra',badge:'new',spots:3,views:10,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600',extras:['Equipo completo','Instructor','Vídeo']},
+    // RALLY RAID
+    {sport:'RALLY RAID',icon:'🏎️',loc:'Desierto Tabernas, Almería',rating:4.8,reviews:14,diff:'Alta',price:180,oldPrice:220,lat:37.006,lng:-2.389,dur:'Jornada',cat:'Tierra',badge:'hot',spots:2,views:16,lastBooked:'hace 1h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['4x4 rally','Co-piloto','Equipo','Comida']},
+    {sport:'RALLY RAID',icon:'🏎️',loc:'Bardenas Reales, Navarra',rating:4.7,reviews:11,diff:'Alta',price:170,oldPrice:null,lat:42.208,lng:-1.535,dur:'Jornada',cat:'Tierra',badge:'new',spots:3,views:11,lastBooked:'hace 3h',img:'https://images.unsplash.com/photo-1544191696-15693072e831?w=600',extras:['4x4','Co-piloto','Vídeo']}
   ]}
 };
 const ALL=Object.values(CATS).flatMap(d=>d.cards);
@@ -1496,11 +1952,11 @@ const TICKER_MSGS=[
 ];
 
 // ════ STATE ════
-let curCat='Agua', curSport=null, liked=new Set(), curCard=null;
+let curCat='__ALL__', curSport=null, liked=new Set(), curCard=null;
 let activeDiffs=new Set(), maxPrice=400, sortMode='rating';
 let pfStep=1, payStep=1, payQty=1, revStars=0;
-let mainMap=null, heroMap=null, markers=[], fichaMapInst=null;
-let mapsReady={hero:false, main:false};
+let mainMap=null, markers=[], fichaMapInst=null;
+let mapsReady={main:false};
 
 // ════ UTILS ════
 function toast(msg){
@@ -1524,7 +1980,7 @@ function closeAnn(){
   // Shift everything up by removing ann bar height
   document.documentElement.style.setProperty('--ANH','0px');
   // Recalculate all heights
-  document.querySelectorAll('.page-content').forEach(el=>el.style.marginTop='calc(var(--NH) + var(--CBH))');
+  document.querySelectorAll('.page-content').forEach(el=>el.style.marginTop='calc(var(--NH) + var(--CTBH) + var(--CBH))');
   // Update ddm top
   const ddm=document.getElementById('ddm');
   if(ddm)ddm.style.top='calc(0px + var(--NH) + 6px)';
@@ -1542,14 +1998,36 @@ function goPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(id==='landing'){
-    if(!mapsReady.hero)setTimeout(initHeroMap,150);
     if(!mapsReady.main)setTimeout(initMainMap,200);
-    else{renderFiltered();setTimeout(()=>mainMap&&mainMap.invalidateSize(),200);}
+    else setTimeout(()=>{mainMap&&mainMap.invalidateSize();renderFiltered();},200);
     animStats(); renderFiltered();
   }
   if(id==='admin')renderAdm('dashboard');
   if(id==='profile'){renderBadges();setPTab(document.querySelector('.ptab'),'trips');}
   window.scrollTo(0,0);
+}
+
+// ════ CATEGORY TABS ════
+function setCatTab(el,cat){
+  document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  // Show/hide sport buttons in cat-bar
+  document.querySelectorAll('#cb-inner .sp-btn, #cb-inner .cb-sep').forEach(btn=>{
+    const bc=btn.dataset.cat;
+    btn.style.display=(cat==='__ALL__'||bc==='all'||bc===cat)?'':'none';
+  });
+  // Auto-select Todo in sports bar
+  document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('on'));
+  const todoBtn=document.querySelector('#cb-inner .sp-btn[data-cat="all"]');
+  if(todoBtn)todoBtn.classList.add('on');
+  // Update filter state
+  curCat=(cat==='__ALL__')?'__ALL__':cat;
+  curSport=null;
+  renderFiltered();
+  updateCBArrows();
+  // Scroll cat-bar to start
+  const inner=document.getElementById('cb-inner');
+  if(inner)inner.scrollLeft=0;
 }
 
 // ════ CATEGORY BAR ════
@@ -1636,25 +2114,26 @@ function renderFiltered(){
     const bg=thMap[c.cat]||'th-a';
     const b=c.badge&&bdgMap[c.badge];
     const bc=c.spots<=2?'urg':c.spots<=4?'wrn':'';
-    const btxt=c.spots<=2?'⚡ ¡Última plaza!':c.spots<=4?'Reservar — pocas plazas':'Reservar ya →';
+    const btxt=c.spots<=2?'⚡ Avísame':c.spots<=4?'Me interesa →':'Apúntate →';
     const disc=c.oldPrice?'<span class="ec-save">-'+Math.round((1-c.price/c.oldPrice)*100)+'%</span>':'';
+    const hasImg=c.img;
     return '<div class="ec'+(isL?' lc':'')+'" id="ec'+i+'" onclick=\'openFicha('+JSON.stringify(c)+')\'>'+
-      '<div class="ec-thumb '+bg+'">'+
-        '<span style="filter:drop-shadow(0 3px 8px rgba(0,0,0,.12))">'+c.icon+'</span>'+
+      '<div class="ec-thumb '+(hasImg?'':bg)+'">'+
+        (hasImg?'<img src="'+c.img+'" alt="'+c.sport+'" loading="lazy"><div class="ec-thumb-overlay"></div>':
+        '<span style="font-size:44px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))">'+c.icon+'</span>')+
         (b?'<div class="ec-badge '+b.cls+'">'+b.txt+'</div>':'')+
         '<button class="ec-like'+(isL?' on':'')+'" onclick="event.stopPropagation();togLike(\''+id+'\',this)">♥</button>'+
+        (c.spots<=3?'<div class="ec-spots-pill">🔥 '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
       '</div>'+
       '<div class="ec-body">'+
-        '<div class="ec-top"><span class="ec-sport">'+c.sport+'</span><span class="ec-rat"><span class="s">★</span>'+c.rating.toFixed(1)+'<span class="cnt"> ('+c.reviews+')</span></span></div>'+
-        '<div class="ec-loc">📍 '+c.loc+'</div>'+
-        '<div class="ec-tags"><span class="ec-tag ec-tag-g">'+c.diff+'</span><span class="ec-tag">⏱️ '+c.dur+'</span><span class="ec-tag">🛡️ Seguro</span></div>'+
+        '<div class="ec-header"><span class="ec-sport">'+c.sport+'</span><span class="ec-rat"><span class="s">★</span> '+c.rating.toFixed(1)+'<span class="cnt"> ('+c.reviews+')</span></span></div>'+
+        '<div class="ec-loc">📍 '+c.loc+' · '+c.dur+'</div>'+
+        '<div class="ec-tags"><span class="ec-tag ec-tag-'+c.diff.toLowerCase()+'">'+c.diff+'</span></div>'+
         '<div class="ec-foot">'+
-          '<div><div class="ec-price">'+c.price+'€<span class="ec-old">'+(c.oldPrice?c.oldPrice+'€':'')+'</span>'+disc+'</div>'+(c.spots<=3?'<div class="ec-fomo">🔥 Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+' </div>'+
-          '<button class="ec-book '+bc+'" onclick=\'event.stopPropagation();openFicha('+JSON.stringify(c)+')\'>'+btxt+'</button>'+
+          '<div class="ec-price-block"><div class="ec-price">'+(c.oldPrice?'<span class="ec-old">'+c.oldPrice+'€</span> ':'')+c.price+'€'+disc+'</div><div class="ec-pp">por persona</div></div>'+
+          '<button class="ec-book '+bc+'" onclick=\'event.stopPropagation();openWaitlist('+JSON.stringify(c.sport)+","+JSON.stringify(c.loc)+')\'>'+btxt+'</button>'+
         '</div>'+
-        '<div class="ec-social"><span class="pulse"></span> <b>'+c.views+'</b> lo ven ahora · Reservado '+c.lastBooked+'</div>'+
       '</div>'+
-      (c.spots<=2?'<div class="ec-urgency">🔥 ¡ÚLTIMA PLAZA! Varias personas lo miran ahora mismo</div>':'')+
     '</div>';
   }).join('');
   updateMarkers(cards);
@@ -1683,21 +2162,10 @@ function mkPin(c,priceMode){
   });
 }
 
-function initHeroMap(){
-  const el=document.getElementById('heroMap');
-  if(!el||el.offsetHeight<50){setTimeout(initHeroMap,200);return;}
-  heroMap=L.map('heroMap',{zoomControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,touchZoom:false}).setView([40.2,-3.5],6);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:19,subdomains:'abcd'}).addTo(heroMap);
-  ALL.forEach(c=>{L.marker([c.lat,c.lng],{icon:mkPin(c,false)}).addTo(heroMap).on('click',()=>openFicha(c));});
-  document.getElementById('hero-live').textContent=ALL.length+' actividades';
-  setTimeout(()=>heroMap.invalidateSize(),300);
-  setTimeout(()=>heroMap.invalidateSize(),800);
-  mapsReady.hero=true;
-}
 
 function initMainMap(){
   const el=document.getElementById('mainMap');
-  if(!el){setTimeout(initMainMap,200);return;}
+  if(!el||el.offsetHeight<50){setTimeout(initMainMap,200);return;}
   mainMap=L.map('mainMap',{zoomControl:false}).setView([40.2,-3.5],6);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:19,subdomains:'abcd'}).addTo(mainMap);
   L.control.zoom({position:'topright'}).addTo(mainMap);
@@ -1724,18 +2192,32 @@ function updateMarkers(cards){
       '<div class="mp-row"><div class="mp-price">'+c.price+'€<span style="font-size:11px;color:#9ca3af"> p/p</span></div><div class="mp-rat">★ '+c.rating.toFixed(1)+'</div></div>'+
       (c.spots<=3?'<div class="mp-fomo">🔥 Solo quedan '+c.spots+' plazas</div>':'')+
       '<div style="font-size:11px;color:var(--mu);margin-bottom:8px">👁️ '+c.views+' personas lo ven ahora</div>'+
-      '<button class="mp-btn" style="background:'+(c.spots<=2?'var(--r)':'var(--g)')+'" onclick=\'openFicha('+JSON.stringify(c)+')\'>'+
-      (c.spots<=2?'⚡ Última plaza — Reservar ya':'Reservar ahora →')+'</button>'+
+      '<button class="mp-btn" style="background:'+(c.spots<=2?'var(--r)':'var(--g)')+'" onclick=\'openWaitlist('+JSON.stringify(c.sport)+","+JSON.stringify(c.loc)+')\'>'+
+      (c.spots<=2?'⚡ Avísame — Última plaza':'Apúntate →')+'</button>'+
       '</div></div>',
       {maxWidth:220,minWidth:220}
     );
+    // Pin → Card hover sync
+    m.on('mouseover',()=>{
+      document.querySelectorAll('.ec').forEach(e=>e.classList.remove('map-hover'));
+      const ec=document.getElementById('ec'+i);
+      if(ec){ec.classList.add('map-hover');ec.scrollIntoView({behavior:'smooth',block:'nearest'});}
+    });
+    m.on('mouseout',()=>{
+      const ec=document.getElementById('ec'+i);
+      if(ec)ec.classList.remove('map-hover');
+    });
     m.on('click',()=>{
       document.querySelectorAll('.ec').forEach(e=>e.classList.remove('hl'));
       const ec=document.getElementById('ec'+i);
       if(ec){ec.classList.add('hl');ec.scrollIntoView({behavior:'smooth',block:'nearest'});}
+      mainMap.panTo(m.getLatLng(),{animate:true,duration:.4});
     });
     markers.push(m);
   });
+  // Update markerMap for card→pin hover
+  markerMap={};
+  markers.forEach((m,i)=>{markerMap[i]=m;});
   if(cards.length>1){try{mainMap.fitBounds(L.latLngBounds(cards.map(c=>[c.lat,c.lng])),{padding:[40,40],maxZoom:12});}catch(e){}}
 }
 
@@ -1773,7 +2255,77 @@ function openFicha(c){
   },350);
 }
 
-// ════ PAYMENT ════
+// ════ WAITLIST ════
+function openWaitlist(sport,loc){
+  const selBox=document.getElementById('wl-selected');
+  const actSel=document.getElementById('wl-activity');
+  if(sport&&selBox){
+    selBox.innerHTML='✨ Te apuntas para: <b>'+sport+(loc?' · '+loc:'')+'</b>';
+    selBox.style.display='flex';
+    selBox.dataset.sport=sport;
+    selBox.dataset.loc=loc||'';
+    // Pre-seleccionar actividad si match
+    if(actSel){
+      const match=Array.from(actSel.options).find(o=>sport.toLowerCase().includes(o.value.toLowerCase())&&o.value);
+      if(match)actSel.value=match.value;
+    }
+  } else if(selBox){
+    selBox.style.display='none';
+    selBox.removeAttribute('data-sport');
+    selBox.removeAttribute('data-loc');
+  }
+  // Reset formulario
+  const form=document.getElementById('wl-form');
+  const success=document.getElementById('wl-success');
+  const err=document.getElementById('wl-error');
+  if(form)form.style.display='flex';
+  if(success)success.style.display='none';
+  if(err)err.style.display='none';
+  openOv('ov-waitlist');
+  setTimeout(()=>document.getElementById('wl-name')?.focus(),200);
+  if(window.plausible)plausible('waitlist_opened',{props:{sport:sport||'general'}});
+}
+function openWaitlistFromFicha(){
+  const c=curCard;
+  closeOv('ov-ficha');
+  setTimeout(()=>openWaitlist(c?.sport||'',c?.loc||''),150);
+}
+async function submitWaitlist(e){
+  e.preventDefault();
+  const btn=document.getElementById('wl-submit');
+  const err=document.getElementById('wl-error');
+  const form=document.getElementById('wl-form');
+  const success=document.getElementById('wl-success');
+  const selBox=document.getElementById('wl-selected');
+  err.style.display='none';
+  btn.disabled=true;
+  btn.textContent='Enviando...';
+  const payload={
+    name:document.getElementById('wl-name').value.trim(),
+    email:document.getElementById('wl-email').value.trim().toLowerCase(),
+    activity:document.getElementById('wl-activity').value||null,
+    postal_code:document.getElementById('wl-postal').value.trim()||null,
+    gdpr:document.getElementById('wl-gdpr').checked,
+    company:document.getElementById('wl-hp').value, // honeypot
+    source:selBox?.dataset?.sport?('sport:'+selBox.dataset.sport):'landing',
+    ref_loc:selBox?.dataset?.loc||null
+  };
+  try{
+    const r=await fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok) throw new Error(j.error||'No se pudo enviar. Intenta de nuevo.');
+    form.style.display='none';
+    success.style.display='block';
+    if(window.plausible)plausible('waitlist_submitted',{props:{activity:payload.activity||'any'}});
+  }catch(ex){
+    err.textContent=ex.message||'Error inesperado';
+    err.style.display='block';
+    btn.disabled=false;
+    btn.textContent='Apúntame a la lista →';
+  }
+}
+
+// ════ PAYMENT (legacy — oculto hasta tener Stripe + legal) ════
 function openPay(){payStep=1;payQty=1;openOv('ov-pay');renderPay();}
 function renderPay(){
   const c=curCard;if(!c)return;
@@ -1956,7 +2508,7 @@ function renderPTab(t){
   else el.innerHTML=ALL.slice(0,3).map(c=>'<div class="trip-card" onclick=\'openFicha('+JSON.stringify(c)+')\'>'+
     '<div class="tc-icon '+tcCls[c.cat]+'">'+c.icon+'</div>'+
     '<div style="flex:1"><div class="tc-title">'+c.sport+'</div><div class="tc-loc">📍 '+c.loc+' · '+c.price+'€ p/p</div></div>'+
-    '<button class="btn-g" style="font-size:12px;padding:7px 14px" onclick=\'event.stopPropagation();openFicha('+JSON.stringify(c)+')\'>Reservar</button></div>').join('');
+    '<button class="btn-g" style="font-size:12px;padding:7px 14px" onclick=\'event.stopPropagation();openWaitlist('+JSON.stringify(c.sport)+","+JSON.stringify(c.loc)+')\'>Apúntate</button></div>').join('');
 }
 
 // ════ ADMIN ════
@@ -2145,8 +2697,7 @@ document.addEventListener('mouseleave',e=>{
 
 // ════ INIT ════
 document.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(initHeroMap,300);
-  setTimeout(initMainMap,400);
+  setTimeout(initMainMap,300);
   animStats();
   renderFiltered();
   startCountdown();
@@ -2156,6 +2707,37 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateCBArrows();
   updAdmBadge();
   setTimeout(updateCBArrows,500);
+  const y=document.getElementById('tx-year');if(y)y.textContent=new Date().getFullYear();
+});
+
+// ════ CARD ↔ MAP HOVER SYNC ════
+let markerMap={};
+function updateMarkerMap(){
+  markerMap={};
+  markers.forEach((m,i)=>{markerMap[i]=m;});
+}
+
+document.addEventListener('mouseover',e=>{
+  const card=e.target.closest('.ec');
+  if(!card)return;
+  const idx=parseInt(card.id.replace('ec',''));
+  const m=markerMap[idx];
+  if(m&&mainMap){
+    m._icon&&(m._icon.style.transform+=' scale(1.4)');
+    m._icon&&(m._icon.style.zIndex='9999');
+    m._icon&&(m._icon.style.transition='transform .2s');
+    mainMap.panTo(m.getLatLng(),{animate:true,duration:.4});
+  }
+});
+document.addEventListener('mouseout',e=>{
+  const card=e.target.closest('.ec');
+  if(!card)return;
+  const idx=parseInt(card.id.replace('ec',''));
+  const m=markerMap[idx];
+  if(m&&m._icon){
+    m._icon.style.transform=m._icon.style.transform.replace(' scale(1.4)','');
+    m._icon.style.zIndex='';
+  }
 });
 </script>
 </body>
