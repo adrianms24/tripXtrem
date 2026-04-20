@@ -1117,7 +1117,147 @@ tr:hover td{background:#fafafa;}
 /* Reduce motion accessibility */
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+  .tx-reveal{opacity:1!important;transform:none!important;}
+  .tx-float,.tx-float-delay,.tx-pulse-glow,.tx-shine::after{animation:none!important;}
+  .tx-tilt-wrap{transform:none!important;}
 }
+
+/* ═══ 3D & MICRO-INTERACTIONS ═══ */
+
+/* Perspective wrapper for tilt cards */
+.tx-tilt{perspective:1000px;perspective-origin:center;}
+.tx-tilt-wrap{
+  transform-style:preserve-3d;
+  will-change:transform;
+  transition:transform .3s cubic-bezier(.2,.9,.3,1.2);
+}
+.tx-tilt-wrap > *{transform:translateZ(0);}
+.tx-tilt .tx-lift{transform:translateZ(30px);}
+
+/* Scroll reveals (used with IntersectionObserver JS) */
+.tx-reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1);
+  will-change:opacity,transform;
+}
+.tx-reveal.in{opacity:1;transform:translateY(0);}
+.tx-reveal-fade{opacity:0;transition:opacity .8s ease;}
+.tx-reveal-fade.in{opacity:1;}
+.tx-reveal-scale{opacity:0;transform:scale(.94);transition:all .6s cubic-bezier(.2,.8,.3,1.1);}
+.tx-reveal-scale.in{opacity:1;transform:scale(1);}
+.tx-reveal-slide-l{opacity:0;transform:translateX(-40px);transition:all .7s cubic-bezier(.2,.8,.3,1);}
+.tx-reveal-slide-l.in{opacity:1;transform:translateX(0);}
+.tx-reveal-slide-r{opacity:0;transform:translateX(40px);transition:all .7s cubic-bezier(.2,.8,.3,1);}
+.tx-reveal-slide-r.in{opacity:1;transform:translateX(0);}
+
+/* Stagger children (cards entering one by one) */
+.tx-stagger > *{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.3,1);}
+.tx-stagger.in > *{opacity:1;transform:translateY(0);}
+.tx-stagger.in > *:nth-child(1){transition-delay:.04s;}
+.tx-stagger.in > *:nth-child(2){transition-delay:.1s;}
+.tx-stagger.in > *:nth-child(3){transition-delay:.16s;}
+.tx-stagger.in > *:nth-child(4){transition-delay:.22s;}
+.tx-stagger.in > *:nth-child(5){transition-delay:.28s;}
+.tx-stagger.in > *:nth-child(6){transition-delay:.34s;}
+.tx-stagger.in > *:nth-child(7){transition-delay:.40s;}
+.tx-stagger.in > *:nth-child(8){transition-delay:.46s;}
+
+/* Float (continuous subtle movement) */
+@keyframes txFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes txFloatSm{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.tx-float{animation:txFloat 5s ease-in-out infinite;}
+.tx-float-delay{animation:txFloat 5s ease-in-out 1.2s infinite;}
+.tx-float-sm{animation:txFloatSm 3s ease-in-out infinite;}
+
+/* Pulse glow (for CTAs, badges) */
+@keyframes txPulseGlow{
+  0%,100%{box-shadow:0 6px 20px rgba(201,162,74,.28),0 0 0 0 rgba(201,162,74,.4);}
+  50%{box-shadow:0 8px 28px rgba(201,162,74,.4),0 0 0 12px rgba(201,162,74,0);}
+}
+.tx-pulse-glow{animation:txPulseGlow 2.6s ease-in-out infinite;}
+
+/* Brand pulse for urgency */
+@keyframes txPulseBrand{
+  0%,100%{box-shadow:0 4px 14px rgba(139,31,43,.3),0 0 0 0 rgba(139,31,43,.5);}
+  50%{box-shadow:0 6px 20px rgba(139,31,43,.5),0 0 0 10px rgba(139,31,43,0);}
+}
+.tx-pulse-brand{animation:txPulseBrand 2s ease-in-out infinite;}
+
+/* Shine effect (gold sweep over buttons) */
+.tx-shine{position:relative;overflow:hidden;isolation:isolate;}
+.tx-shine::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+  transform:translateX(-100%);
+  animation:txShine 3s ease-in-out 1.5s infinite;
+  pointer-events:none;
+}
+@keyframes txShine{0%{transform:translateX(-100%);}50%,100%{transform:translateX(200%);}}
+
+/* Magnetic CTA (works with JS mousemove) */
+.tx-magnet{transition:transform .2s cubic-bezier(.3,.8,.4,1);will-change:transform;}
+.tx-magnet-strong{transition:transform .18s cubic-bezier(.3,.8,.4,1);}
+
+/* Lift on hover (unified) */
+.tx-lift-hover{transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s ease;}
+.tx-lift-hover:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);}
+
+/* Image parallax within card */
+.tx-tilt:hover .tx-tilt-img{transform:translateZ(20px) scale(1.08);}
+.tx-tilt-img{transition:transform .35s cubic-bezier(.2,.8,.3,1);}
+
+/* Rocket launch animation for empty state */
+@keyframes txRocket{
+  0%{transform:translateY(0) rotate(-8deg);}
+  20%{transform:translateY(-4px) rotate(-6deg);}
+  40%{transform:translateY(-2px) rotate(-10deg);}
+  60%{transform:translateY(-6px) rotate(-4deg);}
+  80%{transform:translateY(-3px) rotate(-8deg);}
+  100%{transform:translateY(0) rotate(-8deg);}
+}
+@keyframes txRocketSmoke{
+  0%{opacity:0;transform:translateY(0) scale(1);}
+  40%{opacity:.6;}
+  100%{opacity:0;transform:translateY(20px) scale(1.4);}
+}
+.tx-rocket{display:inline-block;animation:txRocket 3.2s ease-in-out infinite;position:relative;}
+.tx-rocket::before{
+  content:'✨';
+  position:absolute;
+  bottom:-14px;left:50%;
+  transform:translateX(-50%);
+  font-size:.5em;
+  animation:txRocketSmoke 2s ease-out infinite;
+}
+
+/* Headline letter reveal */
+.tx-letters{display:inline-block;}
+.tx-letters span{display:inline-block;opacity:0;transform:translateY(20px);}
+.tx-letters.in span{
+  animation:txLetterIn .6s cubic-bezier(.2,.8,.3,1.1) forwards;
+}
+@keyframes txLetterIn{to{opacity:1;transform:translateY(0);}}
+
+/* Particle pulse ring (for pins/badges) */
+@keyframes txRing{
+  0%{box-shadow:0 0 0 0 rgba(201,162,74,.7);}
+  100%{box-shadow:0 0 0 14px rgba(201,162,74,0);}
+}
+.tx-ring::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  animation:txRing 2s ease-out infinite;
+  pointer-events:none;
+}
+
+/* Smooth focus states (accessibility) */
+button:focus-visible,a:focus-visible,[role=button]:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px;border-radius:6px;
+}
+
+/* Smooth transforms on common interactive elements */
+.ec,.pack-card,.ct-btn,.sp-btn{will-change:transform;}
 </style>
 </head>
 <body>
@@ -2235,7 +2375,7 @@ function renderFiltered(){
   if(!cards.length){
     const noData = ALL.length===0;
     cl.innerHTML = noData
-      ? '<div style="text-align:center;padding:60px 24px;color:var(--mu);grid-column:1/-1;"><div style="font-size:54px;margin-bottom:14px">🚀</div><p style="font-size:18px;font-weight:800;color:var(--dk);font-family:Syne,sans-serif">Próximamente</p><p style="font-size:14px;margin:8px 0 20px;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.6">Estamos incorporando las mejores empresas de deportes extremos del mundo. Apúntate y serás de los primeros en reservar.</p><button class="btn-g" style="padding:10px 22px;font-size:13px" onclick="openWaitlist(\'\',\'\')">Únete a la lista →</button></div>'
+      ? '<div class="tx-reveal-scale in" style="text-align:center;padding:60px 24px;color:var(--mu);grid-column:1/-1;"><div class="tx-rocket" style="font-size:60px;margin-bottom:18px;display:inline-block">🚀</div><p style="font-size:20px;font-weight:900;color:var(--navy);font-family:Bangers,Impact,sans-serif;letter-spacing:1.2px;">PRÓXIMAMENTE</p><p style="font-size:14px;margin:10px 0 22px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6">Estamos incorporando las mejores empresas de deportes extremos del mundo. Apúntate y serás de los primeros en reservar.</p><button class="btn-g tx-magnet tx-pulse-glow" style="padding:12px 26px;font-size:14px" onclick="openWaitlist(\'\',\'\')">Únete a la lista →</button></div>'
       : '<div style="text-align:center;padding:50px 20px;color:var(--mu);grid-column:1/-1;"><div style="font-size:44px;margin-bottom:12px">🔍</div><p style="font-size:14px;font-weight:700">Sin resultados</p><p style="font-size:13px;margin-top:6px">Prueba cambiando los filtros</p><button class="btn-g" style="margin-top:14px;font-size:13px;padding:8px 18px" onclick="activeDiffs.clear();maxPrice=400;document.querySelectorAll(\'.fchip\').forEach(b=>b.className=\'fchip\');document.getElementById(\'priceR\').value=400;document.getElementById(\'priceV\').textContent=\'400€\';renderFiltered()">Quitar filtros</button></div>';
     updateMarkers([]);return;
   }
@@ -3109,6 +3249,170 @@ document.addEventListener('mouseout',e=>{
     m.content.style.zIndex = '';
   }
 });
+
+// ════════════════════════════════════════════
+// 3D / MICRO-INTERACTIONS ENGINE
+// ════════════════════════════════════════════
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+
+  // ── 1) Scroll reveals (IntersectionObserver)
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        // Only reveal once
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  function observeReveals(){
+    document.querySelectorAll('.tx-reveal, .tx-reveal-fade, .tx-reveal-scale, .tx-reveal-slide-l, .tx-reveal-slide-r, .tx-stagger').forEach(el=>{
+      if(!el.dataset.observed){ el.dataset.observed='1'; io.observe(el); }
+    });
+  }
+
+  // ── 2) Card tilt 3D (mousemove → rotateX/Y)
+  function attachTilt(el){
+    if(el.dataset.tiltAttached) return;
+    el.dataset.tiltAttached = '1';
+    let rect, raf;
+    const reset = ()=>{
+      el.style.setProperty('--rx','0deg');
+      el.style.setProperty('--ry','0deg');
+    };
+    el.addEventListener('mouseenter', ()=>{ rect = el.getBoundingClientRect(); });
+    el.addEventListener('mousemove', (e)=>{
+      if(!rect) rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rx = (0.5 - y) * 8;   // grados
+      const ry = (x - 0.5) * 10;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=>{
+        el.style.setProperty('--rx', rx.toFixed(2)+'deg');
+        el.style.setProperty('--ry', ry.toFixed(2)+'deg');
+        el.style.transform = `rotateX(var(--rx)) rotateY(var(--ry))`;
+      });
+    });
+    el.addEventListener('mouseleave', ()=>{
+      reset();
+      el.style.transform = '';
+    });
+  }
+  function wireTilts(){
+    document.querySelectorAll('.tx-tilt-wrap').forEach(attachTilt);
+  }
+
+  // ── 3) Magnetic buttons
+  function attachMagnet(el){
+    if(el.dataset.magnetAttached) return;
+    el.dataset.magnetAttached = '1';
+    const strength = el.classList.contains('tx-magnet-strong') ? 0.4 : 0.22;
+    let rect;
+    el.addEventListener('mouseenter', ()=>{ rect = el.getBoundingClientRect(); });
+    el.addEventListener('mousemove', (e)=>{
+      if(!rect) rect = el.getBoundingClientRect();
+      const mx = e.clientX - (rect.left + rect.width/2);
+      const my = e.clientY - (rect.top + rect.height/2);
+      el.style.transform = `translate(${mx*strength}px, ${my*strength}px)`;
+    });
+    el.addEventListener('mouseleave', ()=>{ el.style.transform = ''; });
+  }
+  function wireMagnets(){
+    document.querySelectorAll('.tx-magnet, .tx-magnet-strong').forEach(attachMagnet);
+  }
+
+  // ── 4) Auto-wire new cards (rendered dynamically in renderFiltered)
+  const mo = new MutationObserver(()=>{
+    observeReveals();
+    wireTilts();
+    wireMagnets();
+    autoDecorate();
+  });
+
+  // ── 5) Auto-decorate cards and packs (add classes without touching renderFiltered)
+  function autoDecorate(){
+    // Experience cards
+    document.querySelectorAll('#card-list .ec').forEach(c=>{
+      if(!c.classList.contains('tx-tilt')){
+        c.classList.add('tx-tilt','tx-reveal');
+        // Inner wrap doesn't exist; we rotate the card itself
+        c.classList.add('tx-tilt-wrap');
+      }
+    });
+    // Pack cards
+    document.querySelectorAll('.packs-grid .pack-card').forEach(c=>{
+      if(!c.classList.contains('tx-tilt')){
+        c.classList.add('tx-tilt','tx-tilt-wrap','tx-reveal-scale');
+      }
+    });
+  }
+
+  // ── 6) Headline letter reveal
+  function splitLetters(el){
+    if(el.dataset.split) return;
+    el.dataset.split = '1';
+    const txt = el.textContent;
+    el.textContent = '';
+    [...txt].forEach((ch,i)=>{
+      const s = document.createElement('span');
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      s.style.animationDelay = (i*0.03)+'s';
+      el.appendChild(s);
+    });
+  }
+
+  // ── 7) Start on ready
+  function init(){
+    // Landing section reveals (hook to main sections)
+    [
+      '.trust-bar', '.pack-compare', '.section', '.how-bg',
+      '.stats-sec', '.partner-cta', '.tx-footer',
+      '.packs-grid', '.test-grid', '.how-grid'
+    ].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.classList.contains('tx-reveal') &&
+           !el.classList.contains('tx-reveal-scale') &&
+           !el.classList.contains('tx-stagger')){
+          el.classList.add(sel.includes('grid')?'tx-stagger':'tx-reveal');
+        }
+      });
+    });
+    // Magnetic on main CTAs
+    document.querySelectorAll('.btn-g.btn-lg-g, .hs-btn, .wl-submit, .sb-cta, .ec-book').forEach(b=>{
+      if(!b.classList.contains('tx-magnet')) b.classList.add('tx-magnet');
+    });
+    // Pulse glow on primary waitlist CTAs
+    document.querySelectorAll('.partner-cta .btn-lg-g, .wl-submit').forEach(b=>{
+      if(!b.classList.contains('tx-pulse-glow')) b.classList.add('tx-pulse-glow');
+    });
+    // Shine on hero button if exists (legacy .hs-btn)
+    document.querySelectorAll('.hs-btn').forEach(b=>b.classList.add('tx-shine'));
+
+    autoDecorate();
+    observeReveals();
+    wireTilts();
+    wireMagnets();
+
+    // Observe card-list changes (renderFiltered re-renders)
+    const cl = document.getElementById('card-list');
+    if(cl) mo.observe(cl, { childList: true });
+    const pg = document.querySelector('.packs-grid');
+    if(pg) mo.observe(pg, { childList: true });
+
+    // Letter reveal for big headlines (partner CTA, section titles)
+    // Optional — avoid layout shift on critical text. Skipped by default.
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 </body>
 </html>
