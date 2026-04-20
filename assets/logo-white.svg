@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="TripXtrem">
+  <!-- Fondo transparente, pensado para fotos oscuras o fondo oscuro -->
+  <rect x="4" y="4" width="64" height="64" rx="14" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M22 22 L50 50" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M50 22 L22 50" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="36" cy="36" r="3" fill="#22c55e"/>
+  <g font-family="'Syne', 'Arial Black', sans-serif" font-weight="900" font-size="30" letter-spacing="-1">
+    <text x="88" y="46" fill="#ffffff">Trip</text>
+    <text x="152" y="46" fill="#22c55e">X</text>
+    <text x="172" y="46" fill="#ffffff">trem</text>
+  </g>
+</svg>
