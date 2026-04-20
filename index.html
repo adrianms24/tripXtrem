@@ -765,6 +765,14 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .pf-step.active{display:block;}
 .pf-step h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
 .pf-step>p{font-size:13.5px;color:var(--mu);margin-bottom:18px;}
+/* Google Places suggestions */
+#pf-gsug{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--sh-md);max-height:260px;overflow-y:auto;z-index:10;}
+#pf-gsug:empty{display:none;}
+.gsug-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s;}
+.gsug-item:last-child{border-bottom:none;}
+.gsug-item:hover{background:#f9fafb;}
+.gsug-main{font-size:13px;font-weight:700;color:var(--dk);}
+.gsug-sec{font-size:11.5px;color:var(--mu);margin-top:2px;}
 .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px;}
 .svc-card{border:2px solid var(--border);border-radius:13px;padding:14px;cursor:pointer;transition:all .18s;display:flex;align-items:flex-start;gap:11px;}
 .svc-card:hover:not(.disabled){border-color:var(--g);background:#f0fdf4;}
@@ -1669,17 +1677,34 @@ tr:hover td{background:#fafafa;}
   <!-- Step 4 -->
   <div class="pf-step" id="pf4">
     <h3>Ubicación de la actividad</h3>
-    <p>¿Dónde se realiza? Aparecerá en el mapa interactivo de TripXtrem.</p>
+    <p>Busca tu empresa o dirección en Google. Se rellenará todo automáticamente.</p>
+    <div class="fg" style="position:relative;">
+      <label>🔍 Buscar en Google <span style="color:var(--mu);font-weight:500;font-size:11px;">(nombre o dirección)</span></label>
+      <input type="text" id="pf-gsearch" placeholder="Ej: Surf School Zarautz · Escuela Parapente Gandía" autocomplete="off">
+      <div id="pf-gsug"></div>
+    </div>
+    <div id="pf-gpreview" style="display:none;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:12px 14px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;font-weight:800;color:var(--gd);margin-bottom:3px;">✅ Ubicación verificada</div>
+          <div id="pf-gpreview-name" style="font-size:14px;font-weight:700;color:var(--dk);"></div>
+          <div id="pf-gpreview-addr" style="font-size:12px;color:var(--mu);margin-top:2px;line-height:1.4"></div>
+          <div id="pf-gpreview-meta" style="font-size:11px;color:var(--mu);margin-top:4px;"></div>
+        </div>
+        <button type="button" onclick="clearGPlace()" style="background:none;border:none;color:var(--r);cursor:pointer;font-size:12px;font-weight:700;">Cambiar</button>
+      </div>
+    </div>
     <div class="fg"><label>Dirección *</label><input type="text" id="pf-dir" placeholder="Calle, número..."></div>
     <div class="frow">
       <div class="fg"><label>Ciudad *</label><input type="text" id="pf-ciudad" placeholder="Zarautz"></div>
       <div class="fg"><label>Provincia *</label><input type="text" id="pf-prov" placeholder="País Vasco"></div>
     </div>
-    <div class="fg"><label>País</label><select id="pf-pais"><option>España</option><option>Portugal</option><option>Francia</option><option>Italia</option></select></div>
+    <div class="fg"><label>País</label><select id="pf-pais"><option>España</option><option>Portugal</option><option>Francia</option><option>Italia</option><option>Reino Unido</option><option>Alemania</option><option>Estados Unidos</option><option>México</option><option>Costa Rica</option><option>Otro</option></select></div>
     <div class="frow">
-      <div class="fg"><label>Latitud (opcional)</label><input type="number" id="pf-lat" placeholder="43.284" step="0.001"></div>
-      <div class="fg"><label>Longitud (opcional)</label><input type="number" id="pf-lng" placeholder="-2.234" step="0.001"></div>
+      <div class="fg"><label>Latitud</label><input type="number" id="pf-lat" placeholder="43.284" step="0.000001" readonly></div>
+      <div class="fg"><label>Longitud</label><input type="number" id="pf-lng" placeholder="-2.234" step="0.000001" readonly></div>
     </div>
+    <input type="hidden" id="pf-placeid">
   </div>
   <!-- Step 5 -->
   <div class="pf-step" id="pf5">
@@ -2326,23 +2351,31 @@ function pfNext(){
 async function submitPartnerApply(){
   const btn=document.getElementById('pf-next');
   const companyName=(document.getElementById('pf-nombre').value||'').trim();
-  const contactName=companyName; // TODO: campo específico contacto; usamos empresa por ahora
+  const contactName=companyName;
   const email=(document.getElementById('pf-email').value||'').trim().toLowerCase();
   const phone=(document.getElementById('pf-tel').value||'').trim();
   const website=(document.getElementById('pf-web').value||'').trim();
   const description=(document.getElementById('pf-desc').value||'').trim();
   const sport=document.getElementById('pf-tipo').value||'';
   const city=(document.getElementById('pf-ciudad').value||'').trim();
-  const paisMap={'España':'ES','Portugal':'PT','Francia':'FR','Italia':'IT'};
-  const country=paisMap[document.getElementById('pf-pais').value]||'ES';
+  const paisMap={'España':'ES','Portugal':'PT','Francia':'FR','Italia':'IT','Reino Unido':'GB','Alemania':'DE','Estados Unidos':'US','México':'MX','Costa Rica':'CR','Otro':'XX'};
+  const country=paisMap[document.getElementById('pf-pais').value]||(gCurrentPlace?.country||'ES');
   if(!companyName||!email){toast('⚠️ Faltan datos obligatorios');pfGoStep(2);return;}
   btn.disabled=true;btn.textContent='Enviando...';
   try{
-    const r=await fetch('/api/partner-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    const payload={
       company_name:companyName,contact_name:contactName,email,phone,website,
       country,city,sports:sport,description,
       gdpr:true,company:''
-    })});
+    };
+    if(gCurrentPlace){
+      payload.google_place_id=gCurrentPlace.placeId;
+      payload.google_data=gCurrentPlace;
+      payload.formatted_address=gCurrentPlace.formattedAddress;
+      payload.lat=gCurrentPlace.lat;
+      payload.lng=gCurrentPlace.lng;
+    }
+    const r=await fetch('/api/partner-apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const j=await r.json().catch(()=>({}));
     if(!r.ok) throw new Error(j.error||'Error');
     savePF();closeOv('ov-partner');
@@ -2356,6 +2389,93 @@ async function submitPartnerApply(){
 function pfPrev(){if(pfStep>1)pfGoStep(pfStep-1);}
 function selSvc(el){if(el.classList.contains('disabled'))return;document.querySelectorAll('.svc-card:not(.disabled)').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
 function selDiff(btn,l){document.querySelectorAll('.diff-btn').forEach(b=>b.className='diff-btn');btn.classList.add(l);}
+
+// ════ GOOGLE PLACES AUTOCOMPLETE ════
+let gPlaceSession=null, gSearchTimer=null, gCurrentPlace=null;
+function newSessionToken(){return crypto.randomUUID ? crypto.randomUUID() : 'sess-'+Math.random().toString(36).slice(2)+Date.now();}
+function gSearch(q){
+  if(!gPlaceSession) gPlaceSession = newSessionToken();
+  const box=document.getElementById('pf-gsug');
+  if(!q||q.length<2){ box.innerHTML=''; return; }
+  fetch('/api/places-autocomplete?q='+encodeURIComponent(q)+'&session='+gPlaceSession+'&lang=es')
+    .then(r=>r.json())
+    .then(data=>{
+      const preds=Array.isArray(data.predictions)?data.predictions:[];
+      if(!preds.length){ box.innerHTML=''; return; }
+      box.innerHTML = preds.slice(0,6).map(p=>
+        '<div class="gsug-item" onclick="pickPlace(\''+p.placeId+'\')">'+
+        '<div class="gsug-main">'+(p.mainText||p.text||'')+'</div>'+
+        '<div class="gsug-sec">'+(p.secondaryText||'')+'</div>'+
+        '</div>'
+      ).join('');
+    })
+    .catch(err=>console.error('[gSearch]',err));
+}
+async function pickPlace(placeId){
+  document.getElementById('pf-gsug').innerHTML='';
+  document.getElementById('pf-gsearch').value='Cargando...';
+  try{
+    const r=await fetch('/api/places-details?placeId='+encodeURIComponent(placeId)+'&session='+(gPlaceSession||'')+'&lang=es');
+    const j=await r.json();
+    if(!j.ok||!j.place) throw new Error('No details');
+    gCurrentPlace = j.place;
+    // Rellenar campos
+    document.getElementById('pf-placeid').value = j.place.placeId || '';
+    document.getElementById('pf-dir').value = j.place.formattedAddress || '';
+    document.getElementById('pf-ciudad').value = j.place.city || '';
+    document.getElementById('pf-prov').value = j.place.region || '';
+    document.getElementById('pf-lat').value = j.place.lat || '';
+    document.getElementById('pf-lng').value = j.place.lng || '';
+    const pais = j.place.countryName || '';
+    const sel = document.getElementById('pf-pais');
+    const match = Array.from(sel.options).find(o => o.value.toLowerCase()===pais.toLowerCase());
+    if(match) sel.value = match.value; else sel.value='Otro';
+    // Si no hay nombre de empresa aún, autorelleno
+    const nom=document.getElementById('pf-nombre');
+    if(!nom.value && j.place.name) nom.value = j.place.name;
+    // Preview
+    document.getElementById('pf-gpreview').style.display='block';
+    document.getElementById('pf-gpreview-name').textContent = j.place.name || '';
+    document.getElementById('pf-gpreview-addr').textContent = j.place.formattedAddress || '';
+    const meta=[];
+    if(j.place.rating) meta.push('⭐ '+j.place.rating+' ('+(j.place.reviewsCount||0)+' reseñas)');
+    if(j.place.phone) meta.push('📞 '+j.place.phone);
+    if(j.place.primaryType) meta.push(j.place.primaryType);
+    document.getElementById('pf-gpreview-meta').textContent = meta.join(' · ');
+    document.getElementById('pf-gsearch').value = j.place.name || '';
+    // Renovar session token (Google cobra por sesión completa)
+    gPlaceSession = null;
+  }catch(err){
+    console.error('[pickPlace]',err);
+    toast('❌ No se pudo cargar detalles de Google');
+    document.getElementById('pf-gsearch').value='';
+  }
+}
+function clearGPlace(){
+  gCurrentPlace=null;
+  document.getElementById('pf-placeid').value='';
+  document.getElementById('pf-gsearch').value='';
+  document.getElementById('pf-gpreview').style.display='none';
+  document.getElementById('pf-gsearch').focus();
+}
+// Bind input con debounce
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('pf-gsearch');
+  if(inp){
+    inp.addEventListener('input',e=>{
+      clearTimeout(gSearchTimer);
+      const v=e.target.value;
+      gSearchTimer=setTimeout(()=>gSearch(v),250);
+    });
+    // Cerrar sugerencias al clickear fuera
+    document.addEventListener('click',e=>{
+      if(!e.target.closest('#pf-gsearch') && !e.target.closest('#pf-gsug')){
+        const box=document.getElementById('pf-gsug');
+        if(box)box.innerHTML='';
+      }
+    });
+  }
+});
 function pfFillSummary(){
   document.getElementById('pf-s-emp').textContent=document.getElementById('pf-nombre').value||'—';
   document.getElementById('pf-s-tipo').textContent=document.getElementById('pf-tipo').value||'—';

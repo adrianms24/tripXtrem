@@ -26,6 +26,12 @@ type Body = {
   years_operating?: number;
   gdpr?: boolean;
   company?: string; // honeypot
+  // Google Places autofill
+  google_place_id?: string;
+  google_data?: unknown;
+  formatted_address?: string;
+  lat?: number;
+  lng?: number;
 };
 
 function hashIp(ip: string): string {
@@ -117,17 +123,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const ip = xff.split(',')[0].trim() || req.socket?.remoteAddress || 'unknown';
   const ipHash = hashIp(ip);
 
+  // Google Places autofill (opcional)
+  const gPlaceId = typeof body.google_place_id === 'string' ? body.google_place_id.slice(0, 128) : null;
+  const gData = body.google_data && typeof body.google_data === 'object' ? body.google_data : null;
+  const gAddr = typeof body.formatted_address === 'string' ? body.formatted_address.slice(0, 500) : null;
+  const gLat = typeof body.lat === 'number' && Number.isFinite(body.lat) ? body.lat : null;
+  const gLng = typeof body.lng === 'number' && Number.isFinite(body.lng) ? body.lng : null;
+
   try {
     const sql = neon(DATABASE_URL);
     const rows = await sql`
       INSERT INTO partner_applications (
         company_name, contact_name, email, phone, website, country, city,
         categories, sports, description, has_insurance, years_operating,
-        ip_hash, gdpr_consent
+        ip_hash, gdpr_consent,
+        google_place_id, google_data, formatted_address, lat, lng
       ) VALUES (
         ${companyName}, ${contactName}, ${email}, ${phone}, ${website}, ${country}, ${city},
         ${categories}, ${sports}, ${description}, ${hasInsurance}, ${years},
-        ${ipHash}, true
+        ${ipHash}, true,
+        ${gPlaceId}, ${gData ? JSON.stringify(gData) : null}, ${gAddr}, ${gLat}, ${gLng}
       )
       RETURNING id
     ` as { id: number }[];

@@ -59,6 +59,16 @@ CREATE INDEX IF NOT EXISTS idx_providers_status ON providers(status);
 CREATE INDEX IF NOT EXISTS idx_providers_country ON providers(country);
 CREATE INDEX IF NOT EXISTS idx_providers_slug ON providers(slug);
 
+-- Google Places integration
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS google_place_id VARCHAR(128);
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS google_data JSONB;
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS formatted_address VARCHAR(500);
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS lat NUMERIC(9,6);
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS lng NUMERIC(9,6);
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS google_rating NUMERIC(3,2);
+ALTER TABLE providers ADD COLUMN IF NOT EXISTS google_reviews_count INTEGER;
+CREATE INDEX IF NOT EXISTS idx_providers_google_place_id ON providers(google_place_id);
+
 -- ════════════════════════════════════════════
 -- EXPERIENCES (actividades de cada provider)
 -- ════════════════════════════════════════════
@@ -97,6 +107,11 @@ CREATE INDEX IF NOT EXISTS idx_experiences_sport ON experiences(sport);
 CREATE INDEX IF NOT EXISTS idx_experiences_provider ON experiences(provider_id);
 CREATE INDEX IF NOT EXISTS idx_experiences_country ON experiences(country);
 
+-- Google Places integration
+ALTER TABLE experiences ADD COLUMN IF NOT EXISTS google_place_id VARCHAR(128);
+ALTER TABLE experiences ADD COLUMN IF NOT EXISTS image_urls TEXT[];
+CREATE INDEX IF NOT EXISTS idx_experiences_google_place_id ON experiences(google_place_id);
+
 -- ════════════════════════════════════════════
 -- PARTNER APPLICATIONS (solicitudes nuevos partners)
 -- ════════════════════════════════════════════
@@ -123,3 +138,10 @@ CREATE TABLE IF NOT EXISTS partner_applications (
 CREATE INDEX IF NOT EXISTS idx_partner_apps_status ON partner_applications(status);
 CREATE INDEX IF NOT EXISTS idx_partner_apps_country ON partner_applications(country);
 CREATE INDEX IF NOT EXISTS idx_partner_apps_created ON partner_applications(created_at DESC);
+
+-- Google Places autofill
+ALTER TABLE partner_applications ADD COLUMN IF NOT EXISTS google_place_id VARCHAR(128);
+ALTER TABLE partner_applications ADD COLUMN IF NOT EXISTS google_data JSONB;
+ALTER TABLE partner_applications ADD COLUMN IF NOT EXISTS formatted_address VARCHAR(500);
+ALTER TABLE partner_applications ADD COLUMN IF NOT EXISTS lat NUMERIC(9,6);
+ALTER TABLE partner_applications ADD COLUMN IF NOT EXISTS lng NUMERIC(9,6);
