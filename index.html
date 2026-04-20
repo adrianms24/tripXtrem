@@ -43,8 +43,7 @@
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://a.basemaps.cartocdn.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Google Maps JS se carga dinámicamente via /api/config (ver loadGoogleMaps) -->
 <!-- Analytics (Plausible — no cookies, GDPR-friendly) -->
 <script defer data-domain="tripxtrem.com" src="https://plausible.io/js/script.tagged-events.js"></script>
 <script>window.plausible = window.plausible || function(){(window.plausible.q = window.plausible.q || []).push(arguments)}</script>
@@ -472,10 +471,22 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .map-bot{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,10,20,.6));padding:20px 16px 14px;z-index:20;display:flex;align-items:center;justify-content:space-between;}
 .mb-pill{background:rgba(255,255,255,.96);border-radius:18px;padding:6px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;box-shadow:var(--sh);}
 
-/* Leaflet popup */
-.leaflet-popup-content-wrapper{border-radius:14px!important;padding:0!important;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.2)!important;border:none!important;}
-.leaflet-popup-content{margin:0!important;}
-.leaflet-popup-tip-container{display:none!important;}
+/* Google Maps InfoWindow */
+.gm-style .gm-style-iw-c{padding:0!important;border-radius:14px!important;box-shadow:0 8px 30px rgba(0,0,0,.2)!important;}
+.gm-style .gm-style-iw-d{overflow:hidden!important;padding:0!important;}
+.gm-style .gm-style-iw-chr{display:none!important;}
+.gm-style .gm-style-iw-tc{display:none!important;}
+/* Custom pin wrapper (AdvancedMarker content) */
+.tx-pin{background:var(--g);color:#fff;border-radius:20px;padding:5px 10px;font-size:13px;font-weight:800;box-shadow:0 3px 12px rgba(0,0,0,.3);border:2px solid #fff;cursor:pointer;white-space:nowrap;position:relative;transform:translateY(-50%);}
+.tx-pin.tx-pin-alta{background:#ef4444;}
+.tx-pin.tx-pin-media{background:#f59e0b;}
+.tx-pin.tx-pin-baja{background:#22c55e;}
+.tx-pin.tx-pin-urg{background:#ef4444;animation:urgpulse 1.8s infinite;}
+.tx-pin::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid currentColor;filter:brightness(.9);}
+.tx-pin-urg::after{border-top-color:#ef4444;}
+.tx-pin-alta::after{border-top-color:#ef4444;}
+.tx-pin-media::after{border-top-color:#f59e0b;}
+.tx-pin-baja::after{border-top-color:#22c55e;}
 .mp{width:220px;font-family:'Outfit',sans-serif;}
 .mp-img{height:68px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;}
 .mp-urg{position:absolute;top:6px;left:6px;background:var(--r);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;}
@@ -1108,7 +1119,7 @@ tr:hover td{background:#fafafa;}
   <div class="map-side">
     <div id="mainMap" style="width:100%;height:100%;"></div>
     <div class="map-ctrl" style="position:absolute;top:12px;left:12px;z-index:500;">
-      <div class="mc-btn" onclick="if(mainMap)mainMap.setView([40.2,-3.5],6)">🗺️ España</div>
+      <div class="mc-btn" onclick="if(mainMap){mainMap.setCenter({lat:40.2,lng:-3.5});mainMap.setZoom(6);}">🗺️ España</div>
       <div class="mc-btn" onclick="toast('📍 Usando tu ubicación...')">📍 Mi ubicación</div>
     </div>
     <div class="map-bot" style="position:absolute;bottom:12px;left:12px;z-index:500;">
@@ -1886,7 +1897,7 @@ function toast(msg){
 function openOv(id){document.getElementById(id).classList.add('open');}
 function closeOv(id){
   document.getElementById(id).classList.remove('open');
-  if(id==='ov-ficha'&&fichaMapInst){fichaMapInst.remove();fichaMapInst=null;}
+  if(id==='ov-ficha'&&fichaMapInst){fichaMapInst=null;}
 }
 document.addEventListener('click',e=>{
   if(e.target.classList.contains('ov')) closeOv(e.target.id);
@@ -1918,7 +1929,7 @@ function goPage(id){
   document.getElementById('page-'+id).classList.add('active');
   if(id==='landing'){
     if(!mapsReady.main)setTimeout(initMainMap,200);
-    else setTimeout(()=>{mainMap&&mainMap.invalidateSize();renderFiltered();},200);
+    else setTimeout(()=>{ if(mainMap && window.google){ google.maps.event.trigger(mainMap,'resize'); } renderFiltered(); },200);
     animStats(); renderFiltered();
   }
   if(id==='admin')renderAdm('dashboard');
@@ -2066,81 +2077,149 @@ function togLike(id,el){
   else{liked.add(id);el.classList.add('on');toast('❤️ Añadido a favoritos');}
 }
 
-// ════ MAPS ════
-function mkPin(c,priceMode){
-  const col={Baja:'#22c55e',Media:'#f59e0b',Alta:'#ef4444'}[c.diff]||'#6b7280';
-  const urg=c.spots<=2;
-  const bg=urg?'#ef4444':col;
-  if(priceMode){
-    return L.divIcon({className:'',html:
-      '<div style="background:'+bg+';color:#fff;border-radius:20px;padding:5px 10px;font-size:13px;font-weight:800;box-shadow:0 3px 12px rgba(0,0,0,.3);border:2px solid #fff;cursor:pointer;white-space:nowrap;position:relative">'+(urg?'🔥 ':'')+c.price+'€'+
-      '<div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid '+bg+'"></div></div>',
-      iconSize:[null,null],iconAnchor:[0,26]
+// ════ GOOGLE MAPS ════
+let gMapsLoaded = false, gMapsLoading = null, gInfoWindow = null;
+
+async function loadGoogleMaps(){
+  if(gMapsLoaded) return;
+  if(gMapsLoading) return gMapsLoading;
+  gMapsLoading = (async()=>{
+    // Get API key from config endpoint (keeps key out of source)
+    const cfg = await fetch('/api/config').then(r=>r.json()).catch(()=>({}));
+    const key = cfg.googleMapsKey;
+    if(!key){ console.error('[maps] No frontend key configured'); throw new Error('no key'); }
+    // Load bootstrap loader
+    await new Promise((resolve,reject)=>{
+      window.__GMAPS_INIT__ = resolve;
+      const s = document.createElement('script');
+      s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=beta&libraries=marker&loading=async&callback=__GMAPS_INIT__&language=es&region=ES`;
+      s.async = true; s.defer = true;
+      s.onerror = reject;
+      document.head.appendChild(s);
     });
-  }
-  return L.divIcon({className:'',html:
-    '<div style="background:'+col+';color:#fff;border-radius:50% 50% 50% 0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 12px rgba(0,0,0,.28);border:2.5px solid #fff;transform:rotate(-45deg);cursor:pointer"><span style="transform:rotate(45deg)">'+c.icon+'</span></div>',
-    iconSize:[40,40],iconAnchor:[20,40]
-  });
+    gMapsLoaded = true;
+  })();
+  return gMapsLoading;
 }
 
+function pinClass(c){
+  if(c.spots<=2) return 'tx-pin-urg';
+  return 'tx-pin-' + (c.diff||'Media').toLowerCase();
+}
 
-function initMainMap(){
-  const el=document.getElementById('mainMap');
-  if(!el||el.offsetHeight<50){setTimeout(initMainMap,200);return;}
-  mainMap=L.map('mainMap',{zoomControl:false}).setView([40.2,-3.5],6);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:19,subdomains:'abcd'}).addTo(mainMap);
-  L.control.zoom({position:'topright'}).addTo(mainMap);
+function makePinEl(c){
+  const el = document.createElement('div');
+  el.className = 'tx-pin ' + pinClass(c);
+  el.textContent = (c.spots<=2?'🔥 ':'') + (c.price||0) + '€';
+  return el;
+}
+
+async function initMainMap(){
+  const el = document.getElementById('mainMap');
+  if(!el || el.offsetHeight<50){ setTimeout(initMainMap,200); return; }
+  try{
+    await loadGoogleMaps();
+  }catch(err){
+    el.innerHTML = '<div style="padding:40px;text-align:center;color:var(--mu);font-size:13px;">No se pudo cargar el mapa.</div>';
+    return;
+  }
+  mainMap = new google.maps.Map(el, {
+    center: { lat: 40.2, lng: -3.5 },
+    zoom: 6,
+    mapId: 'TRIPXTREM_MAP',
+    disableDefaultUI: false,
+    zoomControl: true,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    gestureHandling: 'greedy',
+    clickableIcons: false
+  });
+  gInfoWindow = new google.maps.InfoWindow({ maxWidth: 240 });
+  mapsReady.main = true;
   renderFiltered();
-  setTimeout(()=>mainMap.invalidateSize(),300);
-  setTimeout(()=>mainMap.invalidateSize(),700);
-  setTimeout(()=>mainMap.invalidateSize(),1500);
-  mapsReady.main=true;
 }
 
 function updateMarkers(cards){
-  if(!mainMap)return;
-  markers.forEach(m=>m.remove());markers=[];
+  if(!mainMap || !window.google) return;
+  // Clear
+  markers.forEach(m=>{ m.map = null; });
+  markers = [];
+  markerMap = {};
+
+  const AdvancedMarker = google.maps.marker && google.maps.marker.AdvancedMarkerElement;
+  if(!AdvancedMarker) return;
+
   cards.forEach((c,i)=>{
-    const m=L.marker([c.lat,c.lng],{icon:mkPin(c,true)}).addTo(mainMap);
-    const bg=thMap[c.cat]||'th-a';
-    m.bindPopup(
-      '<div class="mp">'+
-      '<div class="mp-img '+bg+'">'+(c.spots<=2?'<div class="mp-urg">Solo '+c.spots+' plaza</div>':'')+
-      '<span style="font-size:38px">'+c.icon+'</span></div>'+
-      '<div class="mp-body">'+
-      '<div class="mp-title">'+c.sport+'</div>'+
-      '<div class="mp-loc">📍 '+c.loc+'</div>'+
-      '<div class="mp-row"><div class="mp-price">'+c.price+'€<span style="font-size:11px;color:#9ca3af"> p/p</span></div><div class="mp-rat">★ '+c.rating.toFixed(1)+'</div></div>'+
-      (c.spots<=3?'<div class="mp-fomo">🔥 Solo quedan '+c.spots+' plazas</div>':'')+
-      '<div style="font-size:11px;color:var(--mu);margin-bottom:8px">👁️ '+c.views+' personas lo ven ahora</div>'+
-      '<button class="mp-btn" style="background:'+(c.spots<=2?'var(--r)':'var(--g)')+'" onclick=\'openWaitlist('+JSON.stringify(c.sport)+","+JSON.stringify(c.loc)+')\'>'+
-      (c.spots<=2?'⚡ Avísame — Última plaza':'Apúntate →')+'</button>'+
-      '</div></div>',
-      {maxWidth:220,minWidth:220}
-    );
-    // Pin → Card hover sync
-    m.on('mouseover',()=>{
+    if(!Number.isFinite(c.lat) || !Number.isFinite(c.lng)) return;
+    const content = makePinEl(c);
+    const m = new AdvancedMarker({
+      map: mainMap,
+      position: { lat: c.lat, lng: c.lng },
+      content,
+      title: (c.sport||'') + ' · ' + (c.loc||'')
+    });
+
+    content.addEventListener('mouseenter', ()=>{
       document.querySelectorAll('.ec').forEach(e=>e.classList.remove('map-hover'));
-      const ec=document.getElementById('ec'+i);
-      if(ec){ec.classList.add('map-hover');ec.scrollIntoView({behavior:'smooth',block:'nearest'});}
+      const ec = document.getElementById('ec'+i);
+      if(ec){ ec.classList.add('map-hover'); ec.scrollIntoView({behavior:'smooth',block:'nearest'}); }
     });
-    m.on('mouseout',()=>{
-      const ec=document.getElementById('ec'+i);
-      if(ec)ec.classList.remove('map-hover');
+    content.addEventListener('mouseleave', ()=>{
+      const ec = document.getElementById('ec'+i);
+      if(ec) ec.classList.remove('map-hover');
     });
-    m.on('click',()=>{
+    m.addListener('click', ()=>{
       document.querySelectorAll('.ec').forEach(e=>e.classList.remove('hl'));
-      const ec=document.getElementById('ec'+i);
-      if(ec){ec.classList.add('hl');ec.scrollIntoView({behavior:'smooth',block:'nearest'});}
-      mainMap.panTo(m.getLatLng(),{animate:true,duration:.4});
+      const ec = document.getElementById('ec'+i);
+      if(ec){ ec.classList.add('hl'); ec.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+      mainMap.panTo({ lat: c.lat, lng: c.lng });
+      const html = buildMarkerPopup(c);
+      gInfoWindow.setContent(html);
+      gInfoWindow.open({ anchor: m, map: mainMap });
     });
+
     markers.push(m);
+    markerMap[i] = m;
   });
-  // Update markerMap for card→pin hover
-  markerMap={};
-  markers.forEach((m,i)=>{markerMap[i]=m;});
-  if(cards.length>1){try{mainMap.fitBounds(L.latLngBounds(cards.map(c=>[c.lat,c.lng])),{padding:[40,40],maxZoom:12});}catch(e){}}
+
+  // Fit bounds
+  if(cards.length > 1){
+    const bounds = new google.maps.LatLngBounds();
+    cards.forEach(c=>{
+      if(Number.isFinite(c.lat) && Number.isFinite(c.lng)) bounds.extend({lat:c.lat,lng:c.lng});
+    });
+    if(!bounds.isEmpty()){
+      mainMap.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
+      // Cap max zoom
+      google.maps.event.addListenerOnce(mainMap,'idle',()=>{
+        if(mainMap.getZoom() > 12) mainMap.setZoom(12);
+      });
+    }
+  } else if (cards.length === 1) {
+    const c = cards[0];
+    if(Number.isFinite(c.lat) && Number.isFinite(c.lng)){
+      mainMap.setCenter({lat:c.lat,lng:c.lng});
+      mainMap.setZoom(11);
+    }
+  }
+}
+
+function buildMarkerPopup(c){
+  const bg = (typeof thMap!=='undefined' && thMap[c.cat]) ? thMap[c.cat] : 'th-a';
+  return '<div class="mp">'+
+    '<div class="mp-img '+bg+'">'+(c.spots<=2?'<div class="mp-urg">Solo '+c.spots+' plaza</div>':'')+
+    '<span style="font-size:38px">'+(c.icon||'🌍')+'</span></div>'+
+    '<div class="mp-body">'+
+    '<div class="mp-title">'+c.sport+'</div>'+
+    '<div class="mp-loc">📍 '+(c.loc||'')+'</div>'+
+    '<div class="mp-row"><div class="mp-price">'+(c.price||0)+'€<span style="font-size:11px;color:#9ca3af"> p/p</span></div>'+
+    (c.rating?'<div class="mp-rat">★ '+Number(c.rating).toFixed(1)+'</div>':'')+
+    '</div>'+
+    (c.spots<=3?'<div class="mp-fomo">🔥 Solo quedan '+c.spots+' plazas</div>':'')+
+    '<button class="mp-btn" style="background:'+(c.spots<=2?'var(--r)':'var(--g)')+'" onclick=\'openWaitlist('+JSON.stringify(c.sport||'')+","+JSON.stringify(c.loc||'')+')\'>'+
+    (c.spots<=2?'⚡ Avísame — Última plaza':'Apúntate →')+'</button>'+
+    '</div></div>';
 }
 
 // ════ FICHA ════
@@ -2167,14 +2246,32 @@ function openFicha(c){
     '<div style="font-size:12.5px;color:#4b5563;margin-top:2px;line-height:1.5">'+r.text.slice(0,90)+'...</div></div></div>'
   ).join('');
   openOv('ov-ficha');
-  setTimeout(()=>{
-    const el=document.getElementById('fichaMap');el.innerHTML='';
-    if(fichaMapInst){fichaMapInst.remove();fichaMapInst=null;}
-    el.style.height="170px";fichaMapInst=L.map(el,{zoomControl:true,scrollWheelZoom:false}).setView([c.lat,c.lng],12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:19,subdomains:'abcd'}).addTo(fichaMapInst);
-    const icon=L.divIcon({className:'',html:'<div style="background:var(--g,#22c55e);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:2px solid #fff">'+c.icon+'</div>',iconSize:[34,34],iconAnchor:[17,17]});
-    L.marker([c.lat,c.lng],{icon}).addTo(fichaMapInst).bindPopup('<b>'+c.sport+'</b><br>'+c.loc).openPopup();
-  },350);
+  setTimeout(async ()=>{
+    const el = document.getElementById('fichaMap');
+    if(!el) return;
+    el.innerHTML = '';
+    el.style.height = '170px';
+    if(!Number.isFinite(c.lat) || !Number.isFinite(c.lng)) return;
+    try{
+      await loadGoogleMaps();
+    }catch(_){ return; }
+    fichaMapInst = new google.maps.Map(el, {
+      center: { lat: c.lat, lng: c.lng },
+      zoom: 12,
+      mapId: 'TRIPXTREM_FICHA_MAP',
+      disableDefaultUI: true,
+      zoomControl: true,
+      gestureHandling: 'cooperative',
+      clickableIcons: false
+    });
+    const AdvancedMarker = google.maps.marker && google.maps.marker.AdvancedMarkerElement;
+    if(AdvancedMarker){
+      const pin = document.createElement('div');
+      pin.style.cssText = 'background:var(--g);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:2px solid #fff;';
+      pin.textContent = c.icon || '📍';
+      new AdvancedMarker({ map: fichaMapInst, position: { lat: c.lat, lng: c.lng }, content: pin, title: c.sport });
+    }
+  }, 350);
 }
 
 // ════ WAITLIST ════
@@ -2770,11 +2867,12 @@ document.addEventListener('mouseover',e=>{
   if(!card)return;
   const idx=parseInt(card.id.replace('ec',''));
   const m=markerMap[idx];
-  if(m&&mainMap){
-    m._icon&&(m._icon.style.transform+=' scale(1.4)');
-    m._icon&&(m._icon.style.zIndex='9999');
-    m._icon&&(m._icon.style.transition='transform .2s');
-    mainMap.panTo(m.getLatLng(),{animate:true,duration:.4});
+  if(m&&mainMap && m.content){
+    m.content.style.transform = 'translateY(-50%) scale(1.2)';
+    m.content.style.transition = 'transform .18s';
+    m.content.style.zIndex = '9999';
+    const pos = m.position;
+    if(pos){ mainMap.panTo(pos); }
   }
 });
 document.addEventListener('mouseout',e=>{
@@ -2782,9 +2880,9 @@ document.addEventListener('mouseout',e=>{
   if(!card)return;
   const idx=parseInt(card.id.replace('ec',''));
   const m=markerMap[idx];
-  if(m&&m._icon){
-    m._icon.style.transform=m._icon.style.transform.replace(' scale(1.4)','');
-    m._icon.style.zIndex='';
+  if(m && m.content){
+    m.content.style.transform = 'translateY(-50%)';
+    m.content.style.zIndex = '';
   }
 });
 </script>
