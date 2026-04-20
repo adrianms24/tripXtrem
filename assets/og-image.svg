@@ -1,68 +1,91 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="TripXtrem Open Graph">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#111827"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
+      <stop offset="0%" stop-color="#6d1722"/>
+      <stop offset="100%" stop-color="#8b1f2b"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#22c55e"/>
-      <stop offset="100%" stop-color="#16a34a"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="85%" cy="20%" r="50%">
-      <stop offset="0%" stop-color="#22c55e" stop-opacity=".25"/>
-      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    <radialGradient id="glow" cx="85%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#c9a24a" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#c9a24a" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <!-- Background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Decorative dots pattern -->
-  <g fill="#ffffff" opacity=".05">
-    <circle cx="100" cy="100" r="3"/>
-    <circle cx="200" cy="180" r="2"/>
-    <circle cx="350" cy="120" r="2.5"/>
-    <circle cx="500" cy="220" r="2"/>
-    <circle cx="1050" cy="500" r="3"/>
-    <circle cx="950" cy="550" r="2"/>
-    <circle cx="1100" cy="420" r="2.5"/>
-  </g>
-
   <!-- Mountain silhouette -->
-  <path d="M0 550 L180 380 L320 470 L480 320 L650 440 L820 280 L1000 410 L1200 340 L1200 630 L0 630 Z" fill="#ffffff" opacity=".06"/>
+  <path d="M0 560 L170 410 L310 490 L470 340 L630 450 L800 310 L980 430 L1200 360 L1200 630 L0 630 Z" fill="#1a2b4a" opacity=".45"/>
 
-  <!-- Logo mark -->
-  <g transform="translate(84, 84)">
-    <rect width="90" height="90" rx="20" fill="#111827" stroke="#22c55e" stroke-width="2"/>
-    <path d="M26 26 L64 64" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
-    <path d="M64 26 L26 64" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="45" cy="45" r="4" fill="#22c55e"/>
+  <!-- Gold accent dots -->
+  <g fill="#c9a24a" opacity=".4">
+    <circle cx="120" cy="90" r="3"/>
+    <circle cx="250" cy="140" r="2"/>
+    <circle cx="1080" cy="500" r="3"/>
+    <circle cx="1100" cy="410" r="2"/>
   </g>
-  <text x="200" y="145" font-family="'Syne','Arial Black',sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">Trip<tspan fill="#22c55e">X</tspan>trem</text>
+
+  <!-- Logo (isotipo) -->
+  <g transform="translate(84, 84)">
+    <rect width="104" height="104" rx="22" fill="#faf4e8"/>
+    <rect x="6" y="6" width="92" height="92" rx="18" fill="#8b1f2b"/>
+    <path d="M28 28 L76 76" stroke="#c9a24a" stroke-width="16"/>
+    <path d="M76 28 L28 76" stroke="#c9a24a" stroke-width="16"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="220" y="155"
+        font-family="'Bangers','Impact','Oswald',sans-serif"
+        font-size="64"
+        letter-spacing="2"
+        fill="#faf4e8">TRIP<tspan fill="#c9a24a">X</tspan>TREM</text>
 
   <!-- Eyebrow -->
   <g transform="translate(84, 240)">
-    <rect width="280" height="36" rx="18" fill="#22c55e" opacity=".15"/>
-    <text x="20" y="24" font-family="'Outfit',sans-serif" font-weight="700" font-size="14" fill="#22c55e" letter-spacing="1.5">🏆 MARKETPLACE Nº1 ESPAÑA</text>
+    <rect width="296" height="38" rx="19" fill="#c9a24a" opacity=".2"/>
+    <rect width="296" height="38" rx="19" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity=".6"/>
+    <text x="20" y="25"
+          font-family="'Outfit',sans-serif"
+          font-weight="700"
+          font-size="14"
+          fill="#c9a24a"
+          letter-spacing="1.5">🏆 MARKETPLACE Nº1 ESPAÑA</text>
   </g>
 
   <!-- Headline -->
-  <text x="84" y="360" font-family="'Syne','Arial Black',sans-serif" font-weight="900" font-size="72" fill="#ffffff" letter-spacing="-2">Deja de soñarlo.</text>
-  <text x="84" y="440" font-family="'Syne','Arial Black',sans-serif" font-weight="900" font-size="72" fill="#22c55e" letter-spacing="-2">Resérvalo hoy.</text>
+  <text x="84" y="360"
+        font-family="'Bangers','Impact','Oswald',sans-serif"
+        font-size="82"
+        letter-spacing="1.5"
+        fill="#faf4e8">DEJA DE SOÑARLO.</text>
+  <text x="84" y="450"
+        font-family="'Bangers','Impact','Oswald',sans-serif"
+        font-size="82"
+        letter-spacing="1.5"
+        fill="#c9a24a">RESÉRVALO HOY.</text>
 
   <!-- Subhead -->
-  <text x="84" y="492" font-family="'Outfit',sans-serif" font-weight="500" font-size="24" fill="#94a3b8">Surf · Kitesurf · Paracaidismo · Parapente · Rafting</text>
+  <text x="84" y="500"
+        font-family="'Outfit',sans-serif"
+        font-weight="500"
+        font-size="24"
+        fill="#faf4e8"
+        opacity=".85">Surf · Kitesurf · Paracaidismo · Parapente · Rafting</text>
 
-  <!-- Stats row -->
-  <g transform="translate(84, 540)" font-family="'Outfit',sans-serif" fill="#ffffff">
+  <!-- Stats -->
+  <g transform="translate(84, 555)"
+     font-family="'Outfit',sans-serif"
+     fill="#faf4e8"
+     opacity=".9">
     <text font-weight="800" font-size="18">⭐ 4.9/5</text>
-    <text x="140" font-weight="800" font-size="18">🏆 +1.800 grupos</text>
-    <text x="360" font-weight="800" font-size="18">🛡️ Seguro incluido</text>
-    <text x="610" font-weight="800" font-size="18">⚡ Confirmación &lt;2h</text>
+    <text x="130" font-weight="800" font-size="18">🏆 +1.800 grupos</text>
+    <text x="340" font-weight="800" font-size="18">🛡️ Seguro incluido</text>
+    <text x="590" font-weight="800" font-size="18">⚡ Confirmación &lt;2h</text>
   </g>
 
   <!-- URL bottom right -->
-  <text x="1116" y="590" font-family="'Outfit',sans-serif" font-weight="600" font-size="18" fill="#94a3b8" text-anchor="end">tripxtrem.com</text>
+  <text x="1116" y="595"
+        font-family="'Outfit',sans-serif"
+        font-weight="700"
+        font-size="20"
+        fill="#c9a24a"
+        text-anchor="end">tripxtrem.com</text>
 </svg>

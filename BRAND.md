@@ -1,208 +1,200 @@
 # TripXtrem — Brand Guidelines
 
-> Sistema de marca completo. Actualizado: 2026-04-20.
+> Sistema de marca oficial. Paleta A (vintage adventure) · Logo S1.
 
 ---
 
-## 1. Esencia de marca
+## 1. Esencia
 
 | Atributo | Valor |
 |---|---|
 | **Tagline** | Deja de soñarlo. Resérvalo hoy. |
 | **Promesa** | El marketplace Nº1 de turismo de aventura en España. |
 | **One-liner** | Reserva deportes extremos con seguro y garantía total. |
-| **Misión** | Hacer la aventura accesible, segura y reservable en un clic. |
-| **Público** | 25-45 años · urbanitas con ganas de adrenalina · empresas de experiencias. |
-| **Personalidad** | Audaz · profesional · cercano · moderno · honesto. |
-| **Voz** | Directa, sin paja. Usa `tú`. Frases cortas. Datos concretos ("1.800 grupos este mes"). |
+| **Público** | 25–45 años, urbanitas con ganas de adrenalina · empresas de experiencias. |
+| **Personalidad** | Audaz · auténtico · premium · cercano · vintage adventure. |
+| **Voz** | Directa. Tú. Frases cortas. Datos concretos. |
 
-**Palabras que usamos**: aventura, plazas, reserva, garantía, marketplace, experiencia, partners.
-**Palabras que evitamos**: soluciones, sinergias, disruptivo, próximamente (sin fecha).
+Usa: aventura, plazas, reserva, garantía, experiencia.
+Evita: soluciones, sinergias, disruptivo, próximamente sin fecha.
 
 ---
 
-## 2. Paleta de colores
+## 2. Paleta (oficial)
 
 ### Primarios
 
-| Token | HEX | Uso |
+| Token CSS | HEX | Uso |
 |---|---|---|
-| **Green 500** | `#22c55e` | Color de marca. CTAs principales, acentos, iconos de "acción". |
-| **Green 600** | `#16a34a` | Hover de CTAs verdes. |
-| **Green 100** | `#dcfce7` | Fondos suaves (badges, pills). |
-| **Dark 900** | `#111827` | Color de soporte principal. Texto, logo sobre claro, headers. |
-| **White** | `#ffffff` | Lienzo, fondos. |
+| `--brand` | **#8B1F2B** | Color de marca. Urgencia, acentos fuertes, últimas plazas. |
+| `--brand-dk` | #6D1722 | Hover, sombras del brand. |
+| `--brand-lt` | #A83240 | Acento claro opcional. |
+| `--gold` | **#C9A24A** | CTA principal. Elementos clave (pins, botones). |
+| `--gold-dk` | #A8843A | Hover de CTA. |
+| `--gold-lt` | #E6C674 | Iluminado, highlights. |
+| `--gold-tint` | #FDF4E6 | Fondos pill/badge dorado. |
+| `--navy` | **#1A2B4A** | Texto principal, logo oscuro, headers. |
+| `--navy-dk` | #0F1B33 | Variante fuerte. |
+| `--cream` | **#FAF4E8** | Fondo base de app. Cálido, no blanco puro. |
 
-### Secundarios / acento
+### Categorías (pins de mapa + badges)
 
-| Token | HEX | Uso |
+| Categoría | Primario | Fondo claro |
 |---|---|---|
-| **Orange 500** | `#f59e0b` | Alertas suaves, badges "popular", urgencia media. |
-| **Red 500** | `#ef4444` | Últimas plazas, urgencia alta, errores. |
-| **Blue 500** | `#3b82f6` | Info, enlaces secundarios. |
+| 💧 Agua | `#1E6EA5` | `#DBEAFE` |
+| 🌬️ Aire | `#C9A24A` (dorado) | `#FDF4E6` |
+| ❄️ Nieve | `#64748B` (plata fría) | `#F1F5F9` |
+| 🌍 Tierra | `#8B1F2B` (vinoso) | `#FDE8EA` |
 
-### Categorías (coherente en tabs, cards, pines)
+### Neutros cálidos
 
-| Categoría | Primario | Fondo claro | Oscuro |
-|---|---|---|---|
-| 💧 Agua | `#0ea5e9` | `#e0f2fe` | `#0369a1` |
-| 🌬️ Aire | `#f59e0b` | `#fef3c7` | `#b45309` |
-| ❄️ Nieve | `#8b5cf6` | `#ede9fe` | `#6d28d9` |
-| 🌍 Tierra | `#22c55e` | `#dcfce7` | `#16a34a` |
+`#6E5B3A` texto secundario · `#9A8A6B` texto terciario · `#E8DFCD` bordes · `#FAF4E8` bg app.
 
-### Grises (UI)
-
-`#6b7280` texto secundario · `#9ca3af` texto placeholder · `#e5e7eb` bordes · `#f9fafb` fondo app · `#f8fafc` fondo sección.
-
-### Gradientes oficiales
+### Gradientes
 
 ```
---grad-brand:    linear-gradient(135deg, #22c55e, #16a34a);
---grad-adrenal:  linear-gradient(135deg, #f59e0b, #ef4444);
---grad-dark:     linear-gradient(135deg, #111827, #374151);
---grad-hero:     linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%);
+--grad-brand:  linear-gradient(135deg, #8B1F2B, #6D1722);
+--grad-gold:   linear-gradient(135deg, #E6C674, #C9A24A, #8A6E2A);
+--grad-navy:   linear-gradient(135deg, #1A2B4A, #0F1B33);
+--grad-hero:   linear-gradient(135deg, #6D1722 0%, #8B1F2B 50%, #1A2B4A 100%);
 ```
 
 ---
 
 ## 3. Tipografía
 
-| Uso | Familia | Pesos |
+| Uso | Fuente | Pesos |
 |---|---|---|
-| Display / títulos | **Syne** | 700, 800, 900 |
-| Cuerpo / UI | **Outfit** | 400, 500, 600, 700, 800 |
-| Mono (código, cifras) | `ui-monospace, SFMono-Regular, Menlo` | — |
+| **Wordmark / headlines impactantes** | **Bangers** | 400 (único) |
+| **Títulos generales** | **Syne** | 700, 800, 900 |
+| **Cuerpo / UI** | **Outfit** | 400, 500, 600, 700, 800 |
 
-**Escala tipográfica** (ya en CSS como CSS vars `--fs-*`):
+**Escala** (vars CSS `--fs-*`):
 ```
---fs-xs: 10px    etiquetas, legales
---fs-sm: 12px    metadata, captions
---fs-base: 13px  UI por defecto
---fs-md: 15px    subtítulos
---fs-lg: 18px    títulos de card
---fs-xl: 22px    hero secundario
---fs-2xl: 28px   sección
---fs-3xl: 36px   hero display
+xs 10 · sm 12 · base 13 · md 15 · lg 18 · xl 22 · 2xl 28 · 3xl 36
 ```
 
-**Regla de oro**: nunca mezcles más de 3 tamaños en una misma sección.
+**Regla de oro**: máximo 3 tamaños por sección.
 
 ---
 
-## 4. Logo
+## 4. Logo · S1
 
 ### Concepto
 
-El logo de TripXtrem es una **X dinámica** formada por dos trazos cruzados:
+**X dorada sobre fondo vinoso cuadrado redondeado.** Dos diagonales gruesas rectas (`stroke-width:18` sobre viewBox 120). La X representa el cruce de caminos del aventurero + la letra central de "TripXtrem".
 
-- **Trazo verde** (#22c55e): dirección ascendente → crecimiento, acción, aventura.
-- **Trazo blanco/oscuro**: dirección descendente → caída libre, adrenalina, descenso.
+### Construcción
 
-Sobre fondo cuadrado redondeado oscuro (`#111827`, radio 14px) que aporta seriedad y hace de "insignia" reconocible en cualquier contexto.
+```svg
+<svg viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="24" fill="#8B1F2B"/>
+  <path d="M30 30 L90 90" stroke="#C9A24A" stroke-width="18"/>
+  <path d="M90 30 L30 90" stroke="#C9A24A" stroke-width="18"/>
+</svg>
+```
 
-La X retoma la letra central de "TripXtrem" y simboliza el cruce de caminos: cada aventurero eligiendo su propio camino.
-
-### Variantes disponibles (`/assets/`)
+### Variantes (`/assets/`)
 
 | Archivo | Uso |
 |---|---|
-| `logo-icon.svg` | Isotipo. Favicons, avatares, app icons, sellos. |
-| `logo.svg` | Lockup horizontal (isotipo + wordmark). Headers, footers, emails. |
-| `logo-vertical.svg` | Lockup vertical apilado. Redes sociales (perfil), tarjeta. |
-| `logo-white.svg` | Versión inversa. Sobre fotos / fondos oscuros. |
-| `favicon.svg` | Favicon navegador. Misma icona optimizada 64x64. |
+| `logo-icon.svg` | Isotipo. Favicon, avatar, app icon. |
+| `logo.svg` | Lockup horizontal (isotipo + wordmark Bangers). Headers, emails. |
+| `logo-vertical.svg` | Apilado con tagline. Redes sociales, merch. |
+| `logo-white.svg` | Inversa: dorado de fondo + vinoso X. Sobre fotos oscuras. |
+| `favicon.svg` | Favicon 120x120 optimizado. |
+| `og-image.svg` | Template social 1200x630 con headline "Deja de soñarlo". |
+
+### Wordmark
+
+Fuente: **Bangers** 400.
+Composición: `TRIP<span style="color:#8B1F2B">X</span>TREM`
+- "TRIP" y "TREM" en navy (`#1A2B4A`).
+- "X" central en vinoso (`#8B1F2B`).
 
 ### Reglas de uso
 
-**Zona de respeto**: alrededor del logo mantener al menos el ancho de la "X" en todos los lados.
+**Zona de respeto**: ancho de la X alrededor.
+**Tamaño mínimo**: 24px isotipo digital · 80px lockup horizontal · 10mm impreso.
 
-**Tamaño mínimo**:
-- Digital: 24px de alto (isotipo) · 80px (lockup horizontal).
-- Impreso: 10mm (isotipo) · 30mm (lockup).
+**NO**:
+- ❌ Cambiar colores fuera de las variantes.
+- ❌ Sombras, bordes, efectos 3D.
+- ❌ Rotar o deformar.
+- ❌ Logo dorado sobre fondo dorado.
 
-**NO se permite**:
-- ❌ Modificar colores del logo fuera de las variantes oficiales.
-- ❌ Aplicar sombras, bordes, outlines o efectos.
-- ❌ Rotar el logo o deformarlo.
-- ❌ Poner el logo verde sobre fondo verde.
-- ❌ Usar el logo como patrón de fondo.
-
-**SÍ se permite**:
-- ✅ Usar el isotipo solo como mark.
-- ✅ Combinar con la tagline debajo (Syne 700, #6b7280).
-- ✅ Versión inversa sobre fotos con overlay oscuro (mínimo 40% negro).
+**SÍ**:
+- ✅ Versión inversa sobre fotos oscuras.
+- ✅ Combinar con la tagline en Outfit 600.
+- ✅ Aumentar el tamaño del isotipo hasta 200% sobre el wordmark en usos especiales.
 
 ---
 
 ## 5. Iconografía
 
-**Librería**: emojis nativos del sistema operativo (ya en uso). Ventaja: consistencia cross-platform, sin dependencias, soporte inmediato.
+Emojis nativos en todo el producto (consistencia cross-platform).
 
-**Mapeo oficial** (categorías y deportes):
+**Categorías**:
 ```
 💧 Agua    🌬️ Aire    ❄️ Nieve    🌍 Tierra
-🏄 Surf    🪁 Kitesurf    🚣 Rafting   🤿 Buceo
-🪂 Parapente    🛩️ Paracaidismo    🦸 Wingsuit    🪢 Bungee
-⛷️ Freeride    🚁 Heliesquí    🧊 Ice Climbing
-🧗 Escalada    ⛰️ Vía Ferrata    🚵 MTB Enduro    🕳️ Espeleología
 ```
 
-**Iconos UI**: lucide-icons (recomendación futura) o los que ya usamos vía emoji inline.
+**Deportes** (+40): 🏄 Surf · 🪁 Kitesurf · 🚣 Rafting · 🤿 Buceo · 🪂 Parapente · 🛩️ Paracaidismo · 🦸 Wingsuit · 🪢 Bungee · ⛷️ Freeride · 🚁 Heliesquí · 🧊 Ice Climbing · 🧗 Escalada · ⛰️ Vía Ferrata · 🚵 MTB Enduro · 🕳️ Espeleología · etc.
 
 ---
 
-## 6. Fotografía y visuales
+## 6. Fotografía
 
 ### Estilo
 
-- **Género**: aventura real, no posado. People in action.
-- **Luz**: natural, golden hour preferido.
-- **Color**: saturación media-alta. Evitar HDR agresivo.
-- **Composición**: personas pequeñas sobre naturaleza grande (sensación de escala).
-- **Diversidad**: múltiples edades, géneros, orígenes.
+- Aventura real, no posada.
+- Luz natural, golden hour.
+- Saturación media-alta. Evitar HDR agresivo.
+- Personas pequeñas sobre naturaleza grande.
+- Diversidad (edad, género, origen).
 
-### Prompts sugeridos (Midjourney / DALL-E / Gemini)
+### Prompts Midjourney / DALL-E / Gemini
 
-**Hero principal**:
+**Hero principal:**
 ```
-Aerial drone photo of a surfer carving down a massive teal wave at golden hour, Zarautz Basque coast, cinematic, 35mm, editorial National Geographic style --ar 16:9 --v 6
-```
-
-**Pack completo**:
-```
-Split composition: surfer, mountain cabin, vintage campervan, open fire BBQ. Sunset tones, warm grading, editorial travel magazine style --ar 3:2 --v 6
+Aerial drone photo of a surfer carving down a massive teal wave at golden hour, Zarautz Basque coast, cinematic, editorial National Geographic style, warm burgundy and gold color grading --ar 16:9 --v 6
 ```
 
-**Partner landing (hero)**:
+**Pack completo:**
 ```
-Adventure sports instructor smiling at camera, wearing neoprene, morning sun flare, shallow depth of field, authentic not posed, editorial --ar 16:9 --v 6
-```
-
-**Open Graph (redes)**:
-```
-TripXtrem app mockup on iPhone, map with green pins over Spain, floating cards with surfer/paraglider photos, white background, minimal Apple-style product shot --ar 1200:630
+Split composition vintage adventure: surfer, mountain cabin with fireplace, VW campervan, open flame BBQ. Sunset tones, warm burgundy and gold grading, editorial travel magazine --ar 3:2 --v 6
 ```
 
-### Qué evitar
+**Partner (landing):**
+```
+Adventure sports instructor, natural portrait, neoprene, morning sun flare, authentic not posed, warm cream and burgundy background tone --ar 16:9 --v 6
+```
 
-- Stock genérico de gente sonriendo al portátil.
-- Filtros vintage/sepia exagerados.
-- Collages con múltiples bordes blancos.
-- Elementos de marca (marcas rivales, logos ajenos visibles).
+**OG social:**
+```
+Minimalist product shot: iPhone with TripXtrem map on burgundy background, gold accents, floating cards with adventure sports photos, premium editorial --ar 1200:630
+```
+
+### Evitar
+
+- Stock genérico de oficina.
+- Filtros sepia/vintage extremos.
+- Collages con bordes blancos.
+- Marcas rivales visibles.
 
 ---
 
 ## 7. UI / componentes
 
-Los componentes del producto ya siguen el sistema. Referencia rápida:
-
-| Componente | Regla |
-|---|---|
-| **Botón primario** | Verde #22c55e, texto blanco, radio 10px, padding 8-12px vertical. |
-| **Botón urgente** | Rojo #ef4444, anima `urgpulse` si última plaza. |
-| **Card** | Radio 18px, borde 1.5px #e5e7eb, hover levanta 2px + borde verde. |
-| **Badge** | Radio 6-8px, peso 700, 10px fontsize. |
-| **Modal** | Radio 22px escritorio · bottom sheet 20px 20px 0 0 mobile. |
+| Componente | Color principal | Notas |
+|---|---|---|
+| **CTA primario** | `--gold` dorado | Hover → `--gold-dk`. Sombra dorada. |
+| **CTA urgente** | `--brand` vinoso | Última plaza: pulso `urgpulse`. |
+| **CTA secundario** | Outline `--navy` | Borde 1.5px, texto navy. |
+| **Card** | Fondo blanco/crema | Borde `--border` 1.5px. Hover: elevación + tint dorado. |
+| **Badge** | `--gold-tint` | Texto `--gold-dk`, radio 6px. |
+| **Pin mapa** | `--gold` (default) · `--brand` urgencia · `--navy` baja dif. | Price pill con tail. |
+| **Modal** | Desktop: radio 22px. Mobile: bottom sheet 20/20/0/0. |
 
 ---
 
@@ -210,30 +202,29 @@ Los componentes del producto ya siguen el sistema. Referencia rápida:
 
 ### Digital
 
-- [x] Web (landing, nav, footer) → isotipo + wordmark horizontal.
-- [x] Favicon (SVG + PNG 32, 180).
-- [ ] Open Graph image (`/assets/og-image.png`, 1200x630). Ver plantilla `og-image.svg`.
-- [ ] PWA icons (192x192, 512x512).
-- [ ] Apple Touch Icon (180x180).
+- [x] Web (nav + footer) con isotipo SVG + wordmark Bangers.
+- [x] Favicon SVG (S1).
+- [x] OG image SVG 1200x630 (convertir a PNG con cloudconvert.com).
+- [ ] Apple Touch Icon 180x180 PNG.
+- [ ] PWA icons 192/512.
 
 ### Email
 
-- Header: lockup horizontal con fondo #f9fafb.
-- Footer: isotipo pequeño + links legales.
-- Firma: "[Nombre] — TripXtrem · hola@tripxtrem.com · tripxtrem.com".
+- Header: lockup horizontal sobre `--cream`.
+- Firma: "[Nombre] — TripXtrem · hola@tripxtrem.com".
 
 ### Redes sociales
 
 | Plataforma | Avatar | Banner |
 |---|---|---|
-| Instagram | Isotipo fondo verde | Lockup vertical sobre foto hero |
-| TikTok | Isotipo fondo dark | — |
-| Twitter/X | Isotipo fondo verde | Banner 1500x500 con tagline |
-| LinkedIn | Lockup horizontal | Banner 1584x396 con stats |
+| Instagram | `logo-icon` exportado 1000×1000 | `logo-vertical` sobre foto hero |
+| TikTok | `logo-icon` | — |
+| Twitter/X | `logo-icon` | 1500×500 con tagline Bangers |
+| LinkedIn | `logo` horizontal | 1584×396 con stats |
 
-### Merchandising (futuro)
+### Merch (futuro)
 
-Camisetas partners, pegatinas, gorras, wrapping de furgonetas → usar lockup horizontal blanco sobre dark, o isotipo verde sobre blanco.
+Camisetas partners, pegatinas, gorras, wrap furgonetas → isotipo dorado sobre dark / vinoso sobre crema.
 
 ---
 
@@ -245,58 +236,47 @@ Camisetas partners, pegatinas, gorras, wrapping de furgonetas → usar lockup ho
 ✅ "Plazas limitadas. Reserva antes que otro."
 ✅ "De 0 a adrenalina en 4 pasos."
 
-❌ "Solución integral de experiencias outdoor".
-❌ "Descubra el potencial de su próxima aventura".
+❌ "Solución integral de experiencias outdoor."
+❌ "Descubra el potencial de su próxima aventura."
 
 ### Microcopy
 
-| Contexto | Usar | No usar |
+| Contexto | Usa | Evita |
 |---|---|---|
-| CTA reserva | "Apúntate", "Reservar ahora" | "Enviar formulario" |
+| CTA reserva | "Apúntate" · "Reservar ahora" | "Enviar formulario" |
 | Confirmación | "¡Ya estás dentro!" | "Operación completada" |
-| Error | "No se pudo procesar. Prueba de nuevo." | "Ha ocurrido un error inesperado" |
+| Error | "No se pudo procesar. Prueba de nuevo." | "Ha ocurrido un error" |
 | Urgencia | "Solo 2 plazas" | "Stock limitado" |
 
-### Emails
+---
 
-- Saludo: "Hola [nombre]" (no "Estimado/a").
-- Despedida: "Un abrazo, el equipo de TripXtrem" (no "Atentamente").
-- Firmar con persona real cuando sea B2B.
+## 10. Legal
+
+- **Nombre**: TripXtrem (registro marca: en trámite).
+- **Dominio**: tripxtrem.com.
+- **Emails**: hola@ · partners@ · prensa@ · privacidad@ · soporte@.
+- **© Copyright**: `© [año] TripXtrem · Hecho en España 🇪🇸`.
 
 ---
 
-## 10. Legal de marca
+## 11. Checklist
 
-- **Nombre**: TripXtrem (registro marca en España: en trámite).
-- **Dominio principal**: tripxtrem.com.
-- **Handle redes**: @tripxtrem (verificar disponibilidad en todas).
-- **Emails corporativos**: hola@ · partners@ · prensa@ · privacidad@ · soporte@.
-- **© Copyright**: "© [año] TripXtrem · Hecho en España 🇪🇸".
-
----
-
-## 11. Checklist de pre-lanzamiento
-
-- [x] Logo principal + variantes SVG.
-- [x] Favicon SVG y PNG.
-- [x] Paleta de colores en CSS vars.
-- [x] Tipografía cargada (Syne + Outfit).
-- [ ] Open Graph image PNG 1200x630.
-- [ ] Apple Touch Icon 180x180.
+- [x] Logo S1 + 4 variantes SVG.
+- [x] Favicon SVG.
+- [x] OG SVG (convertir a PNG cuando vayas a lanzar).
+- [x] Paleta A aplicada en `:root` CSS.
+- [x] Fuente Bangers cargada y usada.
+- [x] BRAND.md (este documento).
+- [ ] OG image PNG 1200×630.
+- [ ] Apple Touch Icon 180×180.
 - [ ] PWA icons 192/512.
-- [ ] Registro de marca (opcional fase 1).
 - [ ] Handles redes sociales reservados.
-- [ ] Firmas email unificadas.
-- [ ] Kit de prensa (1 pager + logos zip descargable).
 
 ---
 
 ## 12. Recursos
 
-Todos los assets en `/assets/` del repo.
-
-Para usar el branding en herramientas externas:
-- Figma: copiar paleta como estilos (10 colores base).
-- Canva: importar fuentes Syne + Outfit.
-- Midjourney: usar los prompts del punto 6.
-- ChatGPT / Claude: referenciar este documento.
+- Assets: `/assets/*.svg`
+- Convertir SVG → PNG: https://cloudconvert.com/svg-to-png
+- Midjourney: prompts en sección 6.
+- Figma: importar fuentes Bangers + Outfit + Syne, copiar paleta.

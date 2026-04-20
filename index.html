@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#22c55e">
+<meta name="theme-color" content="#8b1f2b">
 <meta name="google-site-verification" content="_g16aCg0xH54Qp1IHMLZ3x-PdE7bHstKoAascy2EPv4">
 <title>TripXtrem — Marketplace Nº1 de Turismo de Aventura en España</title>
 <meta name="description" content="Reserva deportes extremos en España: surf, kitesurf, paracaidismo, parapente, escalada, rafting y más. +40 actividades, packs completos con alojamiento y transporte. Apúntate para acceso anticipado.">
@@ -43,7 +43,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="preconnect" href="https://a.basemaps.cartocdn.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&family=Bangers&display=swap" rel="stylesheet">
 <!-- Google Maps JS se carga dinámicamente via /api/config (ver loadGoogleMaps) -->
 <!-- Analytics (Plausible — no cookies, GDPR-friendly) -->
 <script defer data-domain="tripxtrem.com" src="https://plausible.io/js/script.tagged-events.js"></script>
@@ -51,29 +51,45 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  /* ── Brand ── */
-  --g:#22c55e;--gd:#16a34a;--gl:#dcfce7;
-  --r:#ef4444;--o:#f59e0b;--b:#3b82f6;
-  --dk:#111827;--mu:#6b7280;--mu2:#9ca3af;
-  --border:#e5e7eb;--bg:#f8fafc;--w:#fff;
-  /* ── Shadows (elevation) ── */
-  --sh-sm:0 1px 2px rgba(0,0,0,.05);
-  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);
-  --sh-md:0 4px 16px rgba(0,0,0,.08);
-  --sh-lg:0 8px 30px rgba(0,0,0,.12);
-  /* ── Typography scale (1.2 ratio) ── */
+  /* ═══ BRAND PALETTE (vinoso + dorado + navy + crema) ═══ */
+  --brand:#8b1f2b;--brand-dk:#6d1722;--brand-lt:#a83240;
+  --gold:#c9a24a;--gold-dk:#a8843a;--gold-lt:#e6c674;--gold-tint:#fdf4e6;
+  --navy:#1a2b4a;--navy-dk:#0f1b33;
+  --cream:#faf4e8;
+
+  /* ── Legacy aliases (apunta a la nueva paleta — no tocar CSS existente) ── */
+  --g:var(--gold);        /* antes verde acción -> ahora dorado */
+  --gd:var(--gold-dk);
+  --gl:var(--gold-tint);
+  --r:var(--brand);       /* antes rojo -> ahora vinoso marca */
+  --o:#e08a24;            /* naranja acento ligeramente ajustado a la paleta */
+  --b:#3b82f6;            /* azul info sin cambio */
+  --dk:var(--navy);
+  --mu:#6e5b3a;           /* texto secundario cálido sobre crema */
+  --mu2:#9a8a6b;
+  --border:#e8dfcd;
+  --bg:var(--cream);
+  --w:#fff;
+
+  /* ── Shadows ── */
+  --sh-sm:0 1px 2px rgba(26,43,74,.06);
+  --sh:0 1px 3px rgba(26,43,74,.08),0 4px 12px rgba(26,43,74,.05);
+  --sh-md:0 4px 16px rgba(26,43,74,.1);
+  --sh-lg:0 8px 30px rgba(26,43,74,.14);
+
+  /* ── Typography scale ── */
   --fs-xs:10px;--fs-sm:12px;--fs-base:13px;--fs-md:15px;--fs-lg:18px;--fs-xl:22px;--fs-2xl:28px;--fs-3xl:36px;
-  /* ── Spacing (4px grid) ── */
+  /* ── Spacing ── */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;
   /* ── Radii ── */
   --r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:18px;--r-pill:100px;
   /* ── Layout heights ── */
   --ANH:36px;--NH:64px;--CTBH:48px;--CBH:76px;
-  /* ── Category colors ── */
-  --c-agua:#0ea5e9;--c-agua-bg:#e0f2fe;--c-agua-dk:#0369a1;
-  --c-aire:#f59e0b;--c-aire-bg:#fef3c7;--c-aire-dk:#b45309;
-  --c-nieve:#8b5cf6;--c-nieve-bg:#ede9fe;--c-nieve-dk:#6d28d9;
-  --c-tierra:#22c55e;--c-tierra-bg:#dcfce7;--c-tierra-dk:#16a34a;
+  /* ── Category colors (ajustadas a la paleta A) ── */
+  --c-agua:#1e6ea5;--c-agua-bg:#dbeafe;--c-agua-dk:#0f4872;
+  --c-aire:#c9a24a;--c-aire-bg:#fdf4e6;--c-aire-dk:#a8843a;
+  --c-nieve:#64748b;--c-nieve-bg:#f1f5f9;--c-nieve-dk:#334155;
+  --c-tierra:#8b1f2b;--c-tierra-bg:#fde8ea;--c-tierra-dk:#6d1722;
   /* ── Buttons ── */
   --btn-sm:var(--sp-1) var(--sp-3);--btn-md:var(--sp-2) var(--sp-5);--btn-lg:var(--sp-3) var(--sp-6);
 }
@@ -85,7 +101,7 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
 @keyframes slideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 @keyframes bounce{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
-@keyframes urgpulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4);}50%{box-shadow:0 0 0 8px rgba(239,68,68,0);}}
+@keyframes urgpulse{0%,100%{box-shadow:0 0 0 0 rgba(139,31,43,.5);}50%{box-shadow:0 0 0 10px rgba(139,31,43,0);}}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .pulse{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--g);animation:pulse 1.8s infinite;}
 
@@ -126,7 +142,8 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 }
 .nl-icon{display:inline-flex;flex-shrink:0;}
 .nl-icon svg{display:block;}
-.nl-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:900;color:var(--dk);line-height:1.1;}
+.nl-name{font-family:'Bangers','Impact','Oswald',sans-serif;font-size:22px;font-weight:400;color:var(--navy);line-height:1;letter-spacing:1.2px;}
+.nl-name b{color:var(--brand);font-weight:400;}
 .nl-name b{color:var(--g);}
 .nl-badge{background:var(--gl);color:var(--gd);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:7px;border:1px solid #bbf7d0;}
 
@@ -479,16 +496,16 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .gm-style .gm-style-iw-chr{display:none!important;}
 .gm-style .gm-style-iw-tc{display:none!important;}
 /* Custom pin wrapper (AdvancedMarker content) */
-.tx-pin{background:var(--g);color:#fff;border-radius:20px;padding:5px 10px;font-size:13px;font-weight:800;box-shadow:0 3px 12px rgba(0,0,0,.3);border:2px solid #fff;cursor:pointer;white-space:nowrap;position:relative;transform:translateY(-50%);}
-.tx-pin.tx-pin-alta{background:#ef4444;}
-.tx-pin.tx-pin-media{background:#f59e0b;}
-.tx-pin.tx-pin-baja{background:#22c55e;}
-.tx-pin.tx-pin-urg{background:#ef4444;animation:urgpulse 1.8s infinite;}
+.tx-pin{background:var(--gold);color:var(--navy);border-radius:20px;padding:5px 10px;font-size:13px;font-weight:800;box-shadow:0 3px 12px rgba(26,43,74,.3);border:2px solid #fff;cursor:pointer;white-space:nowrap;position:relative;transform:translateY(-50%);}
+.tx-pin.tx-pin-alta{background:var(--brand);color:#fff;}
+.tx-pin.tx-pin-media{background:var(--gold);color:var(--navy);}
+.tx-pin.tx-pin-baja{background:var(--navy);color:var(--gold);}
+.tx-pin.tx-pin-urg{background:var(--brand);color:#fff;animation:urgpulse 1.8s infinite;}
 .tx-pin::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid currentColor;filter:brightness(.9);}
-.tx-pin-urg::after{border-top-color:#ef4444;}
-.tx-pin-alta::after{border-top-color:#ef4444;}
-.tx-pin-media::after{border-top-color:#f59e0b;}
-.tx-pin-baja::after{border-top-color:#22c55e;}
+.tx-pin-urg::after{border-top-color:var(--brand);}
+.tx-pin-alta::after{border-top-color:var(--brand);}
+.tx-pin-media::after{border-top-color:var(--gold);}
+.tx-pin-baja::after{border-top-color:var(--navy);}
 .mp{width:220px;font-family:'Outfit',sans-serif;}
 .mp-img{height:68px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;}
 .mp-urg{position:absolute;top:6px;left:6px;background:var(--r);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;}
@@ -598,9 +615,9 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .tx-footer{background:var(--dk);color:#fff;padding:60px 60px 20px;}
 .tx-foot-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px;}
 .tx-foot-brand p{font-size:var(--fs-sm);color:rgba(255,255,255,.6);line-height:1.6;margin:10px 0 16px;max-width:340px;}
-.tx-foot-logo{font-family:'Syne',sans-serif;font-size:var(--fs-lg);font-weight:900;color:#fff;margin-bottom:4px;display:inline-flex;align-items:center;gap:10px;}
+.tx-foot-logo{font-family:'Bangers','Impact','Oswald',sans-serif;font-size:24px;font-weight:400;color:var(--cream);margin-bottom:6px;display:inline-flex;align-items:center;gap:12px;letter-spacing:1.4px;}
 .tx-foot-logo svg{flex-shrink:0;}
-.tx-foot-logo b{color:var(--g);}
+.tx-foot-logo b{color:var(--gold);font-weight:400;}
 .tx-foot-social{display:flex;gap:10px;}
 .tx-foot-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:background .15s;}
 .tx-foot-social a:hover{background:rgba(34,197,94,.2);}
@@ -1116,15 +1133,14 @@ tr:hover td{background:#fafafa;}
   <div class="nav-inner">
     <a class="nav-logo" onclick="goPage('landing')" aria-label="TripXtrem — Inicio">
       <span class="nl-icon" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="36" height="36">
-          <rect width="64" height="64" rx="14" fill="#111827"/>
-          <path d="M18 18 L46 46" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
-          <path d="M46 18 L18 46" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="32" cy="32" r="3" fill="#22c55e"/>
+        <svg viewBox="0 0 120 120" width="40" height="40">
+          <rect width="120" height="120" rx="24" fill="#8b1f2b"/>
+          <path d="M30 30 L90 90" stroke="#c9a24a" stroke-width="18"/>
+          <path d="M90 30 L30 90" stroke="#c9a24a" stroke-width="18"/>
         </svg>
       </span>
       <div>
-        <div class="nl-name">Trip<b>Xtrem</b></div>
+        <div class="nl-name">TRIP<b>X</b>TREM</div>
         <div class="nl-badge">Nº1 España 🇪🇸</div>
       </div>
     </a>
@@ -1303,9 +1319,9 @@ tr:hover td{background:#fafafa;}
       </div>
     </div>
     <div style="position:absolute;bottom:12px;right:12px;z-index:500;display:flex;gap:6px;">
-      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#22c55e"></div>Baja</div>
+      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#1a2b4a"></div>Baja</div>
       <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#f59e0b"></div>Media</div>
-      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#ef4444"></div>Alta</div>
+      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#8b1f2b"></div>Alta</div>
     </div>
   </div>
 </div>
@@ -1549,13 +1565,12 @@ tr:hover td{background:#fafafa;}
   <div class="tx-foot-inner">
     <div class="tx-foot-brand">
       <div class="tx-foot-logo">
-        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
-          <rect width="64" height="64" rx="14" fill="#22c55e"/>
-          <path d="M18 18 L46 46" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
-          <path d="M46 18 L18 46" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="32" cy="32" r="3" fill="#111827"/>
+        <svg viewBox="0 0 120 120" width="32" height="32" aria-hidden="true">
+          <rect width="120" height="120" rx="24" fill="#8b1f2b"/>
+          <path d="M30 30 L90 90" stroke="#c9a24a" stroke-width="18"/>
+          <path d="M90 30 L30 90" stroke="#c9a24a" stroke-width="18"/>
         </svg>
-        <span>Trip<b>Xtrem</b></span>
+        <span>TRIP<b>X</b>TREM</span>
       </div>
       <p>Marketplace Nº1 de turismo de aventura en España. Reserva deportes extremos con garantía total.</p>
       <div class="tx-foot-social">

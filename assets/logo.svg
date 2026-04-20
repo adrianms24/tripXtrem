@@ -1,19 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="TripXtrem">
-  <defs>
-    <linearGradient id="gx2" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#22c55e"/>
-      <stop offset="100%" stop-color="#16a34a"/>
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 90" role="img" aria-label="TripXtrem">
   <!-- Isotipo -->
-  <rect x="4" y="4" width="64" height="64" rx="14" fill="#111827"/>
-  <path d="M22 22 L50 50" stroke="url(#gx2)" stroke-width="8" stroke-linecap="round"/>
-  <path d="M50 22 L22 50" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-  <circle cx="36" cy="36" r="3" fill="#22c55e"/>
-  <!-- Wordmark -->
-  <g font-family="'Syne', 'Arial Black', sans-serif" font-weight="900" font-size="30" letter-spacing="-1">
-    <text x="88" y="46" fill="#111827">Trip</text>
-    <text x="152" y="46" fill="#22c55e">X</text>
-    <text x="172" y="46" fill="#111827">trem</text>
-  </g>
+  <rect x="4" y="4" width="82" height="82" rx="18" fill="#8b1f2b"/>
+  <path d="M24 24 L66 66" stroke="#c9a24a" stroke-width="14"/>
+  <path d="M66 24 L24 66" stroke="#c9a24a" stroke-width="14"/>
+  <!-- Wordmark Bangers (convert font to SVG fallback via text) -->
+  <text x="108" y="62"
+        font-family="'Bangers','Impact','Oswald',sans-serif"
+        font-weight="400"
+        font-size="52"
+        letter-spacing="1.5"
+        fill="#1a2b4a">TRIP<tspan fill="#8b1f2b">X</tspan>TREM</text>
 </svg>
