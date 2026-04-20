@@ -301,30 +301,31 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
   color:inherit;
   line-height:1;
 }
-/* ── Nivel de adrenalina ── */
+/* ── Nivel de adrenalina (puntos sin texto) ── */
 .sp-adr{
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:.3px;
-  padding:1px 5px;
-  border-radius:6px;
-  line-height:1.2;
+  font-size:6px;
+  line-height:1;
+  letter-spacing:1.5px;
+  padding:2px 5px 2px 6px;
+  border-radius:999px;
   white-space:nowrap;
   position:absolute;
-  top:4px;right:2px;
+  top:3px;right:2px;
+  cursor:help;
+  font-weight:900;
 }
-.adr-1{background:#dcfce7;color:#16a34a;} /* Bajo */
-.adr-2{background:#fef9c3;color:#a16207;} /* Medio */
-.adr-3{background:#ffedd5;color:#c2410c;} /* Alto */
-.adr-4{background:#fee2e2;color:#dc2626;} /* Extremo */
-.adr-5{background:#dc2626;color:#fff;animation:pulseAdr 1.5s infinite;} /* Mortal */
+.adr-1{background:#dcfce7;color:#16a34a;} /* Bajo   ● */
+.adr-2{background:#fef9c3;color:#a16207;} /* Medio  ●● */
+.adr-3{background:#ffedd5;color:#c2410c;} /* Alto   ●●● */
+.adr-4{background:#fee2e2;color:#dc2626;} /* Extremo ●●●● */
+.adr-5{background:#8b1f2b;color:#fff;animation:pulseAdr 1.5s infinite;} /* Mortal ●●●●● */
 @keyframes pulseAdr{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.85;transform:scale(1.08);}}
-/* Borde rojo para los más arriesgados */
+/* Borde de alerta para los más arriesgados */
 .sp-btn.extreme .sp-box{
-  box-shadow:0 0 0 2px #ef4444, 0 0 8px rgba(239,68,68,.25);
+  box-shadow:0 0 0 2px #8b1f2b, 0 0 8px rgba(139,31,43,.25);
 }
-.sp-btn.extreme .sp-label{color:#dc2626;}
-.sp-btn.extreme:hover .sp-label{color:#b91c1c;}
+.sp-btn.extreme .sp-label{color:#8b1f2b;}
+.sp-btn.extreme:hover .sp-label{color:#6d1722;}
 .cb-sep{width:1px;height:24px;background:var(--border);flex-shrink:0;margin:0 4px;}
 .cb-arr{
   position:absolute;top:50%;transform:translateY(-50%);
@@ -985,7 +986,7 @@ tr:hover td{background:#fafafa;}
   #cat-bar{padding:0 16px;}
   .sp-box{width:38px;height:38px;border-radius:9px;font-size:22px;}
   .sp-label{font-size:10px;}
-  .sp-adr{font-size:7px;padding:0 4px;top:2px;right:0;}
+  .sp-adr{font-size:5px;padding:2px 4px;top:2px;right:0;letter-spacing:1px;}
   /* Hide scroll arrows on mobile (user just swipes) */
   .cb-arr{display:none!important;}
   /* View toggle visible */
@@ -1186,67 +1187,67 @@ tr:hover td{background:#fafafa;}
 
     <!-- ── AGUA ── -->
     <div class="cb-sep" data-cat="Agua"></div>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SURF')"><span class="sp-box">🏄</span><span class="sp-label">Surf</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KITESURF')"><span class="sp-box">🪁</span><span class="sp-label">Kitesurf</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','RAFTING')"><span class="sp-box">🚣</span><span class="sp-label">Rafting</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BUCEO')"><span class="sp-box">🤿</span><span class="sp-label">Buceo</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','JET SKI')"><span class="sp-box">🛥️</span><span class="sp-label">Jet Ski</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WAKEBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Wakeboard</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BODYBOARD')"><span class="sp-box">🌊</span><span class="sp-label">Bodyboard</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WINDSURF')"><span class="sp-box">🏄‍♂️</span><span class="sp-label">Windsurf</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KAYAK EXTREMO')"><span class="sp-box">🛶</span><span class="sp-label">Kayak Extremo</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','HYDROSPEED')"><span class="sp-box">💧</span><span class="sp-label">Hydrospeed</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','COASTEERING')"><span class="sp-box">🏊</span><span class="sp-label">Coasteering</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','CLIFF DIVING')"><span class="sp-box">🤸</span><span class="sp-label">Cliff Diving</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','PADDLE SURF')"><span class="sp-box">🧍</span><span class="sp-label">Paddle Surf</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SNORKEL')"><span class="sp-box">🐠</span><span class="sp-label">Snorkel</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','BUCEO CUEVAS')"><span class="sp-box">🦈</span><span class="sp-label">Buceo Cuevas</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SURF')"><span class="sp-box">🏄</span><span class="sp-label">Surf</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KITESURF')"><span class="sp-box">🪁</span><span class="sp-label">Kitesurf</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','RAFTING')"><span class="sp-box">🚣</span><span class="sp-label">Rafting</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BUCEO')"><span class="sp-box">🤿</span><span class="sp-label">Buceo</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','JET SKI')"><span class="sp-box">🛥️</span><span class="sp-label">Jet Ski</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WAKEBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Wakeboard</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','BODYBOARD')"><span class="sp-box">🌊</span><span class="sp-label">Bodyboard</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','WINDSURF')"><span class="sp-box">🏄‍♂️</span><span class="sp-label">Windsurf</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','KAYAK EXTREMO')"><span class="sp-box">🛶</span><span class="sp-label">Kayak Extremo</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','HYDROSPEED')"><span class="sp-box">💧</span><span class="sp-label">Hydrospeed</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','COASTEERING')"><span class="sp-box">🏊</span><span class="sp-label">Coasteering</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','CLIFF DIVING')"><span class="sp-box">🤸</span><span class="sp-label">Cliff Diving</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','PADDLE SURF')"><span class="sp-box">🧍</span><span class="sp-label">Paddle Surf</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn" data-cat="Agua" onclick="setS(this,'Agua','SNORKEL')"><span class="sp-box">🐠</span><span class="sp-label">Snorkel</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn extreme" data-cat="Agua" onclick="setS(this,'Agua','BUCEO CUEVAS')"><span class="sp-box">🦈</span><span class="sp-label">Buceo Cuevas</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
 
     <!-- ── AIRE ── -->
     <div class="cb-sep" data-cat="Aire"></div>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARAPENTE')"><span class="sp-box">🪂</span><span class="sp-label">Parapente</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARACAIDISMO')"><span class="sp-box">🛩️</span><span class="sp-label">Paracaidismo</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','WINGSUIT')"><span class="sp-box">🦸</span><span class="sp-label">Wingsuit</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','BUNGEE')"><span class="sp-box">🪢</span><span class="sp-label">Bungee</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','BASE JUMP')"><span class="sp-box">🏗️</span><span class="sp-label">BASE Jump</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ALA DELTA')"><span class="sp-box">🪽</span><span class="sp-label">Ala Delta</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ACROBACIA AEREA')"><span class="sp-box">✈️</span><span class="sp-label">Acrobacia Aérea</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','GLOBO AEROSTATICO')"><span class="sp-box">🎈</span><span class="sp-label">Globo</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','TIROLINA')"><span class="sp-box">🏗️</span><span class="sp-label">Tirolina</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARATRIKE')"><span class="sp-box">🛞</span><span class="sp-label">Paratrike</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','SPEED RIDING')"><span class="sp-box">⚡</span><span class="sp-label">Speed Riding</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARAPENTE')"><span class="sp-box">🪂</span><span class="sp-label">Parapente</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARACAIDISMO')"><span class="sp-box">🛩️</span><span class="sp-label">Paracaidismo</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','WINGSUIT')"><span class="sp-box">🦸</span><span class="sp-label">Wingsuit</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','BUNGEE')"><span class="sp-box">🪢</span><span class="sp-label">Bungee</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','BASE JUMP')"><span class="sp-box">🏗️</span><span class="sp-label">BASE Jump</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ALA DELTA')"><span class="sp-box">🪽</span><span class="sp-label">Ala Delta</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','ACROBACIA AEREA')"><span class="sp-box">✈️</span><span class="sp-label">Acrobacia Aérea</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','GLOBO AEROSTATICO')"><span class="sp-box">🎈</span><span class="sp-label">Globo</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','TIROLINA')"><span class="sp-box">🏗️</span><span class="sp-label">Tirolina</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Aire" onclick="setS(this,'Aire','PARATRIKE')"><span class="sp-box">🛞</span><span class="sp-label">Paratrike</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn extreme" data-cat="Aire" onclick="setS(this,'Aire','SPEED RIDING')"><span class="sp-box">⚡</span><span class="sp-label">Speed Riding</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
 
     <!-- ── NIEVE ── -->
     <div class="cb-sep" data-cat="Nieve"></div>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','FREERIDE')"><span class="sp-box">⛷️</span><span class="sp-label">Freeride</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','HELIESQUI')"><span class="sp-box">🚁</span><span class="sp-label">Heliesquí</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ICE CLIMBING')"><span class="sp-box">🧊</span><span class="sp-label">Ice Climbing</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Snowboard</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ESQUI ALPINO')"><span class="sp-box">⛷️</span><span class="sp-label">Esquí Alpino</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','AVALANCHA SKIING')"><span class="sp-box">🏔️</span><span class="sp-label">Avalanche Ski</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWKITE')"><span class="sp-box">🪁</span><span class="sp-label">Snowkite</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','MUSHING')"><span class="sp-box">🐕</span><span class="sp-label">Mushing</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','RAQUETAS')"><span class="sp-box">🥾</span><span class="sp-label">Raquetas</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','SPEED SKIING')"><span class="sp-box">💨</span><span class="sp-label">Speed Skiing</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SKICROSS')"><span class="sp-box">🎿</span><span class="sp-label">Skicross</span><span class="sp-adr adr-3">ALTO</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','FREERIDE')"><span class="sp-box">⛷️</span><span class="sp-label">Freeride</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','HELIESQUI')"><span class="sp-box">🚁</span><span class="sp-label">Heliesquí</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ICE CLIMBING')"><span class="sp-box">🧊</span><span class="sp-label">Ice Climbing</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWBOARD')"><span class="sp-box">🏂</span><span class="sp-label">Snowboard</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','ESQUI ALPINO')"><span class="sp-box">⛷️</span><span class="sp-label">Esquí Alpino</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','AVALANCHA SKIING')"><span class="sp-box">🏔️</span><span class="sp-label">Avalanche Ski</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SNOWKITE')"><span class="sp-box">🪁</span><span class="sp-label">Snowkite</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','MUSHING')"><span class="sp-box">🐕</span><span class="sp-label">Mushing</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','RAQUETAS')"><span class="sp-box">🥾</span><span class="sp-label">Raquetas</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn extreme" data-cat="Nieve" onclick="setS(this,'Nieve','SPEED SKIING')"><span class="sp-box">💨</span><span class="sp-label">Speed Skiing</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Nieve" onclick="setS(this,'Nieve','SKICROSS')"><span class="sp-box">🎿</span><span class="sp-label">Skicross</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
 
     <!-- ── TIERRA ── -->
     <div class="cb-sep" data-cat="Tierra"></div>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESCALADA')"><span class="sp-box">🧗</span><span class="sp-label">Escalada</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','VIA FERRATA')"><span class="sp-box">⛰️</span><span class="sp-label">Vía Ferrata</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ENDURO MTB')"><span class="sp-box">🚵</span><span class="sp-label">MTB Enduro</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESPELEOLOGIA')"><span class="sp-box">🕳️</span><span class="sp-label">Espeleología</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','BARRANQUISMO')"><span class="sp-box">🏞️</span><span class="sp-label">Barranquismo</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','DOWNHILL')"><span class="sp-box">🚴</span><span class="sp-label">Downhill</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TRAIL RUNNING')"><span class="sp-box">🏃</span><span class="sp-label">Trail Running</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','MOTOCROSS')"><span class="sp-box">🏍️</span><span class="sp-label">Motocross</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','QUAD')"><span class="sp-box">🛞</span><span class="sp-label">Quad</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','PARKOUR')"><span class="sp-box">🤸‍♂️</span><span class="sp-label">Parkour</span><span class="sp-adr adr-3">ALTO</span></button>
-    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','RALLY RAID')"><span class="sp-box">🏎️</span><span class="sp-label">Rally Raid</span><span class="sp-adr adr-4">EXTREMO</span></button>
-    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','ALPINISMO')"><span class="sp-box">🗻</span><span class="sp-label">Alpinismo</span><span class="sp-adr adr-5">MORTAL</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','SANDBOARD')"><span class="sp-box">🏜️</span><span class="sp-label">Sandboard</span><span class="sp-adr adr-2">MEDIO</span></button>
-    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TIRO CON ARCO')"><span class="sp-box">🏹</span><span class="sp-label">Tiro con Arco</span><span class="sp-adr adr-1">BAJO</span></button>
-    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','SLACKLINE ALTURA')"><span class="sp-box">🌉</span><span class="sp-label">Highline</span><span class="sp-adr adr-5">MORTAL</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESCALADA')"><span class="sp-box">🧗</span><span class="sp-label">Escalada</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','VIA FERRATA')"><span class="sp-box">⛰️</span><span class="sp-label">Vía Ferrata</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ENDURO MTB')"><span class="sp-box">🚵</span><span class="sp-label">MTB Enduro</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','ESPELEOLOGIA')"><span class="sp-box">🕳️</span><span class="sp-label">Espeleología</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','BARRANQUISMO')"><span class="sp-box">🏞️</span><span class="sp-label">Barranquismo</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','DOWNHILL')"><span class="sp-box">🚴</span><span class="sp-label">Downhill</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TRAIL RUNNING')"><span class="sp-box">🏃</span><span class="sp-label">Trail Running</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','MOTOCROSS')"><span class="sp-box">🏍️</span><span class="sp-label">Motocross</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','QUAD')"><span class="sp-box">🛞</span><span class="sp-label">Quad</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','PARKOUR')"><span class="sp-box">🤸‍♂️</span><span class="sp-label">Parkour</span><span class="sp-adr adr-3" title="Adrenalina: Alto">●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','RALLY RAID')"><span class="sp-box">🏎️</span><span class="sp-label">Rally Raid</span><span class="sp-adr adr-4" title="Adrenalina: Extremo">●●●●</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','ALPINISMO')"><span class="sp-box">🗻</span><span class="sp-label">Alpinismo</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','SANDBOARD')"><span class="sp-box">🏜️</span><span class="sp-label">Sandboard</span><span class="sp-adr adr-2" title="Adrenalina: Medio">●●</span></button>
+    <button class="sp-btn" data-cat="Tierra" onclick="setS(this,'Tierra','TIRO CON ARCO')"><span class="sp-box">🏹</span><span class="sp-label">Tiro con Arco</span><span class="sp-adr adr-1" title="Adrenalina: Bajo">●</span></button>
+    <button class="sp-btn extreme" data-cat="Tierra" onclick="setS(this,'Tierra','SLACKLINE ALTURA')"><span class="sp-box">🌉</span><span class="sp-label">Highline</span><span class="sp-adr adr-5" title="Adrenalina: Mortal">●●●●●</span></button>
   </div>
   <button class="cb-arr cb-arr-r show" id="cb-r" onclick="scrollCB(200)">&#8250;</button>
 </div>
