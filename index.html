@@ -917,28 +917,186 @@ tr:hover td{background:#fafafa;}
 #toast{position:fixed;bottom:22px;right:22px;background:var(--dk);color:#fff;padding:12px 20px;border-radius:13px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(60px);opacity:0;transition:all .3s;max-width:300px;box-shadow:0 4px 24px rgba(0,0,0,.22);}
 #toast.show{transform:translateY(0);opacity:1;}
 
-/* RESPONSIVE */
+/* ═══ MOBILE VIEW TOGGLE ═══ */
+.mbtoggle{
+  display:none;
+  position:fixed;
+  left:0;right:0;
+  bottom:0;
+  z-index:900;
+  background:#fff;
+  border-top:1px solid var(--border);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom,0)) 12px;
+  gap:8px;
+}
+.mbt-btn{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  background:#f9fafb;color:var(--mu);
+  border:1.5px solid var(--border);border-radius:var(--r-md);
+  padding:10px 14px;
+  font-size:14px;font-weight:700;
+  cursor:pointer;
+  min-height:44px;
+  transition:all .15s;
+}
+.mbt-btn.on{background:var(--dk);color:#fff;border-color:var(--dk);}
+
+/* ═══ RESPONSIVE ═══ */
 @media(max-width:1280px){.nav-pill{min-width:300px;}.nl-badge{display:none;}.btn-host{display:none;}}
 @media(max-width:1024px){.nav-pill{min-width:240px;width:34%;}.np-seg:nth-child(2){display:none;}}
+
+/* Tablet & mobile */
 @media(max-width:900px){
+  :root{--ANH:32px;--NH:56px;--CTBH:46px;--CBH:68px;}
+  /* Nav */
   .nav-pill{display:none;}
-  #cat-tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 16px;gap:4px;}
+  .nav-inner{padding:0 16px;}
+  .nl-mark{font-size:9px;padding:5px 7px;}
+  .nl-name{font-size:15px;}
+  /* Announcement bar */
+  #ann-bar{font-size:11px;padding:0 36px;}
+  #ann-bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;max-width:calc(100vw - 80px);}
+  /* Cat tabs */
+  #cat-tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 12px;gap:4px;}
   #cat-tabs::-webkit-scrollbar{display:none;}
-  .ct-btn{padding:6px 14px;font-size:12px;}
-  .split{grid-template-columns:1fr;height:auto;}
-  .sb{height:auto;max-height:none;}
-  .map-side{height:50vh;min-height:300px;}
-  .card-list{grid-template-columns:1fr;}
-  .section{padding:50px 20px;}
-  .packs-grid,.test-grid{grid-template-columns:1fr;}
-  .how-grid{grid-template-columns:1fr 1fr;gap:20px;}
-  .stats-sec{grid-template-columns:1fr 1fr;gap:14px;padding:40px 20px;}
-  .partner-cta{grid-template-columns:1fr;padding:50px 20px;}
+  .ct-btn{padding:6px 12px;font-size:12px;border-width:1.5px;}
+  .ct-icon{font-size:14px;}
+  /* Cat bar (sports) */
+  #cat-bar{padding:0 16px;}
+  .sp-box{width:38px;height:38px;border-radius:9px;font-size:22px;}
+  .sp-label{font-size:10px;}
+  .sp-adr{font-size:7px;padding:0 4px;top:2px;right:0;}
+  /* Hide scroll arrows on mobile (user just swipes) */
+  .cb-arr{display:none!important;}
+  /* View toggle visible */
+  .mbtoggle{display:flex;}
+  /* Split: one view at a time (list or map) */
+  .split{grid-template-columns:1fr;height:calc(100vh - var(--ANH) - var(--NH) - var(--CTBH) - var(--CBH) - 56px);position:relative;}
+  .sb,.map-side{display:none;}
+  body.mv-list .sb{display:flex;height:100%;}
+  body.mv-map .map-side{display:block;height:100%;min-height:0;}
+  body.mv-map .mbtoggle{box-shadow:0 -6px 20px rgba(0,0,0,.08);}
+  /* Cards */
+  .card-list{grid-template-columns:1fr;padding:12px;gap:12px;}
+  .ec{border-radius:14px;}
+  .ec-thumb{height:200px;}
+  .ec-body{padding:12px 14px 10px;}
+  /* Sidebar head */
+  .sb-head{padding:12px 14px;}
+  .sb-row1 h3{font-size:15px;}
+  .filter-row{gap:5px;flex-wrap:wrap;}
+  .fchip{padding:5px 10px;font-size:11.5px;}
+  .fchip-price{width:100%;margin-top:4px;}
+  /* Sections */
+  .section{padding:48px 20px;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:24px;}
+  .sec-title{font-size:26px;line-height:1.15;}
+  .sec-sub{font-size:14px;}
+  .sec-link{align-self:stretch;justify-content:center;padding:10px 16px;border:1.5px solid var(--border);border-radius:10px;}
+  /* Packs */
+  .packs-grid{grid-template-columns:1fr;gap:16px;}
+  .pack-hero{height:140px;}
+  .pack-hero-icons{font-size:34px;gap:8px;}
+  .pack-body{padding:16px 18px;}
+  .pack-title{font-size:16px;}
+  .pack-route{overflow-x:auto;padding:8px 2px;gap:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .pack-route::-webkit-scrollbar{display:none;}
+  .pack-route::before{display:none;}
+  .pr-step{min-width:70px;flex:0 0 auto;}
+  .pr-icon{width:36px;height:36px;font-size:16px;}
+  .pr-val{font-size:10.5px;max-width:72px;}
+  .pr-arrow{margin-top:10px;}
+  .pack-foot{flex-wrap:wrap;gap:8px;}
+  .pack-foot > div{flex:1 1 auto;min-width:0;}
+  .pack-foot .btn-g{width:100%;padding:11px;font-size:13px;}
+  /* Testimonials / stats */
+  .test-grid{grid-template-columns:1fr;gap:14px;margin-top:24px;}
+  .test-card{padding:18px;}
+  .how-grid{grid-template-columns:1fr 1fr;gap:18px;margin-top:28px;}
+  .how-bg{padding:48px 20px;}
+  .stats-sec{grid-template-columns:1fr 1fr;gap:14px;padding:36px 20px;}
+  .stat-num{font-size:28px;}
+  /* Partner CTA */
+  .partner-cta{grid-template-columns:1fr;padding:48px 20px;gap:24px;}
+  .pct-title{font-size:24px;line-height:1.2;}
+  .pct-btns{flex-direction:column;align-items:stretch;}
+  .btn-lg{width:100%;padding:14px;font-size:14px;}
+  /* Admin */
   .admin-pg{grid-template-columns:1fr;height:auto;}
   .admin-sb{display:none;}
-  .pack-compare{margin:0 20px;}
+  /* Modals bottom sheet */
+  .ov{align-items:flex-end;}
+  .modal{border-radius:20px 20px 0 0;max-height:92vh;width:100%;max-width:100%;animation:slideUpSheet .28s ease-out;padding-bottom:env(safe-area-inset-bottom,0);}
+  @keyframes slideUpSheet{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  .modal-close{top:10px;right:10px;width:34px;height:34px;}
+  /* Waitlist modal */
+  .modal-wl{padding:22px 20px 20px;}
+  .wl-title{font-size:20px;}
+  .wl-row{grid-template-columns:1fr;}
+  .wl-submit{padding:14px;font-size:15px;}
+  /* Partner form */
+  .pf-hd{padding:14px 16px 0;}
+  .pf-step{padding:16px 18px;}
+  .pf-step h3{font-size:17px;}
+  .pf-step > p{font-size:12.5px;margin-bottom:14px;}
+  .svc-grid{grid-template-columns:1fr;gap:8px;}
+  .svc-card{padding:12px;}
+  .frow{grid-template-columns:1fr;gap:10px;}
+  .fg input,.fg select,.fg textarea{padding:12px 13px;font-size:14px;}
+  .diff-sel{flex-direction:column;gap:6px;}
+  .diff-btn{width:100%;}
+  .pf-foot{padding:12px 16px;position:sticky;bottom:0;background:#fff;border-top:1px solid var(--border);}
+  .pf-foot .btn-ol,.pf-foot .btn-g{min-height:44px;padding:10px 16px;}
+  /* Footer */
+  .tx-footer{padding:36px 18px 16px;}
+  .tx-foot-inner{grid-template-columns:1fr;gap:24px;margin-bottom:20px;}
+  .tx-foot-brand p{max-width:100%;}
+  .tx-foot-bot{flex-direction:column;align-items:flex-start;gap:6px;text-align:left;}
+  /* Ficha */
+  .ficha-hero{height:160px;font-size:56px;border-radius:20px 20px 0 0;}
+  .ficha-body{padding:18px 18px 110px;}
+  .ficha-btns{flex-direction:column;gap:8px;}
+  .ficha-btns > *{width:100%;}
+  /* Dropdown */
+  #ddm{right:8px;left:8px;width:auto;max-width:420px;}
+  /* Toast */
+  #toast{left:16px;right:16px;bottom:16px;max-width:none;}
+  /* Larger touch targets */
+  button,.btn-g,.btn-dk,.btn-ol{min-height:40px;}
+  .ec-book,.ec-like,.mp-btn{min-height:36px;}
 }
-@media(max-height:700px){
+
+/* Phone only */
+@media(max-width:480px){
+  :root{--ANH:28px;--NH:54px;--CTBH:42px;--CBH:62px;}
+  #ann-bar{font-size:10.5px;padding:0 32px;}
+  .ct-btn{padding:5px 10px;font-size:11.5px;gap:4px;}
+  .ct-icon{font-size:13px;}
+  .sp-box{width:34px;height:34px;border-radius:8px;font-size:20px;}
+  .sp-label{font-size:9.5px;}
+  .ec-thumb{height:180px;}
+  .sec-title{font-size:22px;}
+  .pack-hero{height:120px;}
+  .pack-hero-icons{font-size:28px;}
+  .how-grid{grid-template-columns:1fr;gap:16px;}
+  .stats-sec{grid-template-columns:1fr 1fr;gap:10px;padding:28px 16px;}
+  .stat-num{font-size:24px;}
+  .stat-lbl{font-size:12px;}
+  .modal{border-radius:16px 16px 0 0;}
+  .test-card{padding:16px;}
+  .test-text{font-size:13px;}
+}
+
+/* Landscape phones */
+@media(max-width:900px) and (orientation:landscape) and (max-height:500px){
+  .split{height:calc(100vh - var(--ANH) - var(--NH) - var(--CTBH) - var(--CBH) - 48px);}
+  .modal{max-height:96vh;}
+}
+
+/* Reduce motion accessibility */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
 </style>
 </head>
@@ -1091,6 +1249,12 @@ tr:hover td{background:#fafafa;}
 
 <!-- ═══ PAGE LANDING ═══ -->
 <div class="page active" id="page-landing">
+
+<!-- MOBILE VIEW TOGGLE (Lista / Mapa) — solo visible en m\u00f3vil -->
+<div class="mbtoggle" role="tablist" aria-label="Vista">
+  <button class="mbt-btn on" role="tab" aria-selected="true" data-view="list" onclick="setMView('list',this)">📋 Lista</button>
+  <button class="mbt-btn" role="tab" aria-selected="false" data-view="map" onclick="setMView('map',this)">🗺️ Mapa</button>
+</div>
 
 <!-- SPLIT MAP + CARDS (unified landing) -->
 <div class="split page-content" id="mapSection">
@@ -1492,7 +1656,7 @@ tr:hover td{background:#fafafa;}
     </div>
     <div class="wl-field">
       <label>Email</label>
-      <input type="email" name="email" id="wl-email" placeholder="tu@email.com" required autocomplete="email">
+      <input type="email" name="email" id="wl-email" placeholder="tu@email.com" required autocomplete="email" inputmode="email">
     </div>
     <div class="wl-row">
       <div class="wl-field">
@@ -1504,7 +1668,7 @@ tr:hover td{background:#fafafa;}
       </div>
       <div class="wl-field">
         <label>Código postal <span class="wl-opt">(opcional)</span></label>
-        <input type="text" name="postal_code" id="wl-postal" placeholder="28001" maxlength="10" pattern="[0-9A-Za-z\- ]*">
+        <input type="text" name="postal_code" id="wl-postal" placeholder="28001" maxlength="10" pattern="[0-9A-Za-z\- ]*" inputmode="numeric" autocomplete="postal-code">
       </div>
     </div>
     <!-- Honeypot — bots rellenan, humanos no -->
@@ -1658,8 +1822,8 @@ tr:hover td{background:#fafafa;}
     <div class="fg"><label>Nombre de la empresa *</label><input type="text" id="pf-nombre" placeholder="Ej: Surf School Zarautz"></div>
     <div class="fg"><label>Descripción *</label><textarea id="pf-desc" placeholder="Describe tu empresa..." style="height:70px"></textarea></div>
     <div class="frow">
-      <div class="fg"><label>Teléfono *</label><input type="tel" id="pf-tel" placeholder="+34 600 000 000"></div>
-      <div class="fg"><label>Email *</label><input type="email" id="pf-email" placeholder="info@empresa.com"></div>
+      <div class="fg"><label>Teléfono *</label><input type="tel" id="pf-tel" placeholder="+34 600 000 000" inputmode="tel" autocomplete="tel"></div>
+      <div class="fg"><label>Email *</label><input type="email" id="pf-email" placeholder="info@empresa.com" inputmode="email" autocomplete="email"></div>
     </div>
     <div class="fg"><label>Web</label><input type="url" id="pf-web" placeholder="https://tuempresa.com"></div>
   </div>
@@ -1681,8 +1845,8 @@ tr:hover td{background:#fafafa;}
       </div>
     </div>
     <div class="frow">
-      <div class="fg"><label>Precio por persona (€) *</label><input type="number" id="pf-precio" placeholder="45" min="1"></div>
-      <div class="fg"><label>Plazas máximas</label><input type="number" id="pf-plazas" placeholder="8" min="1"></div>
+      <div class="fg"><label>Precio por persona (€) *</label><input type="number" id="pf-precio" placeholder="45" min="1" inputmode="decimal"></div>
+      <div class="fg"><label>Plazas máximas</label><input type="number" id="pf-plazas" placeholder="8" min="1" inputmode="numeric"></div>
     </div>
     <div class="fg"><label>Descripción de la actividad</label><textarea id="pf-act-desc" placeholder="¿Qué harán? ¿Qué incluye?" style="height:70px"></textarea></div>
   </div>
@@ -1886,7 +2050,7 @@ const TICKER_MSGS=[
 let curCat='__ALL__', curSport=null, liked=new Set(), curCard=null;
 let activeDiffs=new Set(), maxPrice=400, sortMode='rating';
 let pfStep=1, payStep=1, payQty=1, revStars=0;
-let mainMap=null, markers=[], fichaMapInst=null;
+let mainMap=null, markers=[], fichaMapInst=null, cardsBounds=null;
 let mapsReady={main:false};
 
 // ════ UTILS ════
@@ -2185,14 +2349,15 @@ function updateMarkers(cards){
   });
 
   // Fit bounds
+  cardsBounds = null;
   if(cards.length > 1){
     const bounds = new google.maps.LatLngBounds();
     cards.forEach(c=>{
       if(Number.isFinite(c.lat) && Number.isFinite(c.lng)) bounds.extend({lat:c.lat,lng:c.lng});
     });
     if(!bounds.isEmpty()){
+      cardsBounds = bounds;
       mainMap.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
-      // Cap max zoom
       google.maps.event.addListenerOnce(mainMap,'idle',()=>{
         if(mainMap.getZoom() > 12) mainMap.setZoom(12);
       });
@@ -2854,7 +3019,32 @@ document.addEventListener('DOMContentLoaded',()=>{
   updAdmBadge();
   setTimeout(updateCBArrows,500);
   const y=document.getElementById('tx-year');if(y)y.textContent=new Date().getFullYear();
+  // Init mobile view (list by default)
+  if(!document.body.classList.contains('mv-list') && !document.body.classList.contains('mv-map')){
+    document.body.classList.add('mv-list');
+  }
 });
+
+// ════ MOBILE VIEW TOGGLE ════
+function setMView(v, btn){
+  document.body.classList.remove('mv-list','mv-map');
+  document.body.classList.add('mv-'+v);
+  document.querySelectorAll('.mbt-btn').forEach(b=>{
+    b.classList.remove('on');
+    b.setAttribute('aria-selected','false');
+  });
+  if(btn){ btn.classList.add('on'); btn.setAttribute('aria-selected','true'); }
+  // Forzar resize del mapa cuando pasa de hidden -> visible
+  if(v==='map' && mainMap && window.google){
+    setTimeout(()=>{
+      google.maps.event.trigger(mainMap,'resize');
+      // Re-centrar si hay markers
+      if(markers.length && cardsBounds){
+        try{ mainMap.fitBounds(cardsBounds,{top:40,right:40,bottom:40,left:40}); }catch(_){}
+      }
+    }, 180);
+  }
+}
 
 // ════ CARD ↔ MAP HOVER SYNC ════
 let markerMap={};
