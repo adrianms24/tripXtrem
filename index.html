@@ -2073,16 +2073,14 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   <div class="pf-step" id="pf5">
     <h3>Fotos de la actividad</h3>
     <p>Sube al menos 3 fotos de buena calidad. Son clave para atraer clientes.</p>
-    <div class="upload-z" onclick="toast('📸 Selecciona tus fotos')">
+    <input type="file" id="pf-files" accept="image/jpeg,image/png,image/webp" multiple style="display:none" onchange="pfHandleFiles(this.files)">
+    <div class="upload-z" id="pf-dropz" onclick="document.getElementById('pf-files').click()" tabindex="0" role="button" aria-label="Subir fotos">
       <div style="font-size:34px;margin-bottom:7px">📷</div>
       <p style="font-size:14px;font-weight:600">Arrastra tus fotos aquí o haz clic</p>
-      <p style="font-size:12.5px;color:var(--mu);margin-top:5px">JPG, PNG · Máximo 10MB por foto</p>
+      <p style="font-size:12.5px;color:var(--mu);margin-top:5px">JPG, PNG, WEBP · Máximo 10MB por foto · Hasta 6 fotos</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px">
-      <div style="height:84px;background:#f3f4f6;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px dashed #d1d5db;color:#ccc">+</div>
-      <div style="height:84px;background:#f3f4f6;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px dashed #d1d5db;color:#ccc">+</div>
-      <div style="height:84px;background:#f3f4f6;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px dashed #d1d5db;color:#ccc">+</div>
-    </div>
+    <div id="pf-photos" style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px"></div>
+    <div id="pf-photos-info" style="font-size:12px;color:var(--mu);margin-top:8px;text-align:center;display:none"></div>
   </div>
   <!-- Step 6 -->
   <div class="pf-step" id="pf6">
@@ -2838,7 +2836,7 @@ function submitRev(){
 }
 
 // ════ PARTNER FORM ════
-function openPartner(){pfStep=1;openOv('ov-partner');pfGoStep(1);}
+function openPartner(){pfStep=1;pfPhotos=[];pfRenderPhotos&&pfRenderPhotos();openOv('ov-partner');pfGoStep(1);}
 function pfGoStep(n){
   pfStep=n;
   for(let i=1;i<=6;i++)document.getElementById('pf'+i).classList.toggle('active',i===n);
@@ -2870,6 +2868,7 @@ async function submitPartnerApply(){
     const payload={
       company_name:companyName,contact_name:contactName,email,phone,website,
       country,city,sports:sport,description,
+      photos_count: pfPhotos.length,
       gdpr:true,company:''
     };
     if(gCurrentPlace){
@@ -2893,6 +2892,81 @@ async function submitPartnerApply(){
 function pfPrev(){if(pfStep>1)pfGoStep(pfStep-1);}
 function selSvc(el){if(el.classList.contains('disabled'))return;document.querySelectorAll('.svc-card:not(.disabled)').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
 function selDiff(btn,l){document.querySelectorAll('.diff-btn').forEach(b=>b.className='diff-btn');btn.classList.add(l);}
+
+// ════ PARTNER FORM — UPLOAD FOTOS ════
+let pfPhotos = []; // {file, dataUrl, name, size}
+const PF_MAX_PHOTOS = 6;
+const PF_MAX_SIZE = 10 * 1024 * 1024; // 10MB
+
+function pfHandleFiles(fileList){
+  if(!fileList || !fileList.length) return;
+  const files = Array.from(fileList);
+  let added = 0, rejected = [];
+  for(const f of files){
+    if(pfPhotos.length >= PF_MAX_PHOTOS){ rejected.push(f.name+' (máx '+PF_MAX_PHOTOS+')'); break; }
+    if(!/^image\/(jpeg|png|webp)$/i.test(f.type)){ rejected.push(f.name+' (formato no válido)'); continue; }
+    if(f.size > PF_MAX_SIZE){ rejected.push(f.name+' (>10MB)'); continue; }
+    if(pfPhotos.some(p => p.name===f.name && p.size===f.size)){ rejected.push(f.name+' (duplicado)'); continue; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      pfPhotos.push({ file:f, dataUrl:e.target.result, name:f.name, size:f.size });
+      pfRenderPhotos();
+    };
+    reader.readAsDataURL(f);
+    added++;
+  }
+  if(rejected.length){ toast('⚠️ Rechazado: '+rejected.slice(0,2).join(', ')); }
+  if(added){ toast('✅ '+added+' foto'+(added>1?'s':'')+' añadida'+(added>1?'s':'')); }
+  // Reset input para permitir re-seleccionar el mismo archivo
+  const inp = document.getElementById('pf-files');
+  if(inp) inp.value = '';
+}
+
+function pfRenderPhotos(){
+  const cont = document.getElementById('pf-photos');
+  const info = document.getElementById('pf-photos-info');
+  if(!cont) return;
+  if(!pfPhotos.length){
+    cont.innerHTML = ['','',''].map(()=>'<div style="height:84px;background:#f9fafb;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px dashed #d1d5db;color:#ccc">+</div>').join('');
+    if(info) info.style.display = 'none';
+    return;
+  }
+  cont.innerHTML = pfPhotos.map((p,i)=>
+    '<div style="position:relative;height:84px;border-radius:9px;overflow:hidden;border:1.5px solid var(--border);background:#000">'+
+      '<img src="'+p.dataUrl+'" alt="" style="width:100%;height:100%;object-fit:cover;display:block">'+
+      '<button type="button" onclick="pfRemovePhoto('+i+')" style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;border:none;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center" aria-label="Eliminar foto">×</button>'+
+      (i===0?'<div style="position:absolute;bottom:4px;left:4px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px">PRINCIPAL</div>':'')+
+    '</div>'
+  ).join('');
+  if(info){
+    info.style.display = 'block';
+    info.textContent = pfPhotos.length + ' / ' + PF_MAX_PHOTOS + ' fotos · ' + (pfPhotos.length<3?'⚠️ Mínimo 3 recomendado':'✅ OK');
+    info.style.color = pfPhotos.length<3 ? 'var(--brand)' : 'var(--gold-dk)';
+  }
+}
+
+function pfRemovePhoto(i){
+  pfPhotos.splice(i, 1);
+  pfRenderPhotos();
+}
+
+// Drag & drop
+document.addEventListener('DOMContentLoaded', ()=>{
+  const dz = document.getElementById('pf-dropz');
+  if(!dz) return;
+  ['dragenter','dragover'].forEach(ev=>{
+    dz.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); dz.style.borderColor='var(--gold)'; dz.style.background='var(--gold-tint)'; });
+  });
+  ['dragleave','drop'].forEach(ev=>{
+    dz.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); dz.style.borderColor=''; dz.style.background=''; });
+  });
+  dz.addEventListener('drop', e=>{
+    if(e.dataTransfer && e.dataTransfer.files) pfHandleFiles(e.dataTransfer.files);
+  });
+  dz.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); document.getElementById('pf-files').click(); }
+  });
+});
 
 // ════ GOOGLE PLACES AUTOCOMPLETE ════
 let gPlaceSession=null, gSearchTimer=null, gCurrentPlace=null;

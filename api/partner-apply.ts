@@ -32,6 +32,8 @@ type Body = {
   formatted_address?: string;
   lat?: number;
   lng?: number;
+  // Fotos (sólo contador, las fotos en sí se solicitan offline)
+  photos_count?: number;
 };
 
 function hashIp(ip: string): string {
@@ -80,8 +82,11 @@ function adminNotify(app: Body, id: number): string {
 <tr><td><b>Deportes:</b></td><td>${escape(app.sports || '')}</td></tr>
 <tr><td><b>Seguro RC:</b></td><td>${app.has_insurance ? '✅ Sí' : '❌ No'}</td></tr>
 <tr><td><b>Años operando:</b></td><td>${app.years_operating || '-'}</td></tr>
+<tr><td><b>Fotos:</b></td><td>${(app as any).photos_count ? `📸 ${(app as any).photos_count} fotos (pídelas por email)` : '— Sin fotos'}</td></tr>
 <tr><td valign="top"><b>Descripción:</b></td><td>${escape(app.description || '')}</td></tr>
-</table></body></html>`;
+</table>
+${(app as any).photos_count ? '<p style="background:#fef9c3;border:1px solid #fcd34d;padding:10px;border-radius:8px;font-size:13px;color:#78350f;">⚠️ El partner dice tener ' + (app as any).photos_count + ' fotos. <b>Pídeselas por email</b> — el upload de fotos pendiente de integrar storage.</p>' : ''}
+</body></html>`;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -129,6 +134,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const gAddr = typeof body.formatted_address === 'string' ? body.formatted_address.slice(0, 500) : null;
   const gLat = typeof body.lat === 'number' && Number.isFinite(body.lat) ? body.lat : null;
   const gLng = typeof body.lng === 'number' && Number.isFinite(body.lng) ? body.lng : null;
+
+  // Photos count (las fotos se gestionan offline por ahora)
+  const photosCount = typeof (body as any).photos_count === 'number' ? Math.max(0, Math.min(99, (body as any).photos_count)) : 0;
 
   try {
     const sql = neon(DATABASE_URL);
