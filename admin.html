@@ -248,7 +248,11 @@ tr:hover td{background:#fafbfc}
       <div class="fg"><label>Categoría *</label><select id="exp-category"><option>Agua</option><option>Aire</option><option>Nieve</option><option>Tierra</option></select></div>
     </div>
     <div class="frow">
-      <div class="fg"><label>Deporte (UPPERCASE) *</label><input type="text" id="exp-sport" placeholder="SURF, KITESURF, PARACAIDISMO..." required oninput="autoFillSport()" list="sport-list"><datalist id="sport-list"></datalist></div>
+      <div class="fg">
+        <label>Deporte (UPPERCASE) * <button type="button" onclick="autoFillSport(true)" style="background:linear-gradient(135deg,#c9a24a,#a8843a);color:#fff;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;cursor:pointer;margin-left:6px;letter-spacing:.3px">🪄 AUTOCOMPLETAR</button></label>
+        <input type="text" id="exp-sport" placeholder="SURF, KITESURF, PARACAIDISMO..." required oninput="autoFillSport()" list="sport-list">
+        <datalist id="sport-list"></datalist>
+      </div>
       <div class="fg"><label>Icono (emoji)</label><input type="text" id="exp-icon" placeholder="🏄" maxlength="4"></div>
     </div>
     <div class="fg"><label>Título</label><input type="text" id="exp-title" placeholder="Surf para principiantes en Zarautz"></div>
@@ -593,23 +597,40 @@ function populateSportList(){
   if(dl) dl.innerHTML = Object.keys(SPORT_MAP).sort().map(s=>'<option value="'+s+'">').join('');
 }
 
-function autoFillSport(){
+function autoFillSport(force){
   const sportInput = document.getElementById('exp-sport');
   const v = sportInput.value.trim().toUpperCase();
   sportInput.value = v;
+  if(!v){
+    if(force) toast('Escribe primero un deporte', 'err');
+    return;
+  }
   const m = SPORT_MAP[v];
-  if(!m) return;
-  // Solo autocompleta si el campo está vacío (no sobreescribe)
-  const setIfEmpty = (id, val) => {
+  if(!m){
+    if(force) toast('Deporte "'+v+'" no reconocido. Mira la lista.', 'err');
+    return;
+  }
+  const set = (id, val, forceWrite) => {
     const el = document.getElementById(id);
-    if(el && !el.value.trim()) el.value = val;
+    if(!el) return;
+    if(forceWrite || !el.value.trim() || el.value.trim() === '🌍'){
+      el.value = val;
+    }
   };
-  setIfEmpty('exp-icon', m.icon);
-  // Categoría siempre se sincroniza con sport (es coherente)
+  set('exp-icon', m.icon, force);
   document.getElementById('exp-category').value = m.cat;
-  setIfEmpty('exp-difficulty', m.diff);
-  setIfEmpty('exp-duration', m.dur);
-  setIfEmpty('exp-extras', m.extras);
+  set('exp-difficulty', m.diff, force);
+  set('exp-duration', m.dur, force);
+  set('exp-extras', m.extras, force);
+  // Si force, también pega imagen Unsplash
+  if(force){
+    const imgEl = document.getElementById('exp-image');
+    if(imgEl && (!imgEl.value.trim() || imgEl.value.includes('unsplash.com'))){
+      imgEl.value = 'https://images.unsplash.com/'+m.img+'?w=800&auto=format&fit=crop&q=80';
+      updateImagePreview && updateImagePreview();
+    }
+    toast('🪄 Datos rellenados para '+v, 'ok');
+  }
 }
 
 function autoFillImage(){
