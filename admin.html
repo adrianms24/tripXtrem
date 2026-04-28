@@ -247,14 +247,16 @@ tr:hover td{background:#fafbfc}
       <div class="fg"><label>Provider *</label><select id="exp-provider" required></select></div>
       <div class="fg"><label>Categoría *</label><select id="exp-category"><option>Agua</option><option>Aire</option><option>Nieve</option><option>Tierra</option></select></div>
     </div>
-    <div class="frow">
-      <div class="fg">
-        <label>Deporte (UPPERCASE) * <button type="button" onclick="autoFillSport(true)" style="background:linear-gradient(135deg,#c9a24a,#a8843a);color:#fff;border:none;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;cursor:pointer;margin-left:6px;letter-spacing:.3px">🪄 AUTOCOMPLETAR</button></label>
-        <input type="text" id="exp-sport" placeholder="SURF, KITESURF, PARACAIDISMO..." required oninput="autoFillSport()" list="sport-list">
-        <datalist id="sport-list"></datalist>
+    <div class="fg" style="display:flex;flex-direction:column;gap:6px;background:linear-gradient(135deg,#fdf4e6,#faf4e8);border:1.5px solid #c9a24a;border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+      <label style="margin:0;display:flex;align-items:center;gap:8px;color:#a8843a;">⚡ Atajo · Escribe el deporte y rellena todo automáticamente</label>
+      <div style="display:flex;gap:8px;align-items:stretch;">
+        <input type="text" id="exp-sport" placeholder="SURF, KITESURF, PARACAIDISMO..." required oninput="autoFillSport()" list="sport-list" style="flex:1;text-transform:uppercase">
+        <button type="button" onclick="autoFillSport(true)" style="background:linear-gradient(135deg,#c9a24a,#a8843a);color:#fff;border:none;border-radius:8px;padding:0 18px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.4px;white-space:nowrap;box-shadow:0 2px 8px rgba(201,162,74,.3)">🪄 AUTOCOMPLETAR TODO</button>
       </div>
-      <div class="fg"><label>Icono (emoji)</label><input type="text" id="exp-icon" placeholder="🏄" maxlength="4"></div>
+      <datalist id="sport-list"></datalist>
+      <small style="color:#a8843a;font-size:11px">Rellena: categoría, icono, dificultad, duración, ubicación insignia + coords, país, precio orientativo, título e imagen.</small>
     </div>
+    <div class="fg"><label>Icono (emoji)</label><input type="text" id="exp-icon" placeholder="🏄" maxlength="4"></div>
     <div class="fg"><label>Título</label><input type="text" id="exp-title" placeholder="Surf para principiantes en Zarautz"></div>
     <div class="fg" style="position:relative;">
       <label>Ubicación * <span style="color:var(--mu);font-weight:500;font-size:11px;">(buscar en Google)</span></label>
@@ -541,54 +543,55 @@ async function loadExperiences(){
 // ════════════════════════════════════════════
 // SPORT MAP (auto-fill icon + category al teclear deporte)
 // ════════════════════════════════════════════
+// Cada deporte trae datos completos + ubicación insignia (la mejor zona en España)
 const SPORT_MAP = {
-  // Agua
-  'SURF': {icon:'🏄', cat:'Agua', diff:'Media', dur:'2-3h', extras:'Neopreno, Tabla, Instructor', img:'photo-1502680390548-bdbac40a5e46'},
-  'KITESURF': {icon:'🪁', cat:'Agua', diff:'Alta', dur:'3h', extras:'Kite, Arnés, Instructor, Seguro', img:'photo-1559339352-11d035aa65de'},
-  'RAFTING': {icon:'🚣', cat:'Agua', diff:'Alta', dur:'3h', extras:'Casco, Neopreno, Guía', img:'photo-1530866495561-507c83781b20'},
-  'BUCEO': {icon:'🤿', cat:'Agua', diff:'Media', dur:'2h', extras:'Equipo completo, Instructor', img:'photo-1544551763-46a013bb70d5'},
-  'BUCEO CUEVAS': {icon:'🦈', cat:'Agua', diff:'Alta', dur:'3h', extras:'Equipo técnico, Guía especialista', img:'photo-1544551763-46a013bb70d5'},
-  'JET SKI': {icon:'🛥️', cat:'Agua', diff:'Media', dur:'1h', extras:'Moto, Chaleco, Instructor', img:'photo-1626618012641-bfbca5a31239'},
-  'WAKEBOARD': {icon:'🏂', cat:'Agua', diff:'Media', dur:'1.5h', extras:'Tabla, Chaleco, Instructor', img:'photo-1530866495561-507c83781b20'},
-  'BODYBOARD': {icon:'🌊', cat:'Agua', diff:'Media', dur:'2h', extras:'Tabla, Aletas, Neopreno', img:'photo-1502680390548-bdbac40a5e46'},
-  'WINDSURF': {icon:'🏄‍♂️', cat:'Agua', diff:'Media', dur:'2h', extras:'Tabla, Vela, Instructor', img:'photo-1502680390548-bdbac40a5e46'},
-  'KAYAK EXTREMO': {icon:'🛶', cat:'Agua', diff:'Alta', dur:'3h', extras:'Kayak, Pala, Guía', img:'photo-1530866495561-507c83781b20'},
-  'HYDROSPEED': {icon:'💧', cat:'Agua', diff:'Alta', dur:'2h', extras:'Tabla, Neopreno, Casco, Seguro', img:'photo-1530866495561-507c83781b20'},
-  'COASTEERING': {icon:'🏊', cat:'Agua', diff:'Alta', dur:'3h', extras:'Neopreno, Casco, Guía', img:'photo-1530866495561-507c83781b20'},
-  'CLIFF DIVING': {icon:'🤸', cat:'Agua', diff:'Alta', dur:'3h', extras:'Guía experto, Seguro premium', img:'photo-1530866495561-507c83781b20'},
-  'SNORKEL': {icon:'🐠', cat:'Agua', diff:'Baja', dur:'2h', extras:'Tubo, Aletas, Gafas', img:'photo-1544551763-46a013bb70d5'},
-  // Aire
-  'PARAPENTE': {icon:'🪂', cat:'Aire', diff:'Media', dur:'30-60min', extras:'Vuelo biplaza, Vídeo, Fotos', img:'photo-1503507745735-71d07ce73e47'},
-  'PARACAIDISMO': {icon:'🛩️', cat:'Aire', diff:'Alta', dur:'30min', extras:'Salto tándem, Instructor, Vídeo 4K', img:'photo-1474623809196-26c1d33457cc'},
-  'WINGSUIT': {icon:'🦸', cat:'Aire', diff:'Alta', dur:'20min', extras:'Traje wingsuit, Instructor elite, GoPro', img:'photo-1474623809196-26c1d33457cc'},
-  'BUNGEE': {icon:'🪢', cat:'Aire', diff:'Alta', dur:'15min', extras:'Salto, Vídeo, Certificado', img:'photo-1503507745735-71d07ce73e47'},
-  'BASE JUMP': {icon:'🏗️', cat:'Aire', diff:'Alta', dur:'Jornada', extras:'Instructor elite, Equipo pro, Seguro premium', img:'photo-1474623809196-26c1d33457cc'},
-  'ALA DELTA': {icon:'🪽', cat:'Aire', diff:'Alta', dur:'1h', extras:'Vuelo biplaza, Fotos, Seguro', img:'photo-1503507745735-71d07ce73e47'},
-  'ACROBACIA AEREA': {icon:'✈️', cat:'Aire', diff:'Alta', dur:'40min', extras:'Avión acrobático, Piloto experto, Vídeo', img:'photo-1474623809196-26c1d33457cc'},
-  'TIROLINA': {icon:'🏗️', cat:'Aire', diff:'Media', dur:'30min', extras:'Arnés, Casco, Foto', img:'photo-1503507745735-71d07ce73e47'},
-  'SPEED RIDING': {icon:'⚡', cat:'Aire', diff:'Alta', dur:'2h', extras:'Vela speed, Esquís, Instructor elite', img:'photo-1503507745735-71d07ce73e47'},
-  // Nieve
-  'FREERIDE': {icon:'⛷️', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Guía montaña, ARVA, Pala, Sonda', img:'photo-1551524559-8af4e6624178'},
-  'HELIESQUI': {icon:'🚁', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Helicóptero, Guía elite, ARVA', img:'photo-1551524559-8af4e6624178'},
-  'ICE CLIMBING': {icon:'🧊', cat:'Nieve', diff:'Alta', dur:'4h', extras:'Piolets, Crampones, Guía', img:'photo-1551524559-8af4e6624178'},
-  'SNOWBOARD': {icon:'🏂', cat:'Nieve', diff:'Media', dur:'Jornada', extras:'Tabla, Botas, Monitor, Forfait', img:'photo-1551524559-8af4e6624178'},
-  'AVALANCHA SKIING': {icon:'🏔️', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Guía elite, ARVA, Equipo seguridad', img:'photo-1551524559-8af4e6624178'},
-  'SNOWKITE': {icon:'🪁', cat:'Nieve', diff:'Alta', dur:'4h', extras:'Kite nieve, Tabla, Instructor', img:'photo-1551524559-8af4e6624178'},
-  'SPEED SKIING': {icon:'💨', cat:'Nieve', diff:'Alta', dur:'3h', extras:'Casco aero, Traje speed, Coach', img:'photo-1551524559-8af4e6624178'},
-  'SKICROSS': {icon:'🎿', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Forfait, Monitor, Seguro', img:'photo-1551524559-8af4e6624178'},
-  // Tierra
-  'ESCALADA': {icon:'🧗', cat:'Tierra', diff:'Alta', dur:'4-6h', extras:'Arnés, Casco, Cuerda, Guía', img:'photo-1522163182402-834f871fd851'},
-  'VIA FERRATA': {icon:'⛰️', cat:'Tierra', diff:'Media', dur:'5h', extras:'Arnés, Casco, Guía', img:'photo-1522163182402-834f871fd851'},
-  'ENDURO MTB': {icon:'🚵', cat:'Tierra', diff:'Alta', dur:'6h', extras:'Bici enduro, Casco, Protecciones', img:'photo-1544191696-15693072e831'},
-  'BARRANQUISMO': {icon:'🏞️', cat:'Tierra', diff:'Alta', dur:'5h', extras:'Neopreno, Casco, Arnés, Guía', img:'photo-1522163182402-834f871fd851'},
-  'DOWNHILL': {icon:'🚴', cat:'Tierra', diff:'Alta', dur:'Jornada', extras:'Bici DH, Casco integral, Protecciones', img:'photo-1544191696-15693072e831'},
-  'MOTOCROSS': {icon:'🏍️', cat:'Tierra', diff:'Alta', dur:'3h', extras:'Moto, Casco, Protecciones, Instructor', img:'photo-1544191696-15693072e831'},
-  'QUAD': {icon:'🛞', cat:'Tierra', diff:'Media', dur:'1.5h', extras:'Quad, Casco, Guía', img:'photo-1544191696-15693072e831'},
-  'PARKOUR': {icon:'🤸‍♂️', cat:'Tierra', diff:'Alta', dur:'2h', extras:'Coach certificado, Calentamiento', img:'photo-1522163182402-834f871fd851'},
-  'RALLY RAID': {icon:'🏎️', cat:'Tierra', diff:'Alta', dur:'Jornada', extras:'4x4 rally, Co-piloto, Equipo', img:'photo-1544191696-15693072e831'},
-  'ALPINISMO': {icon:'🗻', cat:'Tierra', diff:'Alta', dur:'2 días', extras:'Guía UIAGM, Equipo alta montaña', img:'photo-1522163182402-834f871fd851'},
-  'SANDBOARD': {icon:'🏜️', cat:'Tierra', diff:'Media', dur:'2h', extras:'Tabla sand, Protección, Instructor', img:'photo-1544191696-15693072e831'},
-  'SLACKLINE ALTURA': {icon:'🌉', cat:'Tierra', diff:'Alta', dur:'4h', extras:'Línea pro, Arnés, Instructor elite', img:'photo-1522163182402-834f871fd851'}
+  // ─── AGUA ───
+  'SURF':         {icon:'🏄', cat:'Agua',  diff:'Media', dur:'2-3h',     extras:'Neopreno, Tabla, Instructor',          img:'photo-1502680390548-bdbac40a5e46', loc:'Zarautz, País Vasco',          lat:43.284, lng:-2.234, c:'ES', price:45,  title:'Sesión de surf guiada'},
+  'KITESURF':     {icon:'🪁', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Kite, Arnés, Instructor, Seguro',      img:'photo-1559339352-11d035aa65de', loc:'Tarifa, Cádiz',                lat:36.014, lng:-5.607, c:'ES', price:90,  title:'Iniciación al kitesurf en Tarifa'},
+  'RAFTING':      {icon:'🚣', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Casco, Neopreno, Guía',                img:'photo-1530866495561-507c83781b20', loc:'Río Noguera Pallaresa, Lleida',lat:42.417, lng:0.894,  c:'ES', price:55,  title:'Rafting en aguas bravas'},
+  'BUCEO':        {icon:'🤿', cat:'Agua',  diff:'Media', dur:'2h',       extras:'Equipo completo, Instructor',          img:'photo-1544551763-46a013bb70d5', loc:'Islas Medas, Girona',          lat:42.042, lng:3.221,  c:'ES', price:70,  title:'Inmersión guiada en arrecife'},
+  'BUCEO CUEVAS': {icon:'🦈', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Equipo técnico, Guía especialista',    img:'photo-1544551763-46a013bb70d5', loc:'Lanzarote, Canarias',          lat:29.046, lng:-13.632,c:'ES', price:120, title:'Buceo técnico en cuevas volcánicas'},
+  'JET SKI':      {icon:'🛥️', cat:'Agua',  diff:'Media', dur:'1h',       extras:'Moto, Chaleco, Instructor',            img:'photo-1626618012641-bfbca5a31239', loc:'Mallorca, Baleares',           lat:39.569, lng:2.650,  c:'ES', price:75,  title:'Ruta en jet ski por la costa'},
+  'WAKEBOARD':    {icon:'🏂', cat:'Agua',  diff:'Media', dur:'1.5h',     extras:'Tabla, Chaleco, Instructor',           img:'photo-1530866495561-507c83781b20', loc:'Empuriabrava, Girona',         lat:42.249, lng:3.117,  c:'ES', price:50,  title:'Sesión de wakeboard'},
+  'BODYBOARD':    {icon:'🌊', cat:'Agua',  diff:'Media', dur:'2h',       extras:'Tabla, Aletas, Neopreno',              img:'photo-1502680390548-bdbac40a5e46', loc:'El Palmar, Cádiz',             lat:36.329, lng:-6.064, c:'ES', price:38,  title:'Bodyboard para principiantes'},
+  'WINDSURF':     {icon:'🏄‍♂️',cat:'Agua',  diff:'Media', dur:'2h',       extras:'Tabla, Vela, Instructor',              img:'photo-1502680390548-bdbac40a5e46', loc:'Tarifa, Cádiz',                lat:36.014, lng:-5.607, c:'ES', price:60,  title:'Clase de windsurf en Tarifa'},
+  'KAYAK EXTREMO':{icon:'🛶', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Kayak, Pala, Guía',                    img:'photo-1530866495561-507c83781b20', loc:'Río Sella, Asturias',          lat:43.349, lng:-5.075, c:'ES', price:40,  title:'Descenso del Sella en kayak'},
+  'HYDROSPEED':   {icon:'💧', cat:'Agua',  diff:'Alta',  dur:'2h',       extras:'Tabla, Neopreno, Casco, Seguro',       img:'photo-1530866495561-507c83781b20', loc:'Río Gállego, Huesca',          lat:42.430, lng:-0.407, c:'ES', price:65,  title:'Hidrospeed en aguas bravas'},
+  'COASTEERING':  {icon:'🏊', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Neopreno, Casco, Guía',                img:'photo-1530866495561-507c83781b20', loc:'Costa Brava, Girona',          lat:41.869, lng:3.107,  c:'ES', price:55,  title:'Coasteering en acantilados'},
+  'CLIFF DIVING': {icon:'🤸', cat:'Agua',  diff:'Alta',  dur:'3h',       extras:'Guía experto, Seguro premium',         img:'photo-1530866495561-507c83781b20', loc:'Sa Calobra, Mallorca',         lat:39.851, lng:2.807,  c:'ES', price:95,  title:'Cliff diving en calas vírgenes'},
+  'SNORKEL':      {icon:'🐠', cat:'Agua',  diff:'Baja',  dur:'2h',       extras:'Tubo, Aletas, Gafas',                  img:'photo-1544551763-46a013bb70d5', loc:'Cabo de Palos, Murcia',        lat:37.627, lng:-0.691, c:'ES', price:35,  title:'Snorkel en reserva marina'},
+  // ─── AIRE ───
+  'PARAPENTE':    {icon:'🪂', cat:'Aire',  diff:'Media', dur:'30-60min', extras:'Vuelo biplaza, Vídeo, Fotos',          img:'photo-1503507745735-71d07ce73e47', loc:'Gandía, Valencia',             lat:38.967, lng:-0.182, c:'ES', price:80,  title:'Vuelo en parapente biplaza'},
+  'PARACAIDISMO': {icon:'🛩️', cat:'Aire',  diff:'Alta',  dur:'30min',    extras:'Salto tándem, Instructor, Vídeo 4K',   img:'photo-1474623809196-26c1d33457cc', loc:'Empuriabrava, Girona',         lat:42.249, lng:3.115,  c:'ES', price:180, title:'Salto en paracaídas tándem 4000m'},
+  'WINGSUIT':     {icon:'🦸', cat:'Aire',  diff:'Alta',  dur:'20min',    extras:'Traje wingsuit, Instructor elite, GoPro', img:'photo-1474623809196-26c1d33457cc', loc:'Sierra Nevada, Granada',    lat:37.094, lng:-3.394, c:'ES', price:280, title:'Vuelo en wingsuit'},
+  'BUNGEE':       {icon:'🪢', cat:'Aire',  diff:'Alta',  dur:'15min',    extras:'Salto, Vídeo, Certificado',            img:'photo-1503507745735-71d07ce73e47', loc:'Nerja, Málaga',                lat:36.748, lng:-3.869, c:'ES', price:65,  title:'Puenting en puente histórico'},
+  'BASE JUMP':    {icon:'🏗️', cat:'Aire',  diff:'Alta',  dur:'Jornada',  extras:'Instructor elite, Equipo pro, Seguro premium', img:'photo-1474623809196-26c1d33457cc', loc:'Ronda, Málaga',           lat:36.746, lng:-5.161, c:'ES', price:350, title:'BASE jump en el Tajo'},
+  'ALA DELTA':    {icon:'🪽', cat:'Aire',  diff:'Alta',  dur:'1h',       extras:'Vuelo biplaza, Fotos, Seguro',         img:'photo-1503507745735-71d07ce73e47', loc:'Tenerife Sur, Canarias',       lat:28.045, lng:-16.563,c:'ES', price:120, title:'Vuelo en ala delta'},
+  'ACROBACIA AEREA':{icon:'✈️',cat:'Aire',  diff:'Alta',  dur:'40min',    extras:'Avión acrobático, Piloto experto, Vídeo', img:'photo-1474623809196-26c1d33457cc', loc:'Sabadell, Barcelona',       lat:41.520, lng:2.101,  c:'ES', price:199, title:'Vuelo acrobático en avión'},
+  'TIROLINA':     {icon:'🏗️', cat:'Aire',  diff:'Media', dur:'30min',    extras:'Arnés, Casco, Foto',                   img:'photo-1503507745735-71d07ce73e47', loc:'Comares, Málaga',              lat:36.849, lng:-4.248, c:'ES', price:30,  title:'Tirolina más larga de Europa'},
+  'SPEED RIDING': {icon:'⚡', cat:'Aire',  diff:'Alta',  dur:'2h',       extras:'Vela speed, Esquís, Instructor elite', img:'photo-1503507745735-71d07ce73e47', loc:'Formigal, Huesca',             lat:42.764, lng:-0.382, c:'ES', price:280, title:'Speed riding en alta montaña'},
+  // ─── NIEVE ───
+  'FREERIDE':     {icon:'⛷️', cat:'Nieve', diff:'Alta',  dur:'Jornada',  extras:'Guía montaña, ARVA, Pala, Sonda',      img:'photo-1551524559-8af4e6624178', loc:'Baqueira-Beret, Lleida',       lat:42.689, lng:0.931,  c:'ES', price:120, title:'Freeride con guía UIAGM'},
+  'HELIESQUI':    {icon:'🚁', cat:'Nieve', diff:'Alta',  dur:'Jornada',  extras:'Helicóptero, Guía elite, ARVA',        img:'photo-1551524559-8af4e6624178', loc:'Candanchú, Huesca',            lat:42.784, lng:-0.523, c:'ES', price:350, title:'Heliesquí en el Pirineo'},
+  'ICE CLIMBING': {icon:'🧊', cat:'Nieve', diff:'Alta',  dur:'4h',       extras:'Piolets, Crampones, Guía',             img:'photo-1551524559-8af4e6624178', loc:'Panticosa, Huesca',            lat:42.718, lng:-0.289, c:'ES', price:95,  title:'Escalada en hielo guiada'},
+  'SNOWBOARD':    {icon:'🏂', cat:'Nieve', diff:'Media', dur:'Jornada',  extras:'Tabla, Botas, Monitor, Forfait',       img:'photo-1551524559-8af4e6624178', loc:'Baqueira-Beret, Lleida',       lat:42.690, lng:0.933,  c:'ES', price:75,  title:'Clase particular de snowboard'},
+  'AVALANCHA SKIING':{icon:'🏔️',cat:'Nieve',diff:'Alta', dur:'Jornada',  extras:'Guía elite, ARVA, Equipo seguridad',    img:'photo-1551524559-8af4e6624178', loc:'Picos de Europa, Asturias',    lat:43.198, lng:-4.832, c:'ES', price:280, title:'Avalanche skiing extremo'},
+  'SNOWKITE':     {icon:'🪁', cat:'Nieve', diff:'Alta',  dur:'4h',       extras:'Kite nieve, Tabla, Instructor',        img:'photo-1551524559-8af4e6624178', loc:'Cerdanya, Girona',             lat:42.432, lng:1.847,  c:'ES', price:130, title:'Snowkite en altiplano'},
+  'SPEED SKIING': {icon:'💨', cat:'Nieve', diff:'Alta',  dur:'3h',       extras:'Casco aero, Traje speed, Coach',       img:'photo-1551524559-8af4e6624178', loc:'Formigal, Huesca',             lat:42.766, lng:-0.378, c:'ES', price:200, title:'Speed skiing competición'},
+  'SKICROSS':     {icon:'🎿', cat:'Nieve', diff:'Alta',  dur:'Jornada',  extras:'Forfait, Monitor, Seguro',             img:'photo-1551524559-8af4e6624178', loc:'Cerler, Huesca',               lat:42.556, lng:0.531,  c:'ES', price:85,  title:'Skicross con monitor'},
+  // ─── TIERRA ───
+  'ESCALADA':     {icon:'🧗', cat:'Tierra',diff:'Alta',  dur:'4-6h',     extras:'Arnés, Casco, Cuerda, Guía',           img:'photo-1522163182402-834f871fd851', loc:'Montserrat, Barcelona',        lat:41.593, lng:1.835,  c:'ES', price:50,  title:'Escalada en roca clásica'},
+  'VIA FERRATA':  {icon:'⛰️', cat:'Tierra',diff:'Media', dur:'5h',       extras:'Arnés, Casco, Guía',                   img:'photo-1522163182402-834f871fd851', loc:'Riglos, Huesca',               lat:42.367, lng:-0.674, c:'ES', price:45,  title:'Vía ferrata en los Mallos'},
+  'ENDURO MTB':   {icon:'🚵', cat:'Tierra',diff:'Alta',  dur:'6h',       extras:'Bici enduro, Casco, Protecciones',     img:'photo-1544191696-15693072e831', loc:'Ainsa, Huesca',                lat:42.419, lng:0.137,  c:'ES', price:65,  title:'Enduro MTB en el Pirineo'},
+  'BARRANQUISMO': {icon:'🏞️', cat:'Tierra',diff:'Alta',  dur:'5h',       extras:'Neopreno, Casco, Arnés, Guía',         img:'photo-1522163182402-834f871fd851', loc:'Sierra de Guara, Huesca',      lat:42.296, lng:-0.116, c:'ES', price:60,  title:'Barranquismo con saltos y rappel'},
+  'DOWNHILL':     {icon:'🚴', cat:'Tierra',diff:'Alta',  dur:'Jornada',  extras:'Bici DH, Casco integral, Protecciones',img:'photo-1544191696-15693072e831', loc:'Bike Park La Molina, Girona',  lat:42.338, lng:1.946,  c:'ES', price:55,  title:'Jornada de downhill en bike park'},
+  'MOTOCROSS':    {icon:'🏍️', cat:'Tierra',diff:'Alta',  dur:'3h',       extras:'Moto, Casco, Protecciones, Instructor',img:'photo-1544191696-15693072e831', loc:'Circuito Bellpuig, Lleida',    lat:41.625, lng:1.004,  c:'ES', price:90,  title:'Sesión de motocross en circuito'},
+  'QUAD':         {icon:'🛞', cat:'Tierra',diff:'Media', dur:'1.5h',     extras:'Quad, Casco, Guía',                    img:'photo-1544191696-15693072e831', loc:'Lanzarote, Canarias',          lat:29.047, lng:-13.630,c:'ES', price:55,  title:'Ruta en quad por volcanes'},
+  'PARKOUR':      {icon:'🤸‍♂️',cat:'Tierra',diff:'Alta',  dur:'2h',       extras:'Coach certificado, Calentamiento',     img:'photo-1522163182402-834f871fd851', loc:'Madrid Centro',                lat:40.415, lng:-3.703, c:'ES', price:30,  title:'Parkour urbano con coach'},
+  'RALLY RAID':   {icon:'🏎️', cat:'Tierra',diff:'Alta',  dur:'Jornada',  extras:'4x4 rally, Co-piloto, Equipo',         img:'photo-1544191696-15693072e831', loc:'Desierto Tabernas, Almería',   lat:37.006, lng:-2.389, c:'ES', price:180, title:'Rally raid en 4x4'},
+  'ALPINISMO':    {icon:'🗻', cat:'Tierra',diff:'Alta',  dur:'2 días',   extras:'Guía UIAGM, Equipo alta montaña',      img:'photo-1522163182402-834f871fd851', loc:'Picos de Europa, Asturias',    lat:43.198, lng:-4.832, c:'ES', price:150, title:'Ascensión al Naranjo de Bulnes'},
+  'SANDBOARD':    {icon:'🏜️', cat:'Tierra',diff:'Media', dur:'2h',       extras:'Tabla sand, Protección, Instructor',   img:'photo-1544191696-15693072e831', loc:'Dunas Maspalomas, Gran Canaria',lat:27.739,lng:-15.580,c:'ES', price:35,  title:'Sandboard en dunas atlánticas'},
+  'SLACKLINE ALTURA':{icon:'🌉',cat:'Tierra',diff:'Alta', dur:'4h',       extras:'Línea pro, Arnés, Instructor elite',   img:'photo-1522163182402-834f871fd851', loc:'Montserrat, Barcelona',        lat:41.595, lng:1.837,  c:'ES', price:120, title:'Highline sobre acantilados'}
 };
 
 // Pre-llenar datalist con sports
@@ -612,24 +615,31 @@ function autoFillSport(force){
   }
   const set = (id, val, forceWrite) => {
     const el = document.getElementById(id);
-    if(!el) return;
+    if(!el || val == null) return;
     if(forceWrite || !el.value.trim() || el.value.trim() === '🌍'){
       el.value = val;
     }
   };
-  set('exp-icon', m.icon, force);
+  // Campos siempre sincronizados con el deporte
   document.getElementById('exp-category').value = m.cat;
+  set('exp-icon', m.icon, force);
   set('exp-difficulty', m.diff, force);
   set('exp-duration', m.dur, force);
   set('exp-extras', m.extras, force);
-  // Si force, también pega imagen Unsplash
+  // Si force=true: rellena TODO (ubicación, coords, país, precio, título, imagen)
   if(force){
+    set('exp-location', m.loc, true);
+    set('exp-lat', m.lat, true);
+    set('exp-lng', m.lng, true);
+    set('exp-country', m.c, true);
+    set('exp-price', m.price, true);
+    set('exp-title', m.title, true);
     const imgEl = document.getElementById('exp-image');
-    if(imgEl && (!imgEl.value.trim() || imgEl.value.includes('unsplash.com'))){
+    if(imgEl){
       imgEl.value = 'https://images.unsplash.com/'+m.img+'?w=800&auto=format&fit=crop&q=80';
       updateImagePreview && updateImagePreview();
     }
-    toast('🪄 Datos rellenados para '+v, 'ok');
+    toast('🪄 Todo rellenado para '+v+' · Solo ajusta lo que quieras', 'ok');
   }
 }
 
