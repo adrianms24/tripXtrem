@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · TripXtrem</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Syne:wght@800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--brand:#8b1f2b;--gold:#c9a24a;--navy:#1a2b4a;--cream:#faf4e8;--ok:#16a34a;--err:#ef4444;--mu:#64748b;--bg:#f1f5f9;--border:#e2e8f0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:#0f172a;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+
+/* Login */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#1a2b4a,#0f1b33)}
+.lg-card{background:#fff;border-radius:18px;padding:36px 32px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.lg-logo{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.lg-logo-iso{width:40px;height:40px;border-radius:10px;background:#8b1f2b;display:flex;align-items:center;justify-content:center;position:relative}
+.lg-logo-iso svg{width:30px;height:30px}
+.lg-logo span{font-family:'Syne',sans-serif;font-weight:900;font-size:20px;color:#0f172a}
+.lg-h{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;margin-bottom:4px}
+.lg-sub{color:var(--mu);font-size:13px;margin-bottom:20px}
+.lg-card input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-weight:500;margin-bottom:12px}
+.lg-card input:focus{outline:none;border-color:var(--gold)}
+.lg-card button{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:14px}
+.lg-card button:hover{background:#0f1b33}
+.lg-err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:8px;padding:10px;font-size:13px;margin-bottom:12px}
+
+/* App layout */
+header{background:#fff;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.h-left{display:flex;align-items:center;gap:14px}
+.h-iso{width:34px;height:34px;border-radius:8px;background:#8b1f2b;display:flex;align-items:center;justify-content:center}
+.h-iso svg{width:24px;height:24px}
+.h-title{font-family:'Syne',sans-serif;font-weight:900;font-size:17px}
+.h-title small{color:var(--mu);font-weight:600;font-size:12px;margin-left:6px}
+.h-actions{display:flex;gap:8px}
+.h-actions button{padding:8px 14px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600}
+.h-actions button:hover{background:#eef2f6}
+.h-actions .lg{background:var(--err);color:#fff;border-color:var(--err)}
+
+nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.tab{background:none;border:none;padding:14px 16px;font-size:13.5px;font-weight:700;color:var(--mu);border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:#0f172a}
+.tab.on{color:var(--brand);border-bottom-color:var(--brand)}
+.tab .badge{background:var(--err);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:800;min-width:18px;text-align:center}
+
+main{padding:24px;max-width:1600px;margin:0 auto}
+
+/* Stats grid */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
+.stat-label{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.stat-value{font-family:'Syne',sans-serif;font-size:30px;font-weight:900;color:var(--navy)}
+.stat-sub{font-size:11px;color:var(--mu);margin-top:2px}
+
+/* Toolbar */
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.toolbar h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:900}
+.toolbar .group{display:flex;gap:6px;flex-wrap:wrap}
+.toolbar input,.toolbar select{padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff}
+.toolbar input:focus,.toolbar select:focus{outline:none;border-color:var(--gold)}
+.btn-pri{background:var(--gold);color:var(--navy);border:none;padding:9px 16px;border-radius:8px;font-weight:800;font-size:13px}
+.btn-pri:hover{background:#a8843a;color:#fff}
+.btn-sec{background:#fff;border:1.5px solid var(--border);padding:8px 14px;border-radius:8px;font-weight:600;font-size:13px}
+.btn-sec:hover{background:#f8fafc}
+.btn-ok{background:var(--ok);color:#fff;border:none;padding:7px 12px;border-radius:7px;font-weight:700;font-size:12px}
+.btn-rej{background:var(--err);color:#fff;border:none;padding:7px 12px;border-radius:7px;font-weight:700;font-size:12px}
+.btn-mini{background:#f1f5f9;border:1px solid var(--border);padding:5px 10px;border-radius:6px;font-size:11.5px;font-weight:600}
+
+/* Table */
+.tw{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#f8fafc;text-align:left;padding:10px 14px;font-weight:700;font-size:11.5px;color:var(--mu);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)}
+td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.row-actions{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.pill-new{background:#fef3c7;color:#92400e}
+.pill-converted{background:#dcfce7;color:#166534}
+.pill-rejected{background:#fee2e2;color:#991b1b}
+.pill-contacted{background:#dbeafe;color:#1e40af}
+.pill-approved{background:#dcfce7;color:#166534}
+.pill-pending{background:#fef3c7;color:#92400e}
+.pill-suspended{background:#f3f4f6;color:#6b7280}
+.pill-active{background:#dcfce7;color:#166534}
+.pill-inactive{background:#f3f4f6;color:#6b7280}
+.empty{text-align:center;padding:50px 20px;color:var(--mu);font-size:14px}
+
+/* Modal */
+.ov{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.ov.open{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:680px;max-height:92vh;overflow-y:auto}
+.modal-h{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-h h3{font-family:'Syne',sans-serif;font-weight:900;font-size:18px}
+.modal-h button{background:none;border:none;font-size:22px;color:var(--mu)}
+.modal-b{padding:20px 22px}
+.modal-f{padding:14px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13.5px;background:#fff}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--gold)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Toast */
+#toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:12px 18px;border-radius:10px;font-weight:600;font-size:13px;z-index:100;transform:translateY(80px);opacity:0;transition:all .3s}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.err{background:var(--err)}
+#toast.ok{background:var(--ok)}
+
+@media(max-width:700px){
+  .frow{grid-template-columns:1fr}
+  table{font-size:12px}
+  td,th{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <form class="lg-card" onsubmit="return login(event)">
+    <div class="lg-logo">
+      <span class="lg-logo-iso">
+        <svg viewBox="0 0 120 120">
+          <rect width="120" height="120" rx="22" fill="#8b1f2b"/>
+          <path d="M30 30 L90 90" stroke="#c9a24a" stroke-width="18"/>
+          <path d="M90 30 L30 90" stroke="#c9a24a" stroke-width="18"/>
+        </svg>
+      </span>
+      <span>Trip<b style="color:var(--brand)">X</b>trem</span>
+    </div>
+    <div class="lg-h">Panel admin</div>
+    <div class="lg-sub">Introduce el token de administrador.</div>
+    <div id="lg-err" class="lg-err hidden"></div>
+    <input type="password" id="tk" placeholder="ADMIN_TOKEN" autocomplete="current-password" required>
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+  <header>
+    <div class="h-left">
+      <span class="h-iso">
+        <svg viewBox="0 0 120 120"><rect width="120" height="120" rx="22" fill="#8b1f2b"/><path d="M30 30 L90 90" stroke="#c9a24a" stroke-width="18"/><path d="M90 30 L30 90" stroke="#c9a24a" stroke-width="18"/></svg>
+      </span>
+      <div class="h-title">TripXtrem <small>· Admin</small></div>
+    </div>
+    <div class="h-actions">
+      <button onclick="window.open('/','_blank')">🌐 Ver web</button>
+      <button class="lg" onclick="logout()">Salir</button>
+    </div>
+  </header>
+  <nav>
+    <button class="tab on" data-tab="dashboard" onclick="setTab('dashboard')">📊 Dashboard</button>
+    <button class="tab" data-tab="applications" onclick="setTab('applications')">📨 Solicitudes <span class="badge hidden" id="b-app">0</span></button>
+    <button class="tab" data-tab="providers" onclick="setTab('providers')">🏢 Partners</button>
+    <button class="tab" data-tab="experiences" onclick="setTab('experiences')">🏄 Experiencias</button>
+    <button class="tab" data-tab="waitlist" onclick="setTab('waitlist')">📧 Waitlist</button>
+  </nav>
+  <main>
+    <!-- DASHBOARD -->
+    <section id="t-dashboard">
+      <div class="stats" id="stats-grid"></div>
+      <div class="toolbar"><h2>Resumen</h2></div>
+      <div class="tw" style="padding:24px"><p style="color:var(--mu);font-size:13.5px;line-height:1.7">
+        Bienvenido al panel de administración. Aquí gestionas <b>solicitudes de partners</b> (aprobar/rechazar), das de alta <b>experiencias</b> (que aparecen en la web), y revisas la <b>waitlist</b> de usuarios apuntados.<br><br>
+        <b>Flujo:</b> 1) llega solicitud de partner → 2) la apruebas (se crea provider) → 3) creas experiences asociadas → 4) la web las muestra automáticamente.
+      </p></div>
+    </section>
+
+    <!-- APPLICATIONS -->
+    <section id="t-applications" class="hidden">
+      <div class="toolbar">
+        <h2>Solicitudes de partner</h2>
+        <div class="group">
+          <select id="app-filter" onchange="loadApplications()">
+            <option value="new">Nuevas</option>
+            <option value="contacted">Contactadas</option>
+            <option value="converted">Aprobadas</option>
+            <option value="rejected">Rechazadas</option>
+            <option value="all">Todas</option>
+          </select>
+          <button class="btn-sec" onclick="loadApplications()">↻</button>
+        </div>
+      </div>
+      <div class="tw" id="app-table"></div>
+    </section>
+
+    <!-- PROVIDERS -->
+    <section id="t-providers" class="hidden">
+      <div class="toolbar">
+        <h2>Partners (providers)</h2>
+        <div class="group">
+          <select id="prov-filter" onchange="loadProviders()">
+            <option value="">Todos</option>
+            <option value="approved">Aprobados</option>
+            <option value="pending">Pendientes</option>
+            <option value="suspended">Suspendidos</option>
+            <option value="rejected">Rechazados</option>
+          </select>
+          <button class="btn-sec" onclick="loadProviders()">↻</button>
+        </div>
+      </div>
+      <div class="tw" id="prov-table"></div>
+    </section>
+
+    <!-- EXPERIENCES -->
+    <section id="t-experiences" class="hidden">
+      <div class="toolbar">
+        <h2>Experiencias</h2>
+        <div class="group">
+          <button class="btn-sec" onclick="loadExperiences()">↻</button>
+          <button class="btn-pri" onclick="openExpModal()">+ Nueva experiencia</button>
+        </div>
+      </div>
+      <div class="tw" id="exp-table"></div>
+    </section>
+
+    <!-- WAITLIST -->
+    <section id="t-waitlist" class="hidden">
+      <div class="toolbar">
+        <h2>Waitlist</h2>
+        <div class="group">
+          <input type="text" id="wl-q" placeholder="Buscar email/nombre/actividad" oninput="onWlSearch()">
+          <button class="btn-sec" onclick="loadWaitlist()">↻</button>
+          <button class="btn-sec" onclick="exportWaitlist()">📥 Export CSV</button>
+        </div>
+      </div>
+      <div class="tw" id="wl-table"></div>
+    </section>
+  </main>
+</div>
+
+<!-- MODAL EXPERIENCE -->
+<div class="ov" id="ov-exp">
+<div class="modal">
+  <div class="modal-h"><h3 id="exp-mh">Nueva experiencia</h3><button onclick="closeOv('ov-exp')">✕</button></div>
+  <div class="modal-b">
+    <input type="hidden" id="exp-id">
+    <div class="frow">
+      <div class="fg"><label>Provider *</label><select id="exp-provider" required></select></div>
+      <div class="fg"><label>Categoría *</label><select id="exp-category"><option>Agua</option><option>Aire</option><option>Nieve</option><option>Tierra</option></select></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>Deporte (UPPERCASE) *</label><input type="text" id="exp-sport" placeholder="SURF" required></div>
+      <div class="fg"><label>Icono (emoji)</label><input type="text" id="exp-icon" placeholder="🏄" maxlength="4"></div>
+    </div>
+    <div class="fg"><label>Título</label><input type="text" id="exp-title" placeholder="Surf para principiantes en Zarautz"></div>
+    <div class="fg"><label>Ubicación *</label><input type="text" id="exp-location" placeholder="Zarautz, País Vasco" required></div>
+    <div class="frow">
+      <div class="fg"><label>Latitud</label><input type="number" step="0.000001" id="exp-lat" placeholder="43.284"></div>
+      <div class="fg"><label>Longitud</label><input type="number" step="0.000001" id="exp-lng" placeholder="-2.234"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>País (ISO2)</label><input type="text" id="exp-country" placeholder="ES" maxlength="2"></div>
+      <div class="fg"><label>Dificultad</label><select id="exp-difficulty"><option>Baja</option><option>Media</option><option>Alta</option></select></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>Duración</label><input type="text" id="exp-duration" placeholder="2-3h"></div>
+      <div class="fg"><label>Plazas máx.</label><input type="number" id="exp-spots" placeholder="8" min="0"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>Precio (€)</label><input type="number" id="exp-price" placeholder="45" step="0.01" min="0"></div>
+      <div class="fg"><label>Precio antes (€)</label><input type="number" id="exp-old-price" placeholder="60" step="0.01" min="0"></div>
+    </div>
+    <div class="fg"><label>Imagen URL</label><input type="url" id="exp-image" placeholder="https://..."></div>
+    <div class="frow">
+      <div class="fg"><label>Badge</label><select id="exp-badge"><option value="">—</option><option value="hot">🔥 hot</option><option value="new">✨ new</option><option value="popular">⭐ popular</option></select></div>
+      <div class="fg"><label>Activa</label><select id="exp-active"><option value="true">Sí</option><option value="false">No</option></select></div>
+    </div>
+    <div class="fg"><label>Extras (separados por coma)</label><input type="text" id="exp-extras" placeholder="Neopreno, Tabla, Instructor"></div>
+    <div class="fg"><label>Descripción</label><textarea id="exp-description" rows="3" placeholder="Sesión guiada para todos los niveles..."></textarea></div>
+  </div>
+  <div class="modal-f">
+    <button class="btn-sec" onclick="closeOv('ov-exp')">Cancelar</button>
+    <button class="btn-pri" onclick="saveExp()">Guardar</button>
+  </div>
+</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════════
+const TKEY = 'tx-admin-token';
+function getToken(){ return localStorage.getItem(TKEY) || ''; }
+function setToken(t){ localStorage.setItem(TKEY, t); }
+function clearToken(){ localStorage.removeItem(TKEY); }
+
+async function api(path, opts={}){
+  const r = await fetch(path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getToken(),
+      ...(opts.headers || {})
+    }
+  });
+  if(r.status === 401){ clearToken(); showLogin(); throw new Error('No autenticado'); }
+  return r;
+}
+
+async function login(e){
+  e.preventDefault();
+  const t = document.getElementById('tk').value.trim();
+  const err = document.getElementById('lg-err');
+  err.classList.add('hidden');
+  if(!t){ err.textContent='Token requerido'; err.classList.remove('hidden'); return false; }
+  setToken(t);
+  try{
+    const r = await fetch('/api/admin/auth', { headers: { 'Authorization': 'Bearer '+t }});
+    if(!r.ok){ throw new Error('Token inválido'); }
+    showApp();
+  }catch(ex){
+    clearToken();
+    err.textContent = ex.message || 'Error al autenticar';
+    err.classList.remove('hidden');
+  }
+  return false;
+}
+function logout(){ clearToken(); location.reload(); }
+
+function showLogin(){
+  document.getElementById('login').classList.remove('hidden');
+  document.getElementById('app').classList.add('hidden');
+}
+function showApp(){
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  loadDashboard();
+}
+
+// ════════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════════
+function setTab(t){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===t));
+  ['dashboard','applications','providers','experiences','waitlist'].forEach(n=>{
+    document.getElementById('t-'+n).classList.toggle('hidden', n!==t);
+  });
+  if(t==='applications') loadApplications();
+  else if(t==='providers') loadProviders();
+  else if(t==='experiences') loadExperiences();
+  else if(t==='waitlist') loadWaitlist();
+  else loadDashboard();
+}
+
+// ════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════
+let toastTimer;
+function toast(msg, type=''){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = type;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmtDate(s){
+  if(!s) return '—';
+  const d = new Date(s);
+  return d.toLocaleDateString('es-ES',{year:'numeric',month:'short',day:'2-digit'}) + ' ' + d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+}
+
+// ════════════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════════════
+async function loadDashboard(){
+  try{
+    const r = await api('/api/admin/stats');
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    const s = j.stats;
+    document.getElementById('stats-grid').innerHTML = [
+      ['Waitlist total', s.waitlistTotal, ''],
+      ['Waitlist últimas 24h', s.waitlistToday, '+'+s.waitlistToday+' hoy'],
+      ['Solicitudes pendientes', s.applicationsPending, s.applicationsPending>0?'⚠️ Revisar':''],
+      ['Partners aprobados', s.providersApproved, ''],
+      ['Experiencias activas', s.experiencesActive, ''],
+    ].map(([l,v,sub])=>
+      '<div class="stat"><div class="stat-label">'+esc(l)+'</div><div class="stat-value">'+v+'</div>'+(sub?'<div class="stat-sub">'+esc(sub)+'</div>':'')+'</div>'
+    ).join('');
+    // Update notification badge
+    const b = document.getElementById('b-app');
+    if(s.applicationsPending>0){ b.textContent = s.applicationsPending; b.classList.remove('hidden'); }
+    else b.classList.add('hidden');
+  }catch(ex){ toast('Error: '+ex.message, 'err'); }
+}
+
+// ════════════════════════════════════════════
+// APPLICATIONS
+// ════════════════════════════════════════════
+async function loadApplications(){
+  const filter = document.getElementById('app-filter').value;
+  const tbl = document.getElementById('app-table');
+  tbl.innerHTML = '<div class="empty">Cargando…</div>';
+  try{
+    const r = await api('/api/admin/applications?status='+encodeURIComponent(filter));
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    if(!j.items.length){ tbl.innerHTML = '<div class="empty">Sin solicitudes</div>'; return; }
+    tbl.innerHTML = '<table><thead><tr><th>Empresa</th><th>Contacto</th><th>País</th><th>Deportes</th><th>Estado</th><th>Fecha</th><th></th></tr></thead><tbody>'+
+      j.items.map(it=>{
+        const actions = it.status==='new'
+          ? '<button class="btn-ok" onclick="appAction('+it.id+',\'approve\')">Aprobar</button>'+
+            '<button class="btn-mini" onclick="appAction('+it.id+',\'contact\')">Contactar</button>'+
+            '<button class="btn-rej" onclick="appAction('+it.id+',\'reject\')">Rechazar</button>'
+          : it.status==='contacted'
+            ? '<button class="btn-ok" onclick="appAction('+it.id+',\'approve\')">Aprobar</button>'+
+              '<button class="btn-rej" onclick="appAction('+it.id+',\'reject\')">Rechazar</button>'
+            : '—';
+        return '<tr>'+
+          '<td><b>'+esc(it.company_name)+'</b><br><small style="color:var(--mu)">'+esc(it.formatted_address||it.city||'')+'</small></td>'+
+          '<td>'+esc(it.contact_name)+'<br><a href="mailto:'+esc(it.email)+'" style="color:var(--brand);font-size:12px">'+esc(it.email)+'</a>'+(it.phone?'<br><small>'+esc(it.phone)+'</small>':'')+'</td>'+
+          '<td>'+esc(it.country)+'</td>'+
+          '<td><small>'+esc(it.sports||'—')+'</small></td>'+
+          '<td><span class="pill pill-'+esc(it.status)+'">'+esc(it.status)+'</span>'+(it.has_insurance?' 🛡️':'')+'</td>'+
+          '<td><small>'+fmtDate(it.created_at)+'</small></td>'+
+          '<td><div class="row-actions">'+actions+'</div></td>'+
+        '</tr>';
+      }).join('')+'</tbody></table>';
+  }catch(ex){ tbl.innerHTML = '<div class="empty">Error: '+esc(ex.message)+'</div>'; }
+}
+async function appAction(id, action){
+  const labels = { approve:'aprobar', reject:'rechazar', contact:'marcar como contactada' };
+  if(action!=='contact' && !confirm('¿Seguro que quieres '+labels[action]+' esta solicitud?')) return;
+  try{
+    const r = await api('/api/admin/applications', { method:'POST', body: JSON.stringify({id,action}) });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    toast(action==='approve'?'✅ Partner aprobado y creado':'OK', 'ok');
+    loadApplications();
+    loadDashboard();
+  }catch(ex){ toast('Error: '+ex.message, 'err'); }
+}
+
+// ════════════════════════════════════════════
+// PROVIDERS
+// ════════════════════════════════════════════
+let _providers = [];
+async function loadProviders(){
+  const filter = document.getElementById('prov-filter').value;
+  const tbl = document.getElementById('prov-table');
+  tbl.innerHTML = '<div class="empty">Cargando…</div>';
+  try{
+    const url = '/api/admin/providers' + (filter?'?status='+filter:'');
+    const r = await api(url);
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    _providers = j.items || [];
+    if(!_providers.length){ tbl.innerHTML = '<div class="empty">Sin partners</div>'; return; }
+    tbl.innerHTML = '<table><thead><tr><th>Nombre</th><th>Email</th><th>Ubicación</th><th>Estado</th><th>Fecha</th><th></th></tr></thead><tbody>'+
+      _providers.map(p=>{
+        const next = p.status==='approved'?'suspended':'approved';
+        const lab = next==='approved'?'Activar':'Suspender';
+        return '<tr>'+
+          '<td><b>'+esc(p.name)+'</b><br><small style="color:var(--mu)">'+esc(p.slug)+'</small></td>'+
+          '<td><a href="mailto:'+esc(p.email)+'" style="color:var(--brand);font-size:12px">'+esc(p.email)+'</a></td>'+
+          '<td><small>'+esc((p.city||'')+(p.country?' · '+p.country:''))+'</small></td>'+
+          '<td><span class="pill pill-'+esc(p.status)+'">'+esc(p.status)+'</span></td>'+
+          '<td><small>'+fmtDate(p.created_at)+'</small></td>'+
+          '<td><button class="btn-mini" onclick="provToggle('+p.id+',\''+next+'\')">'+lab+'</button></td>'+
+        '</tr>';
+      }).join('')+'</tbody></table>';
+  }catch(ex){ tbl.innerHTML = '<div class="empty">Error: '+esc(ex.message)+'</div>'; }
+}
+async function provToggle(id, status){
+  if(!confirm('Cambiar estado a '+status+'?')) return;
+  try{
+    const r = await api('/api/admin/providers', { method:'PATCH', body: JSON.stringify({id,status}) });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    toast('OK', 'ok');
+    loadProviders();
+  }catch(ex){ toast('Error: '+ex.message, 'err'); }
+}
+
+// ════════════════════════════════════════════
+// EXPERIENCES
+// ════════════════════════════════════════════
+let _experiences = [];
+async function loadExperiences(){
+  const tbl = document.getElementById('exp-table');
+  tbl.innerHTML = '<div class="empty">Cargando…</div>';
+  try{
+    // Cargar providers (para el dropdown del modal)
+    if(!_providers.length){
+      const rp = await api('/api/admin/providers?status=approved');
+      const jp = await rp.json();
+      _providers = jp.items || [];
+    }
+    const r = await api('/api/admin/experiences');
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    _experiences = j.items || [];
+    if(!_experiences.length){ tbl.innerHTML = '<div class="empty">Sin experiencias. Crea una.</div>'; return; }
+    tbl.innerHTML = '<table><thead><tr><th>Deporte</th><th>Cat.</th><th>Provider</th><th>Ubicación</th><th>Precio</th><th>Plazas</th><th>Estado</th><th></th></tr></thead><tbody>'+
+      _experiences.map(e=>
+        '<tr>'+
+          '<td><span style="font-size:18px">'+esc(e.icon||'🌍')+'</span> <b>'+esc(e.sport)+'</b></td>'+
+          '<td><small>'+esc(e.category)+'</small></td>'+
+          '<td><small>'+esc(e.provider_name||'—')+'</small></td>'+
+          '<td><small>'+esc(e.location||'')+'</small></td>'+
+          '<td><b>'+(e.price_eur?Number(e.price_eur).toFixed(0)+'€':'—')+'</b></td>'+
+          '<td>'+esc(e.spots||0)+'</td>'+
+          '<td><span class="pill pill-'+(e.active?'active':'inactive')+'">'+(e.active?'activa':'inactiva')+'</span></td>'+
+          '<td><div class="row-actions"><button class="btn-mini" onclick="editExp('+e.id+')">Editar</button>'+(e.active?'<button class="btn-rej" onclick="delExp('+e.id+')">Desactivar</button>':'')+'</div></td>'+
+        '</tr>'
+      ).join('')+'</tbody></table>';
+  }catch(ex){ tbl.innerHTML = '<div class="empty">Error: '+esc(ex.message)+'</div>'; }
+}
+
+function openExpModal(){
+  document.getElementById('exp-mh').textContent = 'Nueva experiencia';
+  ['exp-id','exp-sport','exp-icon','exp-title','exp-location','exp-lat','exp-lng','exp-country','exp-duration','exp-spots','exp-price','exp-old-price','exp-image','exp-extras','exp-description'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('exp-icon').value = '🌍';
+  document.getElementById('exp-country').value = 'ES';
+  document.getElementById('exp-active').value = 'true';
+  // Provider select
+  const sel = document.getElementById('exp-provider');
+  sel.innerHTML = _providers.filter(p=>p.status==='approved').map(p=>'<option value="'+p.id+'">'+esc(p.name)+'</option>').join('');
+  if(!sel.options.length) sel.innerHTML = '<option value="">— Aprueba primero un partner —</option>';
+  document.getElementById('ov-exp').classList.add('open');
+}
+function editExp(id){
+  const e = _experiences.find(x=>x.id===id);
+  if(!e) return;
+  document.getElementById('exp-mh').textContent = 'Editar experiencia #'+id;
+  document.getElementById('exp-id').value = id;
+  const sel = document.getElementById('exp-provider');
+  sel.innerHTML = _providers.map(p=>'<option value="'+p.id+'">'+esc(p.name)+'</option>').join('');
+  sel.value = e.provider_id;
+  document.getElementById('exp-sport').value = e.sport||'';
+  document.getElementById('exp-category').value = e.category||'Agua';
+  document.getElementById('exp-icon').value = e.icon||'🌍';
+  document.getElementById('exp-title').value = e.title||'';
+  document.getElementById('exp-location').value = e.location||'';
+  document.getElementById('exp-lat').value = e.lat||'';
+  document.getElementById('exp-lng').value = e.lng||'';
+  document.getElementById('exp-country').value = e.country||'ES';
+  document.getElementById('exp-difficulty').value = e.difficulty||'Media';
+  document.getElementById('exp-duration').value = e.duration||'';
+  document.getElementById('exp-spots').value = e.spots||0;
+  document.getElementById('exp-price').value = e.price_eur||'';
+  document.getElementById('exp-old-price').value = e.old_price_eur||'';
+  document.getElementById('exp-image').value = e.image_url||'';
+  document.getElementById('exp-badge').value = e.badge||'';
+  document.getElementById('exp-extras').value = Array.isArray(e.extras)?e.extras.join(', '):'';
+  document.getElementById('exp-description').value = e.description||'';
+  document.getElementById('exp-active').value = String(!!e.active);
+  document.getElementById('ov-exp').classList.add('open');
+}
+function closeOv(id){ document.getElementById(id).classList.remove('open'); }
+
+async function saveExp(){
+  const id = document.getElementById('exp-id').value;
+  const isEdit = !!id;
+  const payload = {
+    provider_id: parseInt(document.getElementById('exp-provider').value,10) || null,
+    sport: document.getElementById('exp-sport').value.trim().toUpperCase(),
+    category: document.getElementById('exp-category').value,
+    icon: document.getElementById('exp-icon').value.trim(),
+    title: document.getElementById('exp-title').value.trim() || null,
+    location: document.getElementById('exp-location').value.trim(),
+    lat: parseFloat(document.getElementById('exp-lat').value) || null,
+    lng: parseFloat(document.getElementById('exp-lng').value) || null,
+    country: document.getElementById('exp-country').value.trim().toUpperCase() || null,
+    difficulty: document.getElementById('exp-difficulty').value,
+    duration: document.getElementById('exp-duration').value.trim() || null,
+    spots: parseInt(document.getElementById('exp-spots').value,10) || 0,
+    price_eur: parseFloat(document.getElementById('exp-price').value) || null,
+    old_price_eur: parseFloat(document.getElementById('exp-old-price').value) || null,
+    image_url: document.getElementById('exp-image').value.trim() || null,
+    badge: document.getElementById('exp-badge').value || null,
+    extras: document.getElementById('exp-extras').value.split(',').map(s=>s.trim()).filter(Boolean),
+    description: document.getElementById('exp-description').value.trim() || null,
+    active: document.getElementById('exp-active').value === 'true'
+  };
+  if(isEdit) payload.id = parseInt(id,10);
+  if(!payload.sport || !payload.category || !payload.provider_id){
+    toast('Faltan campos requeridos', 'err'); return;
+  }
+  try{
+    const r = await api('/api/admin/experiences', { method: isEdit?'PATCH':'POST', body: JSON.stringify(payload) });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    toast('✅ Guardado', 'ok');
+    closeOv('ov-exp');
+    loadExperiences();
+    loadDashboard();
+  }catch(ex){ toast('Error: '+ex.message, 'err'); }
+}
+
+async function delExp(id){
+  if(!confirm('¿Desactivar esta experiencia?')) return;
+  try{
+    const r = await api('/api/admin/experiences?id='+id, { method:'DELETE' });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    toast('OK', 'ok');
+    loadExperiences();
+  }catch(ex){ toast('Error: '+ex.message, 'err'); }
+}
+
+// ════════════════════════════════════════════
+// WAITLIST
+// ════════════════════════════════════════════
+let _wlSearchTimer, _wlItems = [];
+async function loadWaitlist(){
+  const q = document.getElementById('wl-q').value.trim();
+  const tbl = document.getElementById('wl-table');
+  tbl.innerHTML = '<div class="empty">Cargando…</div>';
+  try{
+    const r = await api('/api/admin/waitlist?limit=300'+(q?'&q='+encodeURIComponent(q):''));
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error||'Error');
+    _wlItems = j.items;
+    if(!j.items.length){ tbl.innerHTML = '<div class="empty">Sin resultados</div>'; return; }
+    tbl.innerHTML = '<table><thead><tr><th>Email</th><th>Nombre</th><th>Actividad</th><th>CP</th><th>Origen</th><th>Fecha</th></tr></thead><tbody>'+
+      j.items.map(it=>
+        '<tr>'+
+          '<td><a href="mailto:'+esc(it.email)+'" style="color:var(--brand);font-size:12px">'+esc(it.email)+'</a></td>'+
+          '<td>'+esc(it.name)+'</td>'+
+          '<td><small>'+esc(it.activity||'—')+'</small></td>'+
+          '<td><small>'+esc(it.postal_code||'')+'</small></td>'+
+          '<td><small>'+esc(it.source||'')+'</small></td>'+
+          '<td><small>'+fmtDate(it.created_at)+'</small></td>'+
+        '</tr>'
+      ).join('')+'</tbody></table>';
+  }catch(ex){ tbl.innerHTML = '<div class="empty">Error: '+esc(ex.message)+'</div>'; }
+}
+function onWlSearch(){
+  clearTimeout(_wlSearchTimer);
+  _wlSearchTimer = setTimeout(loadWaitlist, 350);
+}
+function exportWaitlist(){
+  if(!_wlItems.length){ toast('Nada que exportar', 'err'); return; }
+  const headers = ['email','name','activity','postal_code','source','created_at'];
+  const csv = [headers.join(',')].concat(_wlItems.map(it=>
+    headers.map(h=>'"'+String(it[h]||'').replace(/"/g,'""')+'"').join(',')
+  )).join('\n');
+  const blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'waitlist-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+(async function init(){
+  if(!getToken()){ showLogin(); return; }
+  // Verify token
+  try{
+    const r = await fetch('/api/admin/auth', { headers: { 'Authorization': 'Bearer '+getToken() }});
+    if(!r.ok){ clearToken(); showLogin(); return; }
+    showApp();
+  }catch{ showLogin(); }
+})();
+</script>
+</body>
+</html>

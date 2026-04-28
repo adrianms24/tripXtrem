@@ -3,6 +3,7 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
     { "source": "/favicon.svg", "destination": "/assets/favicon.svg" },
     { "source": "/favicon-32.png", "destination": "/assets/favicon-32.png" },
     { "source": "/apple-touch-icon.png", "destination": "/assets/apple-touch-icon.png" },
@@ -34,6 +35,13 @@
       "headers": [
         { "key": "Cache-Control", "value": "no-store, max-age=0" },
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-store, max-age=0" }
       ]
     },
     {
