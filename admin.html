@@ -248,11 +248,15 @@ tr:hover td{background:#fafbfc}
       <div class="fg"><label>Categoría *</label><select id="exp-category"><option>Agua</option><option>Aire</option><option>Nieve</option><option>Tierra</option></select></div>
     </div>
     <div class="frow">
-      <div class="fg"><label>Deporte (UPPERCASE) *</label><input type="text" id="exp-sport" placeholder="SURF" required></div>
+      <div class="fg"><label>Deporte (UPPERCASE) *</label><input type="text" id="exp-sport" placeholder="SURF, KITESURF, PARACAIDISMO..." required oninput="autoFillSport()" list="sport-list"><datalist id="sport-list"></datalist></div>
       <div class="fg"><label>Icono (emoji)</label><input type="text" id="exp-icon" placeholder="🏄" maxlength="4"></div>
     </div>
     <div class="fg"><label>Título</label><input type="text" id="exp-title" placeholder="Surf para principiantes en Zarautz"></div>
-    <div class="fg"><label>Ubicación *</label><input type="text" id="exp-location" placeholder="Zarautz, País Vasco" required></div>
+    <div class="fg" style="position:relative;">
+      <label>Ubicación * <span style="color:var(--mu);font-weight:500;font-size:11px;">(buscar en Google)</span></label>
+      <input type="text" id="exp-location" placeholder="Pukas Surf Eskola Zarautz" required autocomplete="off" oninput="onLocSearch()">
+      <div id="exp-loc-sug" style="position:absolute;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.1);max-height:240px;overflow-y:auto;z-index:60;"></div>
+    </div>
     <div class="frow">
       <div class="fg"><label>Latitud</label><input type="number" step="0.000001" id="exp-lat" placeholder="43.284"></div>
       <div class="fg"><label>Longitud</label><input type="number" step="0.000001" id="exp-lng" placeholder="-2.234"></div>
@@ -269,7 +273,11 @@ tr:hover td{background:#fafbfc}
       <div class="fg"><label>Precio (€)</label><input type="number" id="exp-price" placeholder="45" step="0.01" min="0"></div>
       <div class="fg"><label>Precio antes (€)</label><input type="number" id="exp-old-price" placeholder="60" step="0.01" min="0"></div>
     </div>
-    <div class="fg"><label>Imagen URL</label><input type="url" id="exp-image" placeholder="https://..."></div>
+    <div class="fg">
+      <label>Imagen URL <button type="button" onclick="autoFillImage()" style="background:#f8fafc;border:1px solid var(--border);border-radius:6px;padding:2px 8px;font-size:10.5px;font-weight:700;cursor:pointer;margin-left:6px;color:var(--mu)">🎲 Auto Unsplash</button></label>
+      <input type="url" id="exp-image" placeholder="https://...">
+    </div>
+    <div class="fg"><label>Preview imagen</label><div id="exp-img-preview" style="height:140px;background:#f9fafb;border:1.5px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:12px;background-size:cover;background-position:center">Sin imagen</div></div>
     <div class="frow">
       <div class="fg"><label>Badge</label><select id="exp-badge"><option value="">—</option><option value="hot">🔥 hot</option><option value="new">✨ new</option><option value="popular">⭐ popular</option></select></div>
       <div class="fg"><label>Activa</label><select id="exp-active"><option value="true">Sí</option><option value="false">No</option></select></div>
@@ -526,19 +534,189 @@ async function loadExperiences(){
   }catch(ex){ tbl.innerHTML = '<div class="empty">Error: '+esc(ex.message)+'</div>'; }
 }
 
+// ════════════════════════════════════════════
+// SPORT MAP (auto-fill icon + category al teclear deporte)
+// ════════════════════════════════════════════
+const SPORT_MAP = {
+  // Agua
+  'SURF': {icon:'🏄', cat:'Agua', diff:'Media', dur:'2-3h', extras:'Neopreno, Tabla, Instructor', img:'photo-1502680390548-bdbac40a5e46'},
+  'KITESURF': {icon:'🪁', cat:'Agua', diff:'Alta', dur:'3h', extras:'Kite, Arnés, Instructor, Seguro', img:'photo-1559339352-11d035aa65de'},
+  'RAFTING': {icon:'🚣', cat:'Agua', diff:'Alta', dur:'3h', extras:'Casco, Neopreno, Guía', img:'photo-1530866495561-507c83781b20'},
+  'BUCEO': {icon:'🤿', cat:'Agua', diff:'Media', dur:'2h', extras:'Equipo completo, Instructor', img:'photo-1544551763-46a013bb70d5'},
+  'BUCEO CUEVAS': {icon:'🦈', cat:'Agua', diff:'Alta', dur:'3h', extras:'Equipo técnico, Guía especialista', img:'photo-1544551763-46a013bb70d5'},
+  'JET SKI': {icon:'🛥️', cat:'Agua', diff:'Media', dur:'1h', extras:'Moto, Chaleco, Instructor', img:'photo-1626618012641-bfbca5a31239'},
+  'WAKEBOARD': {icon:'🏂', cat:'Agua', diff:'Media', dur:'1.5h', extras:'Tabla, Chaleco, Instructor', img:'photo-1530866495561-507c83781b20'},
+  'BODYBOARD': {icon:'🌊', cat:'Agua', diff:'Media', dur:'2h', extras:'Tabla, Aletas, Neopreno', img:'photo-1502680390548-bdbac40a5e46'},
+  'WINDSURF': {icon:'🏄‍♂️', cat:'Agua', diff:'Media', dur:'2h', extras:'Tabla, Vela, Instructor', img:'photo-1502680390548-bdbac40a5e46'},
+  'KAYAK EXTREMO': {icon:'🛶', cat:'Agua', diff:'Alta', dur:'3h', extras:'Kayak, Pala, Guía', img:'photo-1530866495561-507c83781b20'},
+  'HYDROSPEED': {icon:'💧', cat:'Agua', diff:'Alta', dur:'2h', extras:'Tabla, Neopreno, Casco, Seguro', img:'photo-1530866495561-507c83781b20'},
+  'COASTEERING': {icon:'🏊', cat:'Agua', diff:'Alta', dur:'3h', extras:'Neopreno, Casco, Guía', img:'photo-1530866495561-507c83781b20'},
+  'CLIFF DIVING': {icon:'🤸', cat:'Agua', diff:'Alta', dur:'3h', extras:'Guía experto, Seguro premium', img:'photo-1530866495561-507c83781b20'},
+  'SNORKEL': {icon:'🐠', cat:'Agua', diff:'Baja', dur:'2h', extras:'Tubo, Aletas, Gafas', img:'photo-1544551763-46a013bb70d5'},
+  // Aire
+  'PARAPENTE': {icon:'🪂', cat:'Aire', diff:'Media', dur:'30-60min', extras:'Vuelo biplaza, Vídeo, Fotos', img:'photo-1503507745735-71d07ce73e47'},
+  'PARACAIDISMO': {icon:'🛩️', cat:'Aire', diff:'Alta', dur:'30min', extras:'Salto tándem, Instructor, Vídeo 4K', img:'photo-1474623809196-26c1d33457cc'},
+  'WINGSUIT': {icon:'🦸', cat:'Aire', diff:'Alta', dur:'20min', extras:'Traje wingsuit, Instructor elite, GoPro', img:'photo-1474623809196-26c1d33457cc'},
+  'BUNGEE': {icon:'🪢', cat:'Aire', diff:'Alta', dur:'15min', extras:'Salto, Vídeo, Certificado', img:'photo-1503507745735-71d07ce73e47'},
+  'BASE JUMP': {icon:'🏗️', cat:'Aire', diff:'Alta', dur:'Jornada', extras:'Instructor elite, Equipo pro, Seguro premium', img:'photo-1474623809196-26c1d33457cc'},
+  'ALA DELTA': {icon:'🪽', cat:'Aire', diff:'Alta', dur:'1h', extras:'Vuelo biplaza, Fotos, Seguro', img:'photo-1503507745735-71d07ce73e47'},
+  'ACROBACIA AEREA': {icon:'✈️', cat:'Aire', diff:'Alta', dur:'40min', extras:'Avión acrobático, Piloto experto, Vídeo', img:'photo-1474623809196-26c1d33457cc'},
+  'TIROLINA': {icon:'🏗️', cat:'Aire', diff:'Media', dur:'30min', extras:'Arnés, Casco, Foto', img:'photo-1503507745735-71d07ce73e47'},
+  'SPEED RIDING': {icon:'⚡', cat:'Aire', diff:'Alta', dur:'2h', extras:'Vela speed, Esquís, Instructor elite', img:'photo-1503507745735-71d07ce73e47'},
+  // Nieve
+  'FREERIDE': {icon:'⛷️', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Guía montaña, ARVA, Pala, Sonda', img:'photo-1551524559-8af4e6624178'},
+  'HELIESQUI': {icon:'🚁', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Helicóptero, Guía elite, ARVA', img:'photo-1551524559-8af4e6624178'},
+  'ICE CLIMBING': {icon:'🧊', cat:'Nieve', diff:'Alta', dur:'4h', extras:'Piolets, Crampones, Guía', img:'photo-1551524559-8af4e6624178'},
+  'SNOWBOARD': {icon:'🏂', cat:'Nieve', diff:'Media', dur:'Jornada', extras:'Tabla, Botas, Monitor, Forfait', img:'photo-1551524559-8af4e6624178'},
+  'AVALANCHA SKIING': {icon:'🏔️', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Guía elite, ARVA, Equipo seguridad', img:'photo-1551524559-8af4e6624178'},
+  'SNOWKITE': {icon:'🪁', cat:'Nieve', diff:'Alta', dur:'4h', extras:'Kite nieve, Tabla, Instructor', img:'photo-1551524559-8af4e6624178'},
+  'SPEED SKIING': {icon:'💨', cat:'Nieve', diff:'Alta', dur:'3h', extras:'Casco aero, Traje speed, Coach', img:'photo-1551524559-8af4e6624178'},
+  'SKICROSS': {icon:'🎿', cat:'Nieve', diff:'Alta', dur:'Jornada', extras:'Forfait, Monitor, Seguro', img:'photo-1551524559-8af4e6624178'},
+  // Tierra
+  'ESCALADA': {icon:'🧗', cat:'Tierra', diff:'Alta', dur:'4-6h', extras:'Arnés, Casco, Cuerda, Guía', img:'photo-1522163182402-834f871fd851'},
+  'VIA FERRATA': {icon:'⛰️', cat:'Tierra', diff:'Media', dur:'5h', extras:'Arnés, Casco, Guía', img:'photo-1522163182402-834f871fd851'},
+  'ENDURO MTB': {icon:'🚵', cat:'Tierra', diff:'Alta', dur:'6h', extras:'Bici enduro, Casco, Protecciones', img:'photo-1544191696-15693072e831'},
+  'BARRANQUISMO': {icon:'🏞️', cat:'Tierra', diff:'Alta', dur:'5h', extras:'Neopreno, Casco, Arnés, Guía', img:'photo-1522163182402-834f871fd851'},
+  'DOWNHILL': {icon:'🚴', cat:'Tierra', diff:'Alta', dur:'Jornada', extras:'Bici DH, Casco integral, Protecciones', img:'photo-1544191696-15693072e831'},
+  'MOTOCROSS': {icon:'🏍️', cat:'Tierra', diff:'Alta', dur:'3h', extras:'Moto, Casco, Protecciones, Instructor', img:'photo-1544191696-15693072e831'},
+  'QUAD': {icon:'🛞', cat:'Tierra', diff:'Media', dur:'1.5h', extras:'Quad, Casco, Guía', img:'photo-1544191696-15693072e831'},
+  'PARKOUR': {icon:'🤸‍♂️', cat:'Tierra', diff:'Alta', dur:'2h', extras:'Coach certificado, Calentamiento', img:'photo-1522163182402-834f871fd851'},
+  'RALLY RAID': {icon:'🏎️', cat:'Tierra', diff:'Alta', dur:'Jornada', extras:'4x4 rally, Co-piloto, Equipo', img:'photo-1544191696-15693072e831'},
+  'ALPINISMO': {icon:'🗻', cat:'Tierra', diff:'Alta', dur:'2 días', extras:'Guía UIAGM, Equipo alta montaña', img:'photo-1522163182402-834f871fd851'},
+  'SANDBOARD': {icon:'🏜️', cat:'Tierra', diff:'Media', dur:'2h', extras:'Tabla sand, Protección, Instructor', img:'photo-1544191696-15693072e831'},
+  'SLACKLINE ALTURA': {icon:'🌉', cat:'Tierra', diff:'Alta', dur:'4h', extras:'Línea pro, Arnés, Instructor elite', img:'photo-1522163182402-834f871fd851'}
+};
+
+// Pre-llenar datalist con sports
+function populateSportList(){
+  const dl = document.getElementById('sport-list');
+  if(dl) dl.innerHTML = Object.keys(SPORT_MAP).sort().map(s=>'<option value="'+s+'">').join('');
+}
+
+function autoFillSport(){
+  const sportInput = document.getElementById('exp-sport');
+  const v = sportInput.value.trim().toUpperCase();
+  sportInput.value = v;
+  const m = SPORT_MAP[v];
+  if(!m) return;
+  // Solo autocompleta si el campo está vacío (no sobreescribe)
+  const setIfEmpty = (id, val) => {
+    const el = document.getElementById(id);
+    if(el && !el.value.trim()) el.value = val;
+  };
+  setIfEmpty('exp-icon', m.icon);
+  // Categoría siempre se sincroniza con sport (es coherente)
+  document.getElementById('exp-category').value = m.cat;
+  setIfEmpty('exp-difficulty', m.diff);
+  setIfEmpty('exp-duration', m.dur);
+  setIfEmpty('exp-extras', m.extras);
+}
+
+function autoFillImage(){
+  const sport = document.getElementById('exp-sport').value.trim().toUpperCase();
+  const m = SPORT_MAP[sport];
+  const photoId = m ? m.img : 'photo-1502680390548-bdbac40a5e46';
+  const url = 'https://images.unsplash.com/'+photoId+'?w=800&auto=format&fit=crop&q=80';
+  document.getElementById('exp-image').value = url;
+  updateImagePreview();
+  toast('🖼️ Imagen Unsplash añadida', 'ok');
+}
+
+function updateImagePreview(){
+  const url = document.getElementById('exp-image').value.trim();
+  const prev = document.getElementById('exp-img-preview');
+  if(!prev) return;
+  if(url && /^https?:\/\//.test(url)){
+    prev.style.backgroundImage = 'url('+url+')';
+    prev.textContent = '';
+    prev.style.color = 'transparent';
+  } else {
+    prev.style.backgroundImage = '';
+    prev.textContent = 'Sin imagen';
+    prev.style.color = 'var(--mu)';
+  }
+}
+
+// ════════════════════════════════════════════
+// GOOGLE PLACES AUTOCOMPLETE (ubicación)
+// ════════════════════════════════════════════
+let _locTimer, _locSession = null;
+function newLocSession(){ return crypto.randomUUID ? crypto.randomUUID() : 'admin-'+Math.random().toString(36).slice(2)+Date.now(); }
+
+function onLocSearch(){
+  clearTimeout(_locTimer);
+  _locTimer = setTimeout(locDoSearch, 280);
+}
+
+async function locDoSearch(){
+  const q = document.getElementById('exp-location').value.trim();
+  const box = document.getElementById('exp-loc-sug');
+  if(!box) return;
+  if(q.length < 2){ box.innerHTML=''; return; }
+  if(!_locSession) _locSession = newLocSession();
+  try{
+    const r = await fetch('/api/places-autocomplete?q='+encodeURIComponent(q)+'&session='+_locSession+'&lang=es');
+    const j = await r.json();
+    const preds = Array.isArray(j.predictions) ? j.predictions : [];
+    if(!preds.length){ box.innerHTML=''; return; }
+    box.innerHTML = preds.slice(0,5).map(p=>
+      '<div onclick="locPick(\''+esc(p.placeId)+'\')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border);font-size:13px" onmouseover="this.style.background=\'#f8fafc\'" onmouseout="this.style.background=\'\'">'+
+        '<div style="font-weight:700;color:#0f172a">'+esc(p.mainText||p.text||'')+'</div>'+
+        '<div style="font-size:11.5px;color:var(--mu);margin-top:2px">'+esc(p.secondaryText||'')+'</div>'+
+      '</div>'
+    ).join('');
+  }catch(err){ console.error('[locSearch]',err); }
+}
+
+async function locPick(placeId){
+  const box = document.getElementById('exp-loc-sug');
+  if(box) box.innerHTML = '';
+  try{
+    const r = await fetch('/api/places-details?placeId='+encodeURIComponent(placeId)+'&session='+(_locSession||'')+'&lang=es');
+    const j = await r.json();
+    if(!j.ok || !j.place) throw new Error('No details');
+    const p = j.place;
+    document.getElementById('exp-location').value = (p.city ? p.city + ', ' : '') + (p.region || p.countryName || '');
+    document.getElementById('exp-lat').value = p.lat || '';
+    document.getElementById('exp-lng').value = p.lng || '';
+    document.getElementById('exp-country').value = (p.country || 'ES').toUpperCase();
+    _locSession = null;
+    toast('📍 Ubicación cargada', 'ok');
+  }catch(err){ toast('Error al cargar detalles', 'err'); }
+}
+
+// Cerrar sugerencias al click fuera
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#exp-location') && !e.target.closest('#exp-loc-sug')){
+    const b = document.getElementById('exp-loc-sug');
+    if(b) b.innerHTML = '';
+  }
+});
+
+// Bind preview de imagen
+document.addEventListener('DOMContentLoaded', ()=>{
+  const img = document.getElementById('exp-image');
+  if(img) img.addEventListener('input', updateImagePreview);
+  populateSportList();
+});
+
 function openExpModal(){
   document.getElementById('exp-mh').textContent = 'Nueva experiencia';
   ['exp-id','exp-sport','exp-icon','exp-title','exp-location','exp-lat','exp-lng','exp-country','exp-duration','exp-spots','exp-price','exp-old-price','exp-image','exp-extras','exp-description'].forEach(id=>{
     document.getElementById(id).value='';
   });
-  document.getElementById('exp-icon').value = '🌍';
+  document.getElementById('exp-icon').value = '';
   document.getElementById('exp-country').value = 'ES';
   document.getElementById('exp-active').value = 'true';
+  document.getElementById('exp-spots').value = '8';
+  populateSportList();
+  updateImagePreview();
   // Provider select
   const sel = document.getElementById('exp-provider');
   sel.innerHTML = _providers.filter(p=>p.status==='approved').map(p=>'<option value="'+p.id+'">'+esc(p.name)+'</option>').join('');
   if(!sel.options.length) sel.innerHTML = '<option value="">— Aprueba primero un partner —</option>';
   document.getElementById('ov-exp').classList.add('open');
+  setTimeout(()=>document.getElementById('exp-sport').focus(), 100);
 }
 function editExp(id){
   const e = _experiences.find(x=>x.id===id);
@@ -566,6 +744,8 @@ function editExp(id){
   document.getElementById('exp-extras').value = Array.isArray(e.extras)?e.extras.join(', '):'';
   document.getElementById('exp-description').value = e.description||'';
   document.getElementById('exp-active').value = String(!!e.active);
+  populateSportList();
+  updateImagePreview();
   document.getElementById('ov-exp').classList.add('open');
 }
 function closeOv(id){ document.getElementById(id).classList.remove('open'); }
