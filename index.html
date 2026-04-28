@@ -2443,35 +2443,59 @@ function renderFiltered(){
       : '<div style="text-align:center;padding:50px 20px;color:var(--mu);grid-column:1/-1;"><div style="font-size:44px;margin-bottom:12px">🔍</div><p style="font-size:14px;font-weight:700">Sin resultados</p><p style="font-size:13px;margin-top:6px">Prueba cambiando los filtros</p><button class="btn-g" style="margin-top:14px;font-size:13px;padding:8px 18px" onclick="activeDiffs.clear();maxPrice=400;document.querySelectorAll(\'.fchip\').forEach(b=>b.className=\'fchip\');document.getElementById(\'priceR\').value=400;document.getElementById(\'priceV\').textContent=\'400€\';renderFiltered()">Quitar filtros</button></div>';
     updateMarkers([]);return;
   }
+  // Escapa un objeto/string para inyectar dentro de onclick='...'
+  // (HTML attribute con comillas simples). Reemplaza ' por &#39;
+  function _attrJSON(v){
+    return _esc(JSON.stringify(v));
+  }
+
   cl.innerHTML=cards.map((c,i)=>{
-    const id=c.sport+c.loc;
-    const isL=liked.has(id);
-    const bg=thMap[c.cat]||'th-a';
-    const b=c.badge&&bdgMap[c.badge];
-    const bc=c.spots<=2?'urg':c.spots<=4?'wrn':'';
-    const btxt=c.spots<=2?'⚡ Avísame':c.spots<=4?'Me interesa →':'Apúntate →';
-    const disc=c.oldPrice?'<span class="ec-save">-'+Math.round((1-c.price/c.oldPrice)*100)+'%</span>':'';
-    const hasImg=c.img;
-    const sportE=_esc(c.sport), locE=_esc(c.loc), durE=_esc(c.dur), iconE=_esc(c.icon);
-    const imgUrl = c.img && /^https?:\/\//i.test(c.img) ? c.img : '';
-    return '<article class="ec'+(isL?' lc':'')+'" id="ec'+i+'" role="button" tabindex="0" aria-label="'+sportE+' en '+locE+', desde '+c.price+' euros" onclick=\'openFicha('+JSON.stringify(c)+')\'>'+
-      '<div class="ec-thumb '+(imgUrl?'':bg)+'">'+
-        (imgUrl?'<img src="'+_esc(imgUrl)+'" alt="'+sportE+' en '+locE+'" loading="lazy" decoding="async"><div class="ec-thumb-overlay"></div>':
-        '<span aria-hidden="true" style="font-size:44px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))">'+iconE+'</span>')+
-        (b?'<div class="ec-badge '+b.cls+'">'+_esc(b.txt)+'</div>':'')+
-        '<button class="ec-like'+(isL?' on':'')+'" aria-label="'+(isL?'Quitar de':'Añadir a')+' favoritos" onclick="event.stopPropagation();togLike(\''+_esc(id)+'\',this)">♥</button>'+
-        (c.spots<=3?'<div class="ec-spots-pill" aria-label="Quedan '+c.spots+' plazas">🔥 '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
-      '</div>'+
-      '<div class="ec-body">'+
-        '<div class="ec-header"><span class="ec-sport">'+sportE+'</span><span class="ec-rat" aria-label="Valoración '+c.rating.toFixed(1)+' sobre 5 con '+c.reviews+' reseñas"><span class="s" aria-hidden="true">★</span> '+c.rating.toFixed(1)+'<span class="cnt"> ('+c.reviews+')</span></span></div>'+
-        '<div class="ec-loc">📍 '+locE+' · '+durE+'</div>'+
-        '<div class="ec-tags"><span class="ec-tag ec-tag-'+_esc(c.diff.toLowerCase())+'">'+_esc(c.diff)+'</span></div>'+
-        '<div class="ec-foot">'+
-          '<div class="ec-price-block"><div class="ec-price">'+(c.oldPrice?'<span class="ec-old">'+c.oldPrice+'€</span> ':'')+c.price+'€'+disc+'</div><div class="ec-pp">por persona</div></div>'+
-          '<button class="ec-book '+bc+'" aria-label="Apuntarme a '+sportE+' en '+locE+'" onclick=\'event.stopPropagation();openWaitlist('+JSON.stringify(c.sport)+","+JSON.stringify(c.loc)+')\'>'+btxt+'</button>'+
+    try{
+      const id = (c.sport||'') + (c.loc||'');
+      const isL = liked.has(id);
+      const bg = thMap[c.cat]||'th-a';
+      const b = c.badge && bdgMap[c.badge];
+      const bc = c.spots<=2 ? 'urg' : c.spots<=4 ? 'wrn' : '';
+      const btxt = c.spots<=2 ? '⚡ Avísame' : c.spots<=4 ? 'Me interesa →' : 'Apúntate →';
+      const disc = (c.oldPrice && c.price && c.oldPrice > c.price)
+        ? '<span class="ec-save">-'+Math.round((1-c.price/c.oldPrice)*100)+'%</span>'
+        : '';
+      const sportE = _esc(c.sport||'Experiencia');
+      const locE   = _esc(c.loc||'');
+      const durE   = _esc(c.dur||'');
+      const iconE  = _esc(c.icon||'🌍');
+      const diff   = ['Baja','Media','Alta'].includes(c.diff) ? c.diff : 'Media';
+      const imgUrl = c.img && /^https?:\/\//i.test(c.img) ? c.img : '';
+      const rating = Number.isFinite(c.rating) ? c.rating : 0;
+      const reviews = Number.isFinite(c.reviews) ? c.reviews : 0;
+      const price  = Number.isFinite(c.price) ? c.price : 0;
+      const cardJson = _attrJSON(c);
+      const sportJson = _attrJSON(c.sport||'');
+      const locJson   = _attrJSON(c.loc||'');
+      return '<article class="ec'+(isL?' lc':'')+'" id="ec'+i+'" role="button" tabindex="0" aria-label="'+sportE+' en '+locE+', desde '+price+' euros" onclick="openFicha('+cardJson+')">'+
+        '<div class="ec-thumb '+(imgUrl?'':bg)+'">'+
+          (imgUrl
+            ? '<img src="'+_esc(imgUrl)+'" alt="'+sportE+' en '+locE+'" loading="lazy" decoding="async"><div class="ec-thumb-overlay"></div>'
+            : '<span aria-hidden="true" style="font-size:44px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))">'+iconE+'</span>'
+          )+
+          (b?'<div class="ec-badge '+b.cls+'">'+_esc(b.txt)+'</div>':'')+
+          '<button class="ec-like'+(isL?' on':'')+'" aria-label="'+(isL?'Quitar de':'Añadir a')+' favoritos" onclick="event.stopPropagation();togLike('+_attrJSON(id)+',this)">♥</button>'+
+          (c.spots<=3 && c.spots>0 ? '<div class="ec-spots-pill" aria-label="Quedan '+c.spots+' plazas">🔥 '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
         '</div>'+
-      '</div>'+
-    '</article>';
+        '<div class="ec-body">'+
+          '<div class="ec-header"><span class="ec-sport">'+sportE+'</span><span class="ec-rat" aria-label="Valoración '+rating.toFixed(1)+' sobre 5"><span class="s" aria-hidden="true">★</span> '+rating.toFixed(1)+'<span class="cnt"> ('+reviews+')</span></span></div>'+
+          '<div class="ec-loc">📍 '+locE+(durE?' · '+durE:'')+'</div>'+
+          '<div class="ec-tags"><span class="ec-tag ec-tag-'+diff.toLowerCase()+'">'+diff+'</span></div>'+
+          '<div class="ec-foot">'+
+            '<div class="ec-price-block"><div class="ec-price">'+(c.oldPrice?'<span class="ec-old">'+c.oldPrice+'€</span> ':'')+price+'€'+disc+'</div><div class="ec-pp">por persona</div></div>'+
+            '<button class="ec-book '+bc+'" aria-label="Apuntarme a '+sportE+' en '+locE+'" onclick="event.stopPropagation();openWaitlist('+sportJson+','+locJson+')">'+btxt+'</button>'+
+          '</div>'+
+        '</div>'+
+      '</article>';
+    }catch(err){
+      console.error('[card render] fallo en card',i,err,c);
+      return '';
+    }
   }).join('');
   updateMarkers(cards);
 }
