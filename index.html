@@ -502,54 +502,31 @@ input,select,textarea,button{font-family:'Outfit',sans-serif;}
 .gm-style .gm-style-iw-chr{display:none!important;}
 .gm-style .gm-style-iw-tc{display:none!important;}
 /* Custom pin wrapper (AdvancedMarker content) */
-/* ── Map pin: círculo con emoji + pill de precio debajo ── */
+/* ── Map pin: círculo con emoji ── */
+/* IMPORTANTE: NO usar transform en el wrapper — Google Maps AdvancedMarker
+   ancla el centro del content al lat/lng. Cualquier transform desplaza
+   visualmente el pin de su ubicación real. */
 .tx-pin-wrap{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
   cursor:pointer;
-  transform:translate(-50%, -100%);
   transition:transform .18s cubic-bezier(.3,.8,.4,1);
-  filter:drop-shadow(0 4px 8px rgba(26,43,74,.25));
+  filter:drop-shadow(0 3px 6px rgba(26,43,74,.3));
+  will-change:transform;
 }
-.tx-pin-wrap:hover{transform:translate(-50%, -103%) scale(1.08);}
+.tx-pin-wrap:hover{transform:scale(1.12);}
 .tx-pin-circle{
-  width:44px;height:44px;
+  width:42px;height:42px;
   border-radius:50%;
   background:#fff;
   border:3px solid var(--gold);
   display:flex;align-items:center;justify-content:center;
-  font-size:22px;line-height:1;
-  position:relative;
+  font-size:20px;line-height:1;
 }
-.tx-pin-circle::after{
-  content:'';position:absolute;bottom:-7px;left:50%;
-  transform:translateX(-50%);
-  width:0;height:0;
-  border-left:6px solid transparent;border-right:6px solid transparent;
-  border-top:8px solid var(--gold);
-}
-.tx-pin-emoji{filter:drop-shadow(0 1px 2px rgba(0,0,0,.1));}
-.tx-pin-price{
-  background:var(--navy);color:#fff;
-  font-size:11px;font-weight:800;
-  padding:2px 8px;border-radius:99px;
-  white-space:nowrap;
-  margin-top:6px;
-  border:1.5px solid #fff;
-  box-shadow:0 2px 6px rgba(26,43,74,.3);
-}
-/* Variantes por dificultad — cambia color del borde del círculo + flecha */
+.tx-pin-emoji{filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));}
+/* Variantes por dificultad — cambia color del borde */
 .tx-pin-wrap.tx-pin-alta .tx-pin-circle{border-color:var(--brand);}
-.tx-pin-wrap.tx-pin-alta .tx-pin-circle::after{border-top-color:var(--brand);}
-.tx-pin-wrap.tx-pin-alta .tx-pin-price{background:var(--brand);}
 .tx-pin-wrap.tx-pin-media .tx-pin-circle{border-color:var(--gold);}
-.tx-pin-wrap.tx-pin-media .tx-pin-circle::after{border-top-color:var(--gold);}
-.tx-pin-wrap.tx-pin-media .tx-pin-price{background:var(--navy);}
 .tx-pin-wrap.tx-pin-baja .tx-pin-circle{border-color:#22c55e;}
-.tx-pin-wrap.tx-pin-baja .tx-pin-circle::after{border-top-color:#22c55e;}
-.tx-pin-wrap.tx-pin-baja .tx-pin-price{background:#16a34a;}
 .tx-pin-wrap.tx-pin-urg .tx-pin-circle{border-color:var(--brand);animation:urgpulse 1.8s infinite;}
-.tx-pin-wrap.tx-pin-urg .tx-pin-circle::after{border-top-color:var(--brand);}
-.tx-pin-wrap.tx-pin-urg .tx-pin-price{background:var(--brand);}
 .mp{width:220px;font-family:'Outfit',sans-serif;}
 .mp-img{height:68px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;}
 .mp-urg{position:absolute;top:6px;left:6px;background:var(--r);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;}
@@ -2576,13 +2553,11 @@ function pinClass(c){
 function makePinEl(c){
   const wrap = document.createElement('div');
   wrap.className = 'tx-pin-wrap ' + pinClass(c);
-  const icon = c.icon || '🌍';
-  const price = (c.price||0) + '€';
+  wrap.title = (c.sport||'') + (c.loc?' · '+c.loc:'') + (c.price?' · '+c.price+'€':'');
   wrap.innerHTML =
     '<div class="tx-pin-circle">' +
-      '<span class="tx-pin-emoji" aria-hidden="true">' + icon + '</span>' +
-    '</div>' +
-    '<div class="tx-pin-price">' + (c.spots<=2?'🔥 ':'') + price + '</div>';
+      '<span class="tx-pin-emoji" aria-hidden="true">' + (c.icon||'🌍') + '</span>' +
+    '</div>';
   return wrap;
 }
 
@@ -3442,7 +3417,7 @@ document.addEventListener('mouseover',e=>{
   const idx=parseInt(card.id.replace('ec',''));
   const m=markerMap[idx];
   if(m&&mainMap && m.content){
-    m.content.style.transform = 'translate(-50%, -103%) scale(1.18)';
+    m.content.style.transform = 'scale(1.25)';
     m.content.style.transition = 'transform .18s cubic-bezier(.3,.8,.4,1)';
     m.content.style.zIndex = '9999';
     const pos = m.position;
