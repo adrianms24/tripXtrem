@@ -3438,6 +3438,15 @@ document.addEventListener('mouseout',e=>{
     document.querySelectorAll('.tx-reveal, .tx-reveal-fade, .tx-reveal-scale, .tx-reveal-slide-l, .tx-reveal-slide-r, .tx-stagger').forEach(el=>{
       if(!el.dataset.observed){ el.dataset.observed='1'; io.observe(el); }
     });
+    // Fallback: si en 1.2s un elemento sigue sin disparar (e.g. ya en viewport
+    // pero observer no firó por timing), añadir .in manualmente para evitar
+    // que quede oculto permanentemente.
+    setTimeout(()=>{
+      document.querySelectorAll('.tx-reveal:not(.in), .tx-reveal-scale:not(.in), .tx-stagger:not(.in)').forEach(el=>{
+        const r = el.getBoundingClientRect();
+        if(r.top < window.innerHeight && r.bottom > 0){ el.classList.add('in'); }
+      });
+    }, 1200);
   }
 
   // ── 2) Card tilt 3D (mousemove → rotateX/Y)
@@ -3491,28 +3500,28 @@ document.addEventListener('mouseout',e=>{
     document.querySelectorAll('.tx-magnet, .tx-magnet-strong').forEach(attachMagnet);
   }
 
-  // ── 4) Auto-wire new cards (rendered dynamically in renderFiltered)
+  // ── 4) Auto-wire new cards (rendered dynamically en renderFiltered)
+  // ORDEN CRÍTICO: autoDecorate primero (añade clases), luego observeReveals
   const mo = new MutationObserver(()=>{
+    autoDecorate();
     observeReveals();
     wireTilts();
     wireMagnets();
-    autoDecorate();
   });
 
-  // ── 5) Auto-decorate cards and packs (add classes without touching renderFiltered)
+  // ── 5) Auto-decorate cards and packs
+  // NO añadir tx-reveal a cards dinámicas: si el observer no dispara,
+  // quedan invisibles. Tilt 3D + hover lift es suficiente para feedback.
+  // Los packs estáticos sí usan tx-stagger heredado del padre.
   function autoDecorate(){
-    // Experience cards
     document.querySelectorAll('#card-list .ec').forEach(c=>{
       if(!c.classList.contains('tx-tilt')){
-        c.classList.add('tx-tilt','tx-reveal');
-        // Inner wrap doesn't exist; we rotate the card itself
-        c.classList.add('tx-tilt-wrap');
+        c.classList.add('tx-tilt','tx-tilt-wrap');
       }
     });
-    // Pack cards
     document.querySelectorAll('.packs-grid .pack-card').forEach(c=>{
       if(!c.classList.contains('tx-tilt')){
-        c.classList.add('tx-tilt','tx-tilt-wrap','tx-reveal-scale');
+        c.classList.add('tx-tilt','tx-tilt-wrap');
       }
     });
   }
