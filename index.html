@@ -2575,6 +2575,8 @@ async function initMainMap(){
   mainMap = new google.maps.Map(el, {
     center: { lat: 40.2, lng: -3.5 },
     zoom: 6,
+    minZoom: 3,
+    maxZoom: 18,
     mapId: 'TRIPXTREM_MAP',
     disableDefaultUI: false,
     zoomControl: true,
@@ -2641,16 +2643,21 @@ function updateMarkers(cards){
     });
     if(!bounds.isEmpty()){
       cardsBounds = bounds;
-      mainMap.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
+      // Airbnb-style: padding generoso en mobile y desktop
+      mainMap.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
       google.maps.event.addListenerOnce(mainMap,'idle',()=>{
-        if(mainMap.getZoom() > 12) mainMap.setZoom(12);
+        const z = mainMap.getZoom();
+        if(z > 13) mainMap.setZoom(13);   // No demasiado cerca aunque haya 2 pins muy juntos
+        if(z < 5)  mainMap.setZoom(5);    // No demasiado lejos
       });
     }
   } else if (cards.length === 1) {
     const c = cards[0];
     if(Number.isFinite(c.lat) && Number.isFinite(c.lng)){
-      mainMap.setCenter({lat:c.lat,lng:c.lng});
-      mainMap.setZoom(11);
+      // Doble pasada para evitar race condition con el render del mapa
+      const fly = ()=>{ mainMap.panTo({lat:c.lat, lng:c.lng}); mainMap.setZoom(11); };
+      fly();
+      setTimeout(fly, 250);
     }
   }
 }
