@@ -2463,7 +2463,7 @@ function renderFiltered(){
   if(!cards.length){
     const noData = ALL.length===0;
     cl.innerHTML = noData
-      ? '<div class="tx-reveal-scale in" style="text-align:center;padding:60px 24px;color:var(--mu);grid-column:1/-1;"><div class="tx-rocket" style="font-size:60px;margin-bottom:18px;display:inline-block">🚀</div><p style="font-size:20px;font-weight:900;color:var(--navy);font-family:'Bebas Neue','Impact',sans-serif;letter-spacing:1.2px;">PRÓXIMAMENTE</p><p style="font-size:14px;margin:10px 0 22px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6">Estamos incorporando las mejores empresas de deportes extremos del mundo. Apúntate y serás de los primeros en reservar.</p><button class="btn-g tx-magnet tx-pulse-glow" style="padding:12px 26px;font-size:14px" onclick="openWaitlist(\'\',\'\')">Únete a la lista →</button></div>'
+      ? '<div class="tx-reveal-scale in" style="text-align:center;padding:60px 24px;color:var(--mu);grid-column:1/-1;"><div class="tx-rocket" style="font-size:60px;margin-bottom:18px;display:inline-block">🚀</div><p style="font-size:20px;font-weight:900;color:var(--navy);font-family:\'Bebas Neue\',\'Impact\',sans-serif;letter-spacing:1.2px;">PRÓXIMAMENTE</p><p style="font-size:14px;margin:10px 0 22px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6">Estamos incorporando las mejores empresas de deportes extremos del mundo. Apúntate y serás de los primeros en reservar.</p><button class="btn-g tx-magnet tx-pulse-glow" style="padding:12px 26px;font-size:14px" onclick="openWaitlist(\'\',\'\')">Únete a la lista →</button></div>'
       : '<div style="text-align:center;padding:50px 20px;color:var(--mu);grid-column:1/-1;"><div style="font-size:44px;margin-bottom:12px">🔍</div><p style="font-size:14px;font-weight:700">Sin resultados</p><p style="font-size:13px;margin-top:6px">Prueba cambiando los filtros</p><button class="btn-g" style="margin-top:14px;font-size:13px;padding:8px 18px" onclick="activeDiffs.clear();maxPrice=400;document.querySelectorAll(\'.fchip\').forEach(b=>b.className=\'fchip\');document.getElementById(\'priceR\').value=400;document.getElementById(\'priceV\').textContent=\'400€\';renderFiltered()">Quitar filtros</button></div>';
     updateMarkers([]);return;
   }
@@ -2862,7 +2862,7 @@ function renderPay(){
     document.getElementById('pay-content').innerHTML=
       '<div class="success-pay">'+
       '<span class="sp-icon">🎉</span>'+
-      '<h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:900;margin-bottom:8px">¡Reserva confirmada!</h3>'+
+      '<h3 style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;font-weight:900;margin-bottom:8px">¡Reserva confirmada!</h3>'+
       '<p style="font-size:13.5px;color:var(--mu);max-width:320px;margin:0 auto 16px;line-height:1.6">Tu aventura de <strong>'+c.sport+'</strong> en <strong>'+c.loc+'</strong> está reservada. El partner te contactará en menos de 2h.</p>'+
       '<div class="track-code">'+code+'</div>'+
       '<div style="display:flex;flex-direction:column;gap:9px;max-width:260px;margin:0 auto">'+
