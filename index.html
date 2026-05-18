@@ -544,17 +544,25 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .tx-pin-wrap.tx-pin-media .tx-pin-circle{border-color:var(--gold);}
 .tx-pin-wrap.tx-pin-baja .tx-pin-circle{border-color:#22c55e;}
 .tx-pin-wrap.tx-pin-urg .tx-pin-circle{border-color:var(--brand);animation:urgpulse 1.8s infinite;}
-.mp{width:220px;font-family:'Inter',sans-serif;}
-.mp-img{height:68px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;}
-.mp-urg{position:absolute;top:6px;left:6px;background:var(--r);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;}
-.mp-body{padding:11px 13px;}
-.mp-title{font-size:14px;font-weight:800;margin-bottom:2px;}
-.mp-loc{font-size:11.5px;color:var(--mu);margin-bottom:7px;}
-.mp-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.mp-price{font-size:16px;font-weight:800;}
-.mp-rat{font-size:12.5px;font-weight:700;color:var(--o);}
+.mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;}
+.mp-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative;background-size:cover;background-position:center;}
+.mp-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.35));pointer-events:none;}
+.mp-urg{position:absolute;top:8px;left:8px;background:var(--r);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.3px;text-transform:uppercase;z-index:1;}
+.mp-sport-tag{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.95);color:var(--dk);font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;z-index:1;letter-spacing:.2px;text-transform:uppercase;}
+.mp-body{padding:11px 13px 13px;}
+.mp-title{font-size:14.5px;font-weight:800;margin-bottom:3px;color:var(--dk);line-height:1.25;}
+.mp-loc{font-size:12px;color:var(--mu);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.mp-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;}
+.mp-price{font-size:17px;font-weight:900;color:var(--dk);}
+.mp-price span{font-size:11px;color:var(--mu);font-weight:500;}
+.mp-rat{font-size:12.5px;font-weight:800;color:var(--dk);background:#fef3c7;padding:3px 8px;border-radius:6px;}
 .mp-fomo{font-size:11px;font-weight:700;color:var(--r);margin-bottom:8px;}
-.mp-btn{width:100%;padding:9px;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.mp-btn{width:100%;padding:10px;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:transform .15s,box-shadow .15s;}
+.mp-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.15);}
+/* Override Google InfoWindow chrome to look like Airbnb card */
+.gm-style .gm-style-iw-c{padding:0 !important;border-radius:14px !important;box-shadow:0 10px 30px rgba(0,0,0,.18) !important;}
+.gm-style .gm-style-iw-d{overflow:hidden !important;padding:0 !important;}
+.gm-style .gm-style-iw-tc::after{background:#fff;}
 
 /* ═══ SECTIONS ═══ */
 .section{padding:72px 60px;}
@@ -2626,19 +2634,20 @@ function updateMarkers(cards){
       title: (c.sport||'') + ' · ' + (c.loc||'')
     });
 
+    // Hover: solo highlight visual en la card de la lista, SIN scroll
+    // (el scrollIntoView automático provocaba sensación de mareo al pasear por el mapa)
     content.addEventListener('mouseenter', ()=>{
-      document.querySelectorAll('.ec').forEach(e=>e.classList.remove('map-hover'));
+      document.querySelectorAll('.ec.map-hover').forEach(e=>e.classList.remove('map-hover'));
       const ec = document.getElementById('ec'+i);
-      if(ec){ ec.classList.add('map-hover'); ec.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+      if(ec) ec.classList.add('map-hover');
     });
     content.addEventListener('mouseleave', ()=>{
       const ec = document.getElementById('ec'+i);
       if(ec) ec.classList.remove('map-hover');
     });
+    // Click: estilo Airbnb — abre tarjeta flotante sobre el mapa, SIN reordenar
+    // ni hacer scroll de la lista lateral. Solo pan suave al pin.
     m.addListener('click', ()=>{
-      document.querySelectorAll('.ec').forEach(e=>e.classList.remove('hl'));
-      const ec = document.getElementById('ec'+i);
-      if(ec){ ec.classList.add('hl'); ec.scrollIntoView({behavior:'smooth',block:'nearest'}); }
       mainMap.panTo({ lat: c.lat, lng: c.lng });
       const html = buildMarkerPopup(c);
       gInfoWindow.setContent(html);
@@ -2679,19 +2688,33 @@ function updateMarkers(cards){
 
 function buildMarkerPopup(c){
   const bg = (typeof thMap!=='undefined' && thMap[c.cat]) ? thMap[c.cat] : 'th-a';
+  const sportE = _esc(c.sport||'');
+  const locE = _esc(c.loc||'');
+  const titleE = _esc(c.title||sportE);
+  const imgUrl = c.img && /^https?:\/\//i.test(c.img) ? _esc(c.img) : '';
+  const price = Number.isFinite(c.price) ? c.price : 0;
+  const rating = Number.isFinite(c.rating) && c.rating>0 ? Number(c.rating).toFixed(1) : null;
+  const urgent = Number.isFinite(c.spots) && c.spots>0 && c.spots<=2;
+  const cardJson = _attrJSON(c);
+  const imgStyle = imgUrl
+    ? 'background-image:url(\''+imgUrl+'\')'
+    : '';
   return '<div class="mp">'+
-    '<div class="mp-img '+bg+'">'+(c.spots<=2?'<div class="mp-urg">Solo '+c.spots+' plaza</div>':'')+
-    '<span style="font-size:38px">'+(c.icon||'🌍')+'</span></div>'+
-    '<div class="mp-body">'+
-    '<div class="mp-title">'+c.sport+'</div>'+
-    '<div class="mp-loc">📍 '+(c.loc||'')+'</div>'+
-    '<div class="mp-row"><div class="mp-price">'+(c.price||0)+'€<span style="font-size:11px;color:#9ca3af"> p/p</span></div>'+
-    (c.rating?'<div class="mp-rat">★ '+Number(c.rating).toFixed(1)+'</div>':'')+
+    '<div class="mp-img '+(imgUrl?'':bg)+'"'+(imgStyle?' style="'+imgStyle+'"':'')+'>'+
+      (urgent?'<div class="mp-urg">Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
+      (!imgUrl?'<span aria-hidden="true">'+(c.icon||'🌍')+'</span>':'')+
+      '<div class="mp-sport-tag">'+(c.icon||'')+' '+sportE+'</div>'+
     '</div>'+
-    (c.spots<=3?'<div class="mp-fomo">🔥 Solo quedan '+c.spots+' plazas</div>':'')+
-    '<button class="mp-btn" style="background:'+(c.spots<=2?'var(--r)':'var(--g)')+'" onclick=\'openWaitlist('+JSON.stringify(c.sport||'')+","+JSON.stringify(c.loc||'')+')\'>'+
-    (c.spots<=2?'⚡ Avísame — Última plaza':'Apúntate →')+'</button>'+
-    '</div></div>';
+    '<div class="mp-body">'+
+      '<div class="mp-title">'+titleE+'</div>'+
+      '<div class="mp-loc">📍 '+locE+'</div>'+
+      '<div class="mp-row">'+
+        '<div class="mp-price">'+price+'€ <span>p/persona</span></div>'+
+        (rating?'<div class="mp-rat">★ '+rating+'</div>':'')+
+      '</div>'+
+      '<button class="mp-btn" style="background:'+(urgent?'var(--r)':'var(--g)')+'" onclick=\'openFicha('+cardJson+')\'>Ver detalles →</button>'+
+    '</div>'+
+  '</div>';
 }
 
 // ════ FICHA ════
