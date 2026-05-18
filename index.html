@@ -3634,35 +3634,42 @@ document.addEventListener('mouseout',e=>{
 
 // ════════════════════════════════════════════
 // A11Y AUTO-PATCH — promueve <div>/<span> con onclick a role=button
-// con tabindex y soporte teclado (Enter/Space).
+// con tabindex y soporte teclado (Enter/Space). Diferido + throttled
+// para no degradar INP.
 // ════════════════════════════════════════════
 (function(){
+  const SKIP = {button:1,a:1,input:1,select:1,textarea:1,label:1};
   function patchClickables(root){
-    const nodes = (root||document).querySelectorAll('[onclick]');
-    nodes.forEach(el=>{
-      if(el.dataset.a11yPatched) return;
-      const tag = el.tagName.toLowerCase();
-      if(tag==='button'||tag==='a'||tag==='input'||tag==='select'||tag==='textarea'||tag==='label') return;
+    const nodes = (root||document).querySelectorAll('[onclick]:not([data-a11y])');
+    for(const el of nodes){
+      if(SKIP[el.tagName.toLowerCase()]) continue;
       if(!el.hasAttribute('role')) el.setAttribute('role','button');
       if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','0');
-      el.dataset.a11yPatched='1';
-    });
+      el.setAttribute('data-a11y','1');
+    }
   }
+  // Keyboard handler (Enter/Space → click) — runs cheap & generic
   document.addEventListener('keydown', function(ev){
     if(ev.key!=='Enter' && ev.key!==' ') return;
     const t = ev.target;
-    if(!t || !(t instanceof HTMLElement)) return;
-    if(!t.hasAttribute('onclick')) return;
-    const tag = t.tagName.toLowerCase();
-    if(tag==='button'||tag==='a'||tag==='input'||tag==='textarea'||tag==='select') return;
+    if(!t || t.nodeType!==1 || !t.hasAttribute('onclick')) return;
+    if(SKIP[t.tagName.toLowerCase()]) return;
     ev.preventDefault();
     t.click();
   }, true);
-  // Initial sweep + observe DOM changes for dynamically rendered cards
-  patchClickables();
+  // Initial sweep
+  const ric = window.requestIdleCallback || function(cb){return setTimeout(cb,1);};
+  ric(()=>patchClickables());
+  // Coalesced re-sweep — bounded to 1 pass per frame, max once per 250ms.
+  let pending = false;
+  const schedule = ()=>{
+    if(pending) return;
+    pending = true;
+    ric(()=>{ patchClickables(); pending = false; }, {timeout:250});
+  };
   new MutationObserver(muts=>{
     for(const m of muts){
-      m.addedNodes.forEach(n=>{ if(n.nodeType===1) patchClickables(n); });
+      if(m.addedNodes.length){ schedule(); return; }
     }
   }).observe(document.body, {childList:true, subtree:true});
 })();
