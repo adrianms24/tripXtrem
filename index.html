@@ -545,7 +545,8 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .tx-pin-wrap.tx-pin-media .tx-pin-circle{border-color:var(--gold);}
 .tx-pin-wrap.tx-pin-baja .tx-pin-circle{border-color:#22c55e;}
 .tx-pin-wrap.tx-pin-urg .tx-pin-circle{border-color:var(--brand);animation:urgpulse 1.8s infinite;}
-.mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;}
+.mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;cursor:pointer;}
+.mp:hover .mp-btn{filter:brightness(1.06);}
 .mp-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;filter:drop-shadow(0 3px 10px rgba(0,0,0,.08));}
 .mp-urg{position:absolute;top:8px;left:8px;background:var(--r);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.3px;text-transform:uppercase;z-index:1;}
 .mp-sport-tag{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.95);color:var(--dk);font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;z-index:1;letter-spacing:.2px;text-transform:uppercase;}
@@ -759,6 +760,38 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .inc-item .ck{color:var(--g);}
 .ficha-map-w{height:170px;border-radius:12px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border);}
 #fichaMap{width:100%;height:100%;}
+/* ── Ficha · Booking widget (calendar + time + people) ── */
+.ficha-book{margin:0 0 16px;padding:18px;background:#f9fafb;border-radius:14px;border:1px solid var(--border);}
+.ficha-book h4{font-family:'Bebas Neue','Impact',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;letter-spacing:.5px;color:var(--dk);}
+.fb-section-label{font-size:11.5px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.fb-dates{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;}
+.fb-dates::-webkit-scrollbar{height:4px;}
+.fb-dates::-webkit-scrollbar-thumb{background:var(--mu2);border-radius:4px;}
+.fb-date{flex:none;min-width:74px;background:#fff;border:1.5px solid var(--border);border-radius:11px;padding:9px 8px;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center;}
+.fb-date:not(:disabled):hover{border-color:var(--g);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06);}
+.fb-date.on{background:var(--dk);color:#fff;border-color:var(--dk);}
+.fb-date.off{opacity:.4;cursor:not-allowed;}
+.fb-date-w{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);}
+.fb-date.on .fb-date-w{color:rgba(255,255,255,.7);}
+.fb-date-d{font-size:14.5px;font-weight:800;margin:2px 0 3px;color:var(--dk);}
+.fb-date.on .fb-date-d{color:#fff;}
+.fb-date-s{font-size:9.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.3px;}
+.fb-date.on .fb-date-s{color:#86efac;}
+.fb-date.off .fb-date-s{color:var(--mu);}
+.fb-times{display:flex;gap:8px;flex-wrap:wrap;}
+.fb-time{padding:9px 16px;border:1.5px solid var(--border);background:#fff;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;color:var(--dk);}
+.fb-time:hover{border-color:var(--g);}
+.fb-time.on{background:var(--g);color:#fff;border-color:var(--g);}
+.fb-people{display:flex;align-items:center;justify-content:space-between;padding:12px 0 10px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:14px 0 12px;}
+.fb-people-label{font-size:14px;font-weight:700;color:var(--dk);}
+.fb-stepper{display:flex;align-items:center;gap:14px;}
+.fb-step{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all .15s;color:var(--dk);}
+.fb-step:hover{border-color:var(--dk);background:var(--dk);color:#fff;}
+.fb-step:disabled{opacity:.35;cursor:not-allowed;}
+.fb-people-n{font-size:18px;font-weight:800;min-width:24px;text-align:center;color:var(--dk);}
+.fb-summary{font-size:13.5px;color:var(--mu);text-align:center;margin-bottom:8px;}
+.fb-summary strong{font-size:16px;color:var(--dk);font-weight:900;}
+.fb-note{font-size:11.5px;color:var(--mu);text-align:center;line-height:1.55;padding:8px 4px 0;border-top:1px dashed var(--border);margin-top:6px;}
 .ficha-upsell{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:14px;padding:14px 16px;margin-bottom:14px;}
 .ficha-upsell h5{font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;}
 .ficha-upsell p{font-size:13px;font-weight:800;color:var(--dk);margin-bottom:3px;}
@@ -1955,6 +1988,23 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
         <div class="inc-item"><span class="ck">✓</span> Snack post-actividad</div>
       </div>
     </div>
+    <div class="ficha-book">
+      <h4>📅 Disponibilidad y reserva</h4>
+      <div class="fb-section-label">Elige una fecha</div>
+      <div class="fb-dates" id="fb-dates" role="radiogroup" aria-label="Fechas disponibles"></div>
+      <div class="fb-section-label" style="margin-top:14px">Hora <span id="fb-times-date" style="font-weight:500;color:var(--dk)"></span></div>
+      <div class="fb-times" id="fb-times" role="radiogroup" aria-label="Horarios"></div>
+      <div class="fb-people">
+        <span class="fb-people-label">¿Cuántos sois?</span>
+        <div class="fb-stepper">
+          <button class="fb-step" onclick="fbPeople(-1)" aria-label="Restar persona">−</button>
+          <span class="fb-people-n" id="fb-people-n">2</span>
+          <button class="fb-step" onclick="fbPeople(1)" aria-label="Sumar persona">+</button>
+        </div>
+      </div>
+      <div class="fb-summary" id="fb-summary"></div>
+      <div class="fb-note">⚡ Plataforma en pre-lanzamiento: tu reserva queda en lista prioritaria. Te confirmamos por email en menos de 24 h.</div>
+    </div>
     <div class="ficha-map-w"><div id="fichaMap"></div></div>
     <div class="ficha-upsell">
       <h5>💡 Completa tu experiencia</h5>
@@ -1975,7 +2025,7 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
     </div>
     <div class="ficha-btns">
       <button class="btn-ol" onclick="openRevs()">⭐ Reseñas</button>
-      <button class="btn-g" style="font-size:14px;padding:12px 24px;background:var(--r)" onclick="openWaitlistFromFicha()">⚡ Avísame cuando abra →</button>
+      <button class="btn-g" id="f-cta" style="font-size:14px;padding:12px 26px" onclick="fbBook()">Reservar — 0€ →</button>
     </div>
   </div>
 </div>
@@ -2645,6 +2695,7 @@ function updateMarkers(cards){
     // Click: estilo Airbnb — abre tarjeta flotante sobre el mapa, SIN reordenar
     // ni hacer scroll de la lista lateral. Solo pan suave al pin.
     m.addListener('click', ()=>{
+      window._activeMapCard = c;            // refer for popup delegation
       mainMap.panTo({ lat: c.lat, lng: c.lng });
       const html = buildMarkerPopup(c);
       gInfoWindow.setContent(html);
@@ -2692,7 +2743,7 @@ function buildMarkerPopup(c){
   const rating = Number.isFinite(c.rating) && c.rating>0 ? Number(c.rating).toFixed(1) : null;
   const urgent = Number.isFinite(c.spots) && c.spots>0 && c.spots<=2;
   const cardJson = _attrJSON(c);
-  return '<div class="mp">'+
+  return '<div class="mp mp-open-ficha" data-action="open-ficha" role="button" tabindex="0">'+
     '<div class="mp-img '+bg+'">'+
       (urgent?'<div class="mp-urg">Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
       '<span aria-hidden="true">'+(c.icon||'🌍')+'</span>'+
@@ -2705,14 +2756,143 @@ function buildMarkerPopup(c){
         '<div class="mp-price">'+price+'€ <span>p/persona</span></div>'+
         (rating?'<div class="mp-rat">★ '+rating+'</div>':'')+
       '</div>'+
-      '<button class="mp-btn" style="background:'+(urgent?'var(--r)':'var(--g)')+'" onclick=\'openFicha('+cardJson+')\'>Ver detalles →</button>'+
+      '<div class="mp-btn" style="background:'+(urgent?'var(--r)':'var(--g)')+'">Ver disponibilidad →</div>'+
     '</div>'+
   '</div>';
 }
 
+// Delegación global: cualquier click en .mp-open-ficha abre la ficha del card activo
+document.addEventListener('click', function(ev){
+  const t = ev.target.closest && ev.target.closest('.mp-open-ficha');
+  if(!t) return;
+  const card = window._activeMapCard;
+  if(!card) return;
+  if(gInfoWindow && gInfoWindow.close) gInfoWindow.close();
+  openFicha(card);
+});
+document.addEventListener('keydown', function(ev){
+  if(ev.key!=='Enter' && ev.key!==' ') return;
+  const t = ev.target.closest && ev.target.closest('.mp-open-ficha');
+  if(!t) return;
+  ev.preventDefault();
+  const card = window._activeMapCard;
+  if(!card) return;
+  if(gInfoWindow && gInfoWindow.close) gInfoWindow.close();
+  openFicha(card);
+});
+
+// ════ FICHA · BOOKING WIDGET ════
+const fbState = { dateIdx: -1, timeIdx: 0, people: 2, dates: [], times: [] };
+
+function _fbHash(s){ let h=0; for(let i=0;i<s.length;i++){ h=((h<<5)-h)+s.charCodeAt(i); h|=0; } return Math.abs(h); }
+
+function fbDefaultTimes(c){
+  // Adapta horarios al tipo de deporte
+  const cat = c.cat;
+  if(cat==='Aire')  return ['08:00','11:00','17:00'];  // sin viento de tarde
+  if(cat==='Nieve') return ['09:00','12:00','15:00'];
+  if(cat==='Agua')  return ['10:00','13:00','16:30'];
+  return ['10:00','14:00','17:00'];                     // Tierra
+}
+
+function fbInit(c){
+  // 14 días empezando mañana, plazas determinísticas
+  const today = new Date(); today.setHours(0,0,0,0);
+  fbState.dates = [];
+  for(let i=1; i<=14; i++){
+    const d = new Date(today); d.setDate(today.getDate()+i);
+    const seed = _fbHash((c.sport||'')+(c.loc||'')+d.toISOString().slice(0,10));
+    let spots = seed % 9;                       // 0..8
+    if(c.spots && c.spots>0 && c.spots<spots) spots = c.spots;
+    fbState.dates.push({
+      iso: d.toISOString().slice(0,10),
+      d,
+      label: d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}),
+      spots
+    });
+  }
+  fbState.times = fbDefaultTimes(c);
+  fbState.timeIdx = 0;
+  fbState.people = 2;
+  const firstAvail = fbState.dates.findIndex(x=>x.spots>0);
+  fbState.dateIdx = firstAvail>=0 ? firstAvail : 0;
+  fbRender(c);
+}
+
+function fbRender(c){
+  if(!c) return;
+  // Dates
+  const datesEl = document.getElementById('fb-dates');
+  if(datesEl) datesEl.innerHTML = fbState.dates.map((x,i)=>{
+    const parts = x.label.replace('.','').split(',');
+    const wd = (parts[0]||'').trim();
+    const dd = (parts[1]||'').trim();
+    const off = x.spots===0;
+    const cls = i===fbState.dateIdx ? 'fb-date on' : (off ? 'fb-date off' : 'fb-date');
+    return '<button type="button" class="'+cls+'" onclick="fbPickDate('+i+')" '+(off?'disabled aria-disabled="true"':'')+' role="radio" aria-checked="'+(i===fbState.dateIdx)+'">'+
+      '<div class="fb-date-w">'+wd+'</div>'+
+      '<div class="fb-date-d">'+dd+'</div>'+
+      '<div class="fb-date-s">'+(off?'Lleno':(x.spots+' libre'+(x.spots>1?'s':'')))+'</div>'+
+    '</button>';
+  }).join('');
+  // Times
+  const sel = fbState.dates[fbState.dateIdx];
+  const timesEl = document.getElementById('fb-times');
+  if(timesEl) timesEl.innerHTML = fbState.times.map((t,i)=>{
+    const on = i===fbState.timeIdx;
+    return '<button type="button" class="fb-time'+(on?' on':'')+'" onclick="fbPickTime('+i+')" role="radio" aria-checked="'+on+'">'+t+'</button>';
+  }).join('');
+  const dateLab = document.getElementById('fb-times-date');
+  if(dateLab) dateLab.textContent = sel ? '· '+sel.label : '';
+  // People
+  const np = document.getElementById('fb-people-n'); if(np) np.textContent = fbState.people;
+  // Summary
+  const price = Number.isFinite(c.price)?c.price:0;
+  const total = price * fbState.people;
+  const sm = document.getElementById('fb-summary');
+  if(sm) sm.innerHTML = price+'€ × '+fbState.people+' persona'+(fbState.people>1?'s':'')+' · <strong>'+total+'€ total</strong>';
+  // Update bottom CTA
+  const cta = document.getElementById('f-cta');
+  if(cta){
+    if(sel && sel.spots===0){
+      cta.textContent = 'Sin plazas ese día';
+      cta.disabled = true;
+      cta.style.background = '#9ca3af';
+      cta.style.cursor = 'not-allowed';
+    } else {
+      cta.textContent = 'Reservar — '+total+'€ →';
+      cta.disabled = false;
+      cta.style.background = '';
+      cta.style.cursor = '';
+    }
+  }
+}
+
+function fbPickDate(i){
+  if(fbState.dates[i] && fbState.dates[i].spots===0) return;
+  fbState.dateIdx = i; fbRender(curCard);
+}
+function fbPickTime(i){ fbState.timeIdx = i; fbRender(curCard); }
+function fbPeople(d){
+  const max = Math.min(8, fbState.dates[fbState.dateIdx]?.spots || 8);
+  fbState.people = Math.max(1, Math.min(max, fbState.people + d));
+  fbRender(curCard);
+}
+function fbBook(){
+  if(!curCard) return;
+  const sel = fbState.dates[fbState.dateIdx];
+  if(!sel || sel.spots===0){ toast('Esa fecha está completa. Elige otra.', 'err'); return; }
+  const time = fbState.times[fbState.timeIdx];
+  const people = fbState.people;
+  const detail = curCard.loc + ' · ' + sel.label + ' ' + time + ' · ' + people + ' pers';
+  closeOv('ov-ficha');
+  setTimeout(()=> openWaitlist(curCard.sport, detail), 150);
+}
+
 // ════ FICHA ════
 function openFicha(c){
-  if(typeof c==='string')c=JSON.parse(c);
+  if(typeof c==='string'){ try{c=JSON.parse(c);}catch(_){return;} }
+  if(!c || typeof c!=='object') return;
   curCard=c;
   document.getElementById('f-icon').textContent=c.icon;
   document.getElementById('f-cat').textContent='🌊 '+c.cat;
@@ -2720,13 +2900,20 @@ function openFicha(c){
   urg.style.display=(c.spots<=3||c.badge==='hot')?'block':'none';
   urg.textContent=c.spots<=3?'Solo '+c.spots+' plaza'+(c.spots>1?'s':''):c.badge==='hot'?'Muy solicitado':'';
   document.getElementById('f-title').textContent=c.sport;
-  document.getElementById('f-rat').textContent=c.rating.toFixed(1);
-  document.getElementById('f-loc').textContent=c.loc;
+  const _rt = Number(c.rating);
+  document.getElementById('f-rat').textContent = Number.isFinite(_rt)? _rt.toFixed(1) : '—';
+  document.getElementById('f-loc').textContent=c.loc||'';
   document.getElementById('f-dur').textContent=c.dur||'2-3h';
-  document.getElementById('f-price').textContent=c.price;
+  document.getElementById('f-price').textContent=c.price||0;
   const dm={Baja:'🟢 Baja dificultad',Media:'🟡 Media dificultad',Alta:'🔴 Alta dificultad'};
-  document.getElementById('f-diff').textContent=dm[c.diff];
-  document.getElementById('f-fomo').textContent=c.spots<=3?'🔥 Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+' · '+c.views+' personas lo miran ahora':'👁️ '+c.views+' personas lo ven ahora · Reservado '+c.lastBooked;
+  document.getElementById('f-diff').textContent=dm[c.diff]||'🟡 Media dificultad';
+  const fomoEl=document.getElementById('f-fomo');
+  if(fomoEl){
+    if(c.spots && c.spots<=3) fomoEl.textContent='🔥 Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+' disponibles';
+    else fomoEl.textContent='👁️ Partner verificado · Cancelación gratis 48h antes';
+  }
+  // Init booking widget (calendar + time + people + price)
+  fbInit(c);
   document.getElementById('f-revs').innerHTML=REVIEWS.slice(0,2).map(r=>
     '<div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6">'+
     '<div style="width:28px;height:28px;border-radius:50%;background:'+r.av+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">'+r.name[0]+'</div>'+
