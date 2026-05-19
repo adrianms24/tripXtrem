@@ -712,26 +712,6 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .mh h2{font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;}
 
 /* FICHA */
-.ficha-hero{height:200px;background:linear-gradient(135deg,var(--dk),#1e1b4b);display:flex;align-items:center;justify-content:center;font-size:76px;border-radius:22px 22px 0 0;position:relative;}
-.ficha-cat{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);color:#fff;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.15);}
-.ficha-urg{position:absolute;top:14px;right:14px;background:var(--r);color:#fff;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700;animation:urgpulse 2s infinite;}
-.ficha-body{padding:20px 26px;flex:1;overflow-y:auto;}
-.ficha-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
-.ficha-title{font-family:'Bebas Neue',sans-serif;font-size:24px;font-weight:900;}
-.ficha-rat{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:700;}
-.ficha-rat .s{color:var(--o);}
-.ficha-meta{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
-.ficha-mi{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--mu);}
-.ficha-tags{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-.ftag{padding:4px 11px;border-radius:16px;font-size:12px;font-weight:600;}
-.ftag-g{background:#f0fdf4;color:var(--gd);}
-.ftag-gr{background:#f3f4f6;color:var(--mu);}
-.ficha-desc{font-size:13.5px;color:#4b5563;line-height:1.75;margin-bottom:14px;}
-.ficha-inc h4{font-size:14px;font-weight:700;margin-bottom:8px;}
-.ficha-inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
-.inc-item{display:flex;align-items:center;gap:6px;font-size:13px;color:#555;}
-.inc-item .ck{color:var(--g);}
-.ficha-map-w{height:170px;border-radius:12px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border);}
 #fichaMap{width:100%;height:100%;}
 /* ── Ficha · Booking widget (calendar + time + people) ── */
 .ficha-book{margin:0 0 16px;padding:18px;background:#f9fafb;border-radius:14px;border:1px solid var(--border);}
@@ -765,12 +745,134 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .fb-summary{font-size:13.5px;color:var(--mu);text-align:center;margin-bottom:8px;}
 .fb-summary strong{font-size:16px;color:var(--dk);font-weight:900;}
 .fb-note{font-size:11.5px;color:var(--mu);text-align:center;line-height:1.55;padding:8px 4px 0;border-top:1px dashed var(--border);margin-top:6px;}
-.ficha-revs h4{font-size:14px;font-weight:700;margin-bottom:10px;}
-.ficha-bar{display:flex;align-items:flex-end;justify-content:space-between;padding:14px 26px;border-top:1px solid var(--border);gap:10px;flex-shrink:0;position:sticky;bottom:0;background:#fff;z-index:5;}
-.ficha-price{font-family:'Bebas Neue',sans-serif;font-size:22px;font-weight:900;}
-.ficha-price-sub{font-size:11.5px;color:var(--mu);}
-.ficha-fomo{font-size:12px;font-weight:700;color:var(--r);margin-top:2px;}
-.ficha-btns{display:flex;gap:8px;}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AIRBNB-STYLE FICHA (.ab-*)  ·  Themed in TripXtrem palette
+   ═══════════════════════════════════════════════════════════════════ */
+#ov-ficha{align-items:stretch;justify-content:stretch;padding:0;}
+.ab-modal{background:#fff;width:100%;max-width:1180px;max-height:96vh;margin:2vh auto;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.18);font-family:'Inter',-apple-system,sans-serif;}
+.ab-top{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #ebebeb;flex-shrink:0;}
+.ab-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:700;color:var(--dk);cursor:pointer;padding:6px 10px;border-radius:8px;transition:background .15s;}
+.ab-back:hover{background:#f3f4f6;}
+.ab-back svg{display:block;}
+.ab-top-actions{display:flex;gap:6px;}
+.ab-iconbtn{display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--dk);cursor:pointer;padding:8px 12px;border-radius:8px;transition:background .15s;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
+.ab-iconbtn:hover{background:#f3f4f6;}
+.ab-fav-icon{font-size:16px;line-height:1;}
+.ab-iconbtn.on .ab-fav-icon{color:var(--r);}
+
+.ab-scroll{flex:1;overflow-y:auto;padding:22px 26px 40px;}
+
+/* Gallery mosaic (Airbnb-style 2x2 with big-left) */
+.ab-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 200px;gap:8px;border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.ab-gal-tile{position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#dbeafe,#bfdbfe);overflow:hidden;}
+.ab-gal-main{grid-row:1 / span 2;background:linear-gradient(160deg,#1a2b4a,#3b4f78);}
+.ab-gal-emoji{font-size:120px;filter:drop-shadow(0 6px 20px rgba(0,0,0,.18));}
+.ab-gal-emoji-s{font-size:54px;opacity:.85;filter:drop-shadow(0 3px 10px rgba(0,0,0,.1));}
+.ab-gal-cat{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.95);color:var(--dk);font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:99px;letter-spacing:.4px;text-transform:uppercase;}
+.ab-gal-side:nth-of-type(2){background:linear-gradient(145deg,#fef3c7,#fde68a);}
+.ab-gal-side:nth-of-type(3){background:linear-gradient(145deg,#dcfce7,#bbf7d0);}
+.ab-gal-side:nth-of-type(4){background:linear-gradient(145deg,#ede9fe,#ddd6fe);}
+.ab-gal-side:nth-of-type(5){background:linear-gradient(145deg,#ffedd5,#fed7aa);}
+
+/* Headline */
+.ab-headline{margin-bottom:20px;padding-bottom:22px;border-bottom:1px solid #ebebeb;}
+.ab-title{font-family:'Bebas Neue','Impact',sans-serif;font-size:34px;font-weight:900;letter-spacing:.6px;line-height:1.05;color:var(--dk);margin-bottom:4px;}
+.ab-sub{font-size:15px;color:#4b5563;font-weight:500;margin-bottom:8px;}
+.ab-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:14px;color:var(--dk);}
+.ab-meta-rat{font-weight:700;}
+.ab-meta-rat strong{font-weight:800;}
+.ab-meta-revs{font-weight:500;text-decoration:underline;text-underline-offset:2px;cursor:pointer;color:var(--dk);}
+.ab-meta-sep{color:var(--mu);}
+.ab-meta-loc{font-weight:500;}
+
+/* Two-column grid */
+.ab-cols{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:start;}
+.ab-col-left{min-width:0;}
+.ab-col-right{position:sticky;top:0;}
+
+/* Host card */
+.ab-host{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0 24px;border-bottom:1px solid #ebebeb;margin-bottom:24px;}
+.ab-host-title{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;font-weight:800;letter-spacing:.4px;color:var(--dk);margin-bottom:4px;}
+.ab-host-line{font-size:13.5px;color:#4b5563;font-weight:500;}
+.ab-host-avatar{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#c9a24a,#a8843a);display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;box-shadow:0 4px 12px rgba(201,162,74,.3);}
+
+/* Highlights */
+.ab-highlights{display:flex;flex-direction:column;gap:18px;padding:0 0 24px;border-bottom:1px solid #ebebeb;margin-bottom:24px;}
+.ab-hl{display:flex;gap:14px;align-items:flex-start;}
+.ab-hl-icon{font-size:22px;flex-shrink:0;width:28px;text-align:center;line-height:1;padding-top:3px;}
+.ab-hl-t{font-size:15px;font-weight:700;color:var(--dk);margin-bottom:2px;}
+.ab-hl-d{font-size:13px;color:#6b7280;line-height:1.5;}
+
+/* Sections */
+.ab-section{padding-bottom:24px;border-bottom:1px solid #ebebeb;margin-bottom:24px;}
+.ab-section:last-child{border-bottom:none;}
+.ab-h3{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;font-weight:800;letter-spacing:.4px;color:var(--dk);margin-bottom:14px;}
+.ab-desc{font-size:14.5px;color:#374151;line-height:1.65;}
+
+/* Includes grid */
+.ab-incs{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;}
+.ab-inc{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dk);padding:6px 0;}
+.ab-inc-ck{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#dcfce7;color:#166534;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+
+/* Map */
+.ab-map-wrap{height:240px;border-radius:14px;overflow:hidden;border:1px solid #ebebeb;margin-bottom:10px;}
+#fichaMap{width:100%;height:100%;}
+.ab-map-cap{font-size:12.5px;color:var(--mu);font-style:italic;}
+
+/* Reviews */
+.ab-reviews{display:flex;flex-direction:column;gap:14px;}
+
+/* Booking card (right, sticky) */
+.ab-bookcard{background:#fff;border:1.5px solid #ebebeb;border-radius:14px;padding:20px 22px 22px;box-shadow:0 4px 16px rgba(0,0,0,.06);position:sticky;top:8px;}
+.ab-bk-price{margin-bottom:14px;}
+.ab-bk-price strong{font-family:'Bebas Neue','Impact',sans-serif;font-size:30px;font-weight:900;color:var(--dk);letter-spacing:.4px;}
+.ab-bk-pp{font-size:14px;color:#6b7280;font-weight:500;margin-left:3px;}
+.ab-bk-widget{margin-bottom:14px;}
+.ab-bk-widget .fb-dates,.ab-bk-widget .fb-times{margin-bottom:0;}
+.ab-bk-widget .fb-section-label{font-size:11px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin:0 0 8px;}
+.ab-bk-widget .fb-people{padding:14px 0 10px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb;margin:14px 0 0;}
+.ab-bk-cta{
+  display:block;width:100%;margin-top:14px;padding:14px;
+  background:linear-gradient(135deg,#8b1f2b,#a8252f);color:#fff;
+  border:none;border-radius:11px;
+  font-family:'Bebas Neue','Impact',sans-serif;font-size:18px;font-weight:800;letter-spacing:.6px;
+  cursor:pointer;transition:transform .15s,box-shadow .2s,filter .15s;
+}
+.ab-bk-cta:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(139,31,43,.32);filter:brightness(1.05);}
+.ab-bk-cta:disabled{background:#9ca3af;cursor:not-allowed;transform:none;box-shadow:none;filter:none;}
+.ab-bk-note{text-align:center;font-size:12.5px;color:var(--mu);margin-top:10px;}
+.ab-bk-breakdown{font-size:13.5px;color:var(--dk);text-align:center;margin-top:14px;padding-top:12px;border-top:1px solid #ebebeb;}
+.ab-bk-breakdown strong{font-size:15px;font-weight:900;}
+.ab-bk-trust{display:flex;justify-content:center;gap:6px;font-size:11.5px;color:#6b7280;margin-top:12px;padding-top:12px;border-top:1px solid #ebebeb;flex-wrap:wrap;}
+
+/* Mobile bottom sticky bar */
+.ab-mobile-bar{display:none;align-items:center;justify-content:space-between;gap:14px;padding:12px 18px;border-top:1px solid #ebebeb;background:#fff;flex-shrink:0;}
+.ab-mb-price strong{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;font-weight:900;color:var(--dk);}
+.ab-mb-price span{font-size:12px;color:var(--mu);}
+.ab-mobile-bar .ab-bk-cta{width:auto;padding:11px 22px;margin-top:0;font-size:15px;}
+
+@media(max-width:960px){
+  .ab-cols{grid-template-columns:1fr;gap:32px;}
+  .ab-col-right{position:static;}
+  .ab-bookcard{position:static;}
+  .ab-gallery{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px;}
+  .ab-gal-main{grid-column:1 / span 2;grid-row:auto;}
+  .ab-gal-side:nth-of-type(4),.ab-gal-side:nth-of-type(5){display:none;}
+  .ab-incs{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  .ab-modal{margin:0;max-height:100vh;border-radius:0;}
+  .ab-scroll{padding:16px 18px 18px;}
+  .ab-title{font-size:28px;}
+  .ab-gallery{grid-template-rows:140px 140px;}
+  .ab-gal-emoji{font-size:90px;}
+  .ab-gal-emoji-s{font-size:42px;}
+  .ab-iconbtn span:not(.ab-fav-icon){display:none;}
+  .ab-mobile-bar{display:flex;}
+  .ab-bookcard{box-shadow:none;border:none;padding:0;}
+  .ab-bookcard .ab-bk-cta,.ab-bk-trust{display:none;}    /* sticky bar arriba */
+}
 
 /* PAYMENT */
 .pp-wrap{display:flex;align-items:center;padding:16px 26px 0;}
@@ -1108,10 +1210,6 @@ tr:hover td{background:#fafafa;}
   .tx-foot-brand p{max-width:100%;}
   .tx-foot-bot{flex-direction:column;align-items:flex-start;gap:6px;text-align:left;}
   /* Ficha */
-  .ficha-hero{height:160px;font-size:56px;border-radius:20px 20px 0 0;}
-  .ficha-body{padding:18px 18px 110px;}
-  .ficha-btns{flex-direction:column;gap:8px;}
-  .ficha-btns > *{width:100%;}
   /* Dropdown */
   #ddm{right:8px;left:8px;width:auto;max-width:420px;}
   /* Toast */
@@ -1477,10 +1575,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   </div>
   <div class="map-side">
     <div id="mainMap" style="width:100%;height:100%;"></div>
-    <div class="map-ctrl" style="position:absolute;top:12px;left:12px;z-index:500;">
-      <div class="mc-btn" onclick="if(mainMap){mainMap.setCenter({lat:40.2,lng:-3.5});mainMap.setZoom(6);}">🗺️ España</div>
-      <div class="mc-btn" onclick="toast('📍 Usando tu ubicación...')">📍 Mi ubicación</div>
-    </div>
     <div class="map-bot" style="position:absolute;bottom:12px;left:12px;z-index:500;">
       <div style="display:flex;gap:7px">
         <div class="mb-pill"><span style="width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;animation:blink 1.5s infinite"></span><span id="map-cnt">20 activas</span></div>
@@ -1656,74 +1750,162 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 </div>
 </div>
 
-<!-- FICHA -->
+<!-- FICHA (Airbnb-style detail page) -->
 <div class="ov" id="ov-ficha">
-<div class="modal">
-  <button class="modal-close" onclick="closeOv('ov-ficha')" aria-label="Cerrar ficha">✕</button>
-  <div class="ficha-hero" id="fh">
-    <div class="ficha-cat" id="f-cat">🌊 Agua</div>
-    <div class="ficha-urg" id="f-urg" style="display:none">Solo 2 plazas</div>
-    <span id="f-icon">🏄</span>
-  </div>
-  <div class="ficha-body">
-    <div class="ficha-top">
-      <div class="ficha-title" id="f-title">SURF</div>
-      <div class="ficha-rat"><span class="s">★</span><span id="f-rat">4.8</span><span style="font-size:11.5px;color:var(--mu);font-weight:400;margin-left:3px">(42)</span></div>
+<div class="ab-modal" role="dialog" aria-modal="true" aria-labelledby="f-title">
+  <header class="ab-top">
+    <button class="ab-back" onclick="closeOv('ov-ficha')" aria-label="Volver al sportlist">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Volver</span>
+    </button>
+    <div class="ab-top-actions">
+      <button class="ab-iconbtn" onclick="abShare()" aria-label="Compartir">↗ <span>Compartir</span></button>
+      <button class="ab-iconbtn" id="ab-fav" onclick="abToggleFav()" aria-label="Guardar"><span class="ab-fav-icon">♡</span> <span>Guardar</span></button>
     </div>
-    <div class="ficha-meta">
-      <span class="ficha-mi">📍 <span id="f-loc">Zarautz</span></span>
-      <span class="ficha-mi">⏱️ <span id="f-dur">2-3h</span></span>
-      <span class="ficha-mi">👥 Hasta 8 personas</span>
+  </header>
+
+  <div class="ab-scroll">
+    <!-- Gallery mosaic (4 tiles, big-emoji + gradient TripXtrem theme) -->
+    <div class="ab-gallery">
+      <div class="ab-gal-tile ab-gal-main" id="ab-gal-main"><span class="ab-gal-emoji" id="f-icon">🏄</span><div class="ab-gal-cat" id="f-cat">Agua</div></div>
+      <div class="ab-gal-tile ab-gal-side" id="ab-gal-s1"><span class="ab-gal-emoji-s">🌄</span></div>
+      <div class="ab-gal-tile ab-gal-side" id="ab-gal-s2"><span class="ab-gal-emoji-s">📸</span></div>
+      <div class="ab-gal-tile ab-gal-side" id="ab-gal-s3"><span class="ab-gal-emoji-s">⚡</span></div>
+      <div class="ab-gal-tile ab-gal-side" id="ab-gal-s4"><span class="ab-gal-emoji-s">🛡️</span></div>
     </div>
-    <div class="ficha-tags">
-      <span class="ftag ftag-g" id="f-diff">🟢 Baja</span>
-      <span class="ftag ftag-gr">Seguro incluido</span>
-      <span class="ftag ftag-gr">Partner verificado</span>
-      <span class="ftag ftag-gr">Material incluido</span>
-      <span class="ftag ftag-gr">Cancelación gratis</span>
-    </div>
-    <div class="ficha-desc">Vive una experiencia única con instructores certificados. Incluye sesión teórica, equipo completo, seguro y atención personalizada. Ideal para grupos que buscan adrenalina real.</div>
-    <div class="ficha-inc">
-      <h4>¿Qué incluye?</h4>
-      <div class="ficha-inc-grid">
-        <div class="inc-item"><span class="ck">✓</span> Instructor certificado</div>
-        <div class="inc-item"><span class="ck">✓</span> Todo el equipamiento</div>
-        <div class="inc-item"><span class="ck">✓</span> Seguro de accidentes</div>
-        <div class="inc-item"><span class="ck">✓</span> Fotos de la sesión</div>
-        <div class="inc-item"><span class="ck">✓</span> Transporte al punto</div>
-        <div class="inc-item"><span class="ck">✓</span> Snack post-actividad</div>
+
+    <!-- Title block -->
+    <section class="ab-headline">
+      <h1 class="ab-title" id="f-title">SURF</h1>
+      <p class="ab-sub" id="f-sub">Sesión de surf guiada</p>
+      <div class="ab-meta">
+        <span class="ab-meta-rat">★ <strong id="f-rat">4.8</strong></span>
+        <span class="ab-meta-revs">· <span id="f-revcount">12 reseñas</span></span>
+        <span class="ab-meta-sep">·</span>
+        <span class="ab-meta-loc">📍 <span id="f-loc">Zarautz, País Vasco</span></span>
       </div>
-    </div>
-    <div class="ficha-book">
-      <h4>📅 Disponibilidad y reserva</h4>
-      <div class="fb-section-label">Elige una fecha</div>
-      <div class="fb-dates" id="fb-dates" role="radiogroup" aria-label="Fechas disponibles"></div>
-      <div class="fb-section-label" style="margin-top:14px">Hora <span id="fb-times-date" style="font-weight:500;color:var(--dk)"></span></div>
-      <div class="fb-times" id="fb-times" role="radiogroup" aria-label="Horarios"></div>
-      <div class="fb-people">
-        <span class="fb-people-label">¿Cuántos sois?</span>
-        <div class="fb-stepper">
-          <button class="fb-step" onclick="fbPeople(-1)" aria-label="Restar persona">−</button>
-          <span class="fb-people-n" id="fb-people-n">2</span>
-          <button class="fb-step" onclick="fbPeople(1)" aria-label="Sumar persona">+</button>
+    </section>
+
+    <!-- Two-column layout -->
+    <div class="ab-cols">
+      <!-- LEFT: detalle -->
+      <div class="ab-col-left">
+        <!-- Host card -->
+        <div class="ab-host">
+          <div class="ab-host-meta">
+            <div class="ab-host-title">Experiencia con partner verificado</div>
+            <div class="ab-host-line">
+              <span>⏱️ <span id="f-dur">2-3h</span></span> ·
+              <span>👥 Hasta <span id="f-cap">8</span> personas</span> ·
+              <span id="f-diff">🟢 Baja dificultad</span>
+            </div>
+          </div>
+          <div class="ab-host-avatar"><span id="f-host-icon">🏄</span></div>
         </div>
+
+        <!-- Highlights -->
+        <div class="ab-section ab-highlights">
+          <div class="ab-hl">
+            <div class="ab-hl-icon">🛡️</div>
+            <div>
+              <div class="ab-hl-t">Partner verificado</div>
+              <div class="ab-hl-d">Validación de seguros, licencias y certificaciones.</div>
+            </div>
+          </div>
+          <div class="ab-hl">
+            <div class="ab-hl-icon">🎒</div>
+            <div>
+              <div class="ab-hl-t">Material incluido</div>
+              <div class="ab-hl-d">Todo el equipamiento técnico ya en el precio.</div>
+            </div>
+          </div>
+          <div class="ab-hl">
+            <div class="ab-hl-icon">✋</div>
+            <div>
+              <div class="ab-hl-t">Cancelación flexible</div>
+              <div class="ab-hl-d">Gratis hasta 48 h antes de la actividad.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <section class="ab-section">
+          <h3 class="ab-h3">Sobre la experiencia</h3>
+          <p class="ab-desc" id="f-desc">Vive una experiencia única con instructores certificados. Incluye sesión teórica, equipo completo, seguro y atención personalizada. Ideal para grupos que buscan adrenalina real en uno de los mejores spots de España.</p>
+        </section>
+
+        <!-- Includes -->
+        <section class="ab-section">
+          <h3 class="ab-h3">Lo que incluye</h3>
+          <div class="ab-incs" id="f-incs">
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Instructor certificado</div>
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Todo el equipamiento</div>
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Seguro de accidentes</div>
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Fotos de la sesión</div>
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Briefing de seguridad</div>
+            <div class="ab-inc"><span class="ab-inc-ck">✓</span> Snack post-actividad</div>
+          </div>
+        </section>
+
+        <!-- Map -->
+        <section class="ab-section">
+          <h3 class="ab-h3">Dónde estarás</h3>
+          <div class="ab-map-wrap"><div id="fichaMap"></div></div>
+          <p class="ab-map-cap" id="f-loc-cap">Ubicación exacta tras confirmación de reserva.</p>
+        </section>
+
+        <!-- Reviews -->
+        <section class="ab-section">
+          <h3 class="ab-h3">
+            ★ <span id="f-rat-2">4.8</span> · <span id="f-revcount-2">12 reseñas</span>
+          </h3>
+          <div class="ab-reviews" id="f-revs"></div>
+        </section>
       </div>
-      <div class="fb-summary" id="fb-summary"></div>
-      <div class="fb-note">⚡ Plataforma en pre-lanzamiento: tu reserva queda en lista prioritaria. Te confirmamos por email en menos de 24 h.</div>
+
+      <!-- RIGHT: sticky booking widget -->
+      <aside class="ab-col-right">
+        <div class="ab-bookcard">
+          <div class="ab-bk-price">
+            <strong><span id="f-price">45</span>€</strong>
+            <span class="ab-bk-pp">/ persona</span>
+          </div>
+
+          <!-- Booking widget (calendar + time + people) -->
+          <div class="ab-bk-widget">
+            <div class="fb-section-label">Fecha</div>
+            <div class="fb-dates" id="fb-dates" role="radiogroup" aria-label="Fechas disponibles"></div>
+            <div class="fb-section-label" style="margin-top:14px">Hora <span id="fb-times-date" style="font-weight:500;color:var(--dk)"></span></div>
+            <div class="fb-times" id="fb-times" role="radiogroup" aria-label="Horarios"></div>
+            <div class="fb-people">
+              <span class="fb-people-label">¿Cuántos sois?</span>
+              <div class="fb-stepper">
+                <button class="fb-step" onclick="fbPeople(-1)" aria-label="Restar persona">−</button>
+                <span class="fb-people-n" id="fb-people-n">2</span>
+                <button class="fb-step" onclick="fbPeople(1)" aria-label="Sumar persona">+</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="ab-bk-cta" id="f-cta" onclick="fbBook()">Reservar — 90€</button>
+          <p class="ab-bk-note">No se te cobra todavía · Lista prioritaria</p>
+
+          <div class="ab-bk-breakdown" id="fb-summary"></div>
+
+          <div class="ab-bk-trust">
+            <span>🛡️ Partner verificado</span>
+            <span>·</span>
+            <span>✋ Cancelación 48 h</span>
+          </div>
+        </div>
+      </aside>
     </div>
-    <div class="ficha-map-w"><div id="fichaMap"></div></div>
-    <div class="ficha-revs"><h4>Lo que dicen otros aventureros</h4><div id="f-revs"></div></div>
   </div>
-  <div class="ficha-bar">
-    <div>
-      <div class="ficha-price"><span id="f-price">45</span>€<span style="font-size:13px;font-weight:400;color:var(--mu)"> / persona</span></div>
-      <div class="ficha-price-sub">✓ Partners verificados · Seguro · Cancelación gratis</div>
-      <div class="ficha-fomo" id="f-fomo">🔥 Solo quedan 2 plazas · 18 personas lo miran ahora</div>
-    </div>
-    <div class="ficha-btns">
-      <button class="btn-ol" onclick="openRevs()">⭐ Reseñas</button>
-      <button class="btn-g" id="f-cta" style="font-size:14px;padding:12px 26px" onclick="fbBook()">Reservar — 0€ →</button>
-    </div>
+
+  <!-- Mobile sticky bottom bar (only visible <= 900px) -->
+  <div class="ab-mobile-bar">
+    <div class="ab-mb-price"><strong id="f-price-m">45</strong>€<span> / persona</span></div>
+    <button class="ab-bk-cta" id="f-cta-m" onclick="fbBook()">Reservar</button>
   </div>
 </div>
 </div>
@@ -2292,7 +2474,6 @@ function renderFiltered(){
           '<div class="ec-tags"><span class="ec-tag ec-tag-'+diff.toLowerCase()+'">'+diff+'</span></div>'+
           '<div class="ec-foot">'+
             '<div class="ec-price-block"><div class="ec-price">'+(c.oldPrice?'<span class="ec-old">'+c.oldPrice+'€</span> ':'')+price+'€'+disc+'</div><div class="ec-pp">por persona</div></div>'+
-            '<button class="ec-book '+bc+'" aria-label="Apuntarme a '+sportE+' en '+locE+'" onclick="event.stopPropagation();openWaitlist('+sportJson+','+locJson+')">'+btxt+'</button>'+
           '</div>'+
         '</div>'+
       '</article>';
@@ -2483,7 +2664,6 @@ function buildMarkerPopup(c){
         '<div class="mp-price">'+price+'€ <span>p/persona</span></div>'+
         (rating?'<div class="mp-rat">★ '+rating+'</div>':'')+
       '</div>'+
-      '<div class="mp-btn" style="background:'+(urgent?'var(--r)':'var(--g)')+'">Ver disponibilidad →</div>'+
     '</div>'+
   '</div>';
 }
@@ -2573,26 +2753,23 @@ function fbRender(c){
   if(dateLab) dateLab.textContent = sel ? '· '+sel.label : '';
   // People
   const np = document.getElementById('fb-people-n'); if(np) np.textContent = fbState.people;
-  // Summary
+  // Summary (Airbnb-style breakdown)
   const price = Number.isFinite(c.price)?c.price:0;
   const total = price * fbState.people;
   const sm = document.getElementById('fb-summary');
-  if(sm) sm.innerHTML = price+'€ × '+fbState.people+' persona'+(fbState.people>1?'s':'')+' · <strong>'+total+'€ total</strong>';
-  // Update bottom CTA
-  const cta = document.getElementById('f-cta');
-  if(cta){
+  if(sm) sm.innerHTML = '<div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13.5px;color:#4b5563"><span>'+price+'€ × '+fbState.people+' persona'+(fbState.people>1?'s':'')+'</span><span>'+total+'€</span></div>'+
+    '<div style="display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid #ebebeb;font-size:15px;font-weight:800;color:var(--dk)"><span>Total</span><span>'+total+'€</span></div>';
+  // Update CTAs (desktop + mobile)
+  const ctas = [document.getElementById('f-cta'), document.getElementById('f-cta-m')].filter(Boolean);
+  ctas.forEach(cta=>{
     if(sel && sel.spots===0){
       cta.textContent = 'Sin plazas ese día';
       cta.disabled = true;
-      cta.style.background = '#9ca3af';
-      cta.style.cursor = 'not-allowed';
     } else {
-      cta.textContent = 'Reservar — '+total+'€ →';
+      cta.textContent = (cta.id==='f-cta-m') ? 'Reservar' : 'Reservar — '+total+'€';
       cta.disabled = false;
-      cta.style.background = '';
-      cta.style.cursor = '';
     }
-  }
+  });
 }
 
 function fbPickDate(i){
@@ -2617,42 +2794,83 @@ function fbBook(){
 }
 
 // ════ FICHA ════
+function _setText(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+function abShare(){
+  const url = location.href;
+  const text = curCard ? (curCard.sport+' en '+curCard.loc+' · TripXtrem') : 'TripXtrem';
+  if(navigator.share){ navigator.share({title:text, url}).catch(()=>{}); }
+  else { navigator.clipboard?.writeText(url); toast('🔗 Enlace copiado', 'ok'); }
+}
+function abToggleFav(){
+  const btn=document.getElementById('ab-fav');
+  if(!btn) return;
+  btn.classList.toggle('on');
+  const icon=btn.querySelector('.ab-fav-icon');
+  if(icon) icon.textContent = btn.classList.contains('on') ? '♥' : '♡';
+  if(curCard){
+    const id = curCard.id || (curCard.sport+'-'+curCard.loc);
+    togLike(id, btn);
+  }
+}
+
 function openFicha(c){
   if(typeof c==='string'){ try{c=JSON.parse(c);}catch(_){return;} }
   if(!c || typeof c!=='object') return;
   curCard=c;
-  document.getElementById('f-icon').textContent=c.icon;
-  document.getElementById('f-cat').textContent='🌊 '+c.cat;
-  const urg=document.getElementById('f-urg');
-  urg.style.display=(c.spots<=3||c.badge==='hot')?'block':'none';
-  urg.textContent=c.spots<=3?'Solo '+c.spots+' plaza'+(c.spots>1?'s':''):c.badge==='hot'?'Muy solicitado':'';
-  document.getElementById('f-title').textContent=c.sport;
+  const cat = c.cat || 'Agua';
+  _setText('f-icon', c.icon || '🌍');
+  _setText('f-host-icon', c.icon || '🌍');
+  _setText('f-cat', cat);
+  _setText('f-title', c.sport || 'Experiencia');
+  _setText('f-sub', c.title || ('Experiencia de '+(c.sport||'').toLowerCase()));
   const _rt = Number(c.rating);
-  document.getElementById('f-rat').textContent = Number.isFinite(_rt)? _rt.toFixed(1) : '—';
-  document.getElementById('f-loc').textContent=c.loc||'';
-  document.getElementById('f-dur').textContent=c.dur||'2-3h';
-  document.getElementById('f-price').textContent=c.price||0;
-  const dm={Baja:'🟢 Baja dificultad',Media:'🟡 Media dificultad',Alta:'🔴 Alta dificultad'};
-  document.getElementById('f-diff').textContent=dm[c.diff]||'🟡 Media dificultad';
-  const fomoEl=document.getElementById('f-fomo');
-  if(fomoEl){
-    if(c.spots && c.spots<=3) fomoEl.textContent='🔥 Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+' disponibles';
-    else fomoEl.textContent='👁️ Partner verificado · Cancelación gratis 48h antes';
+  const ratStr = Number.isFinite(_rt) && _rt>0 ? _rt.toFixed(1) : '—';
+  const revs = Number.isFinite(c.reviews) && c.reviews>0 ? c.reviews : 0;
+  const revsStr = revs>0 ? (revs+' reseña'+(revs>1?'s':'')) : 'Sin reseñas aún';
+  _setText('f-rat', ratStr);
+  _setText('f-rat-2', ratStr);
+  _setText('f-revcount', revsStr);
+  _setText('f-revcount-2', revsStr);
+  _setText('f-loc', c.loc || '');
+  _setText('f-dur', c.dur || '2-3h');
+  _setText('f-cap', c.spots && c.spots>0 ? c.spots : 8);
+  _setText('f-price', c.price || 0);
+  _setText('f-price-m', c.price || 0);
+  const dm={Baja:'🟢 Baja',Media:'🟡 Media',Alta:'🔴 Alta'};
+  _setText('f-diff', (dm[c.diff]||'🟡 Media')+' dificultad');
+  // Reset fav button state from likes list
+  const favBtn=document.getElementById('ab-fav');
+  if(favBtn){
+    const id = c.id || (c.sport+'-'+c.loc);
+    const isL = (typeof liked!=='undefined' && liked) ? liked.has(id) : false;
+    favBtn.classList.toggle('on', isL);
+    const ico=favBtn.querySelector('.ab-fav-icon');
+    if(ico) ico.textContent = isL ? '♥' : '♡';
   }
   // Init booking widget (calendar + time + people + price)
   fbInit(c);
-  document.getElementById('f-revs').innerHTML=REVIEWS.slice(0,2).map(r=>
-    '<div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6">'+
-    '<div style="width:28px;height:28px;border-radius:50%;background:'+r.av+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">'+r.name[0]+'</div>'+
-    '<div><div style="display:flex;justify-content:space-between"><span style="font-size:13px;font-weight:700">'+r.name+'</span><span style="font-size:12px;color:var(--o)">'+'★'.repeat(r.stars)+'</span></div>'+
-    '<div style="font-size:12.5px;color:#4b5563;margin-top:2px;line-height:1.5">'+r.text.slice(0,90)+'...</div></div></div>'
-  ).join('');
+  // Reviews
+  const revsEl=document.getElementById('f-revs');
+  if(revsEl){
+    if(typeof REVIEWS!=='undefined' && REVIEWS && REVIEWS.length){
+      revsEl.innerHTML = REVIEWS.slice(0,3).map(r=>
+        '<div style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f3f4f6">'+
+        '<div style="width:38px;height:38px;border-radius:50%;background:'+r.av+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0">'+r.name[0]+'</div>'+
+        '<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700;color:var(--dk)">'+r.name+'</span><span style="font-size:13px;color:var(--o)">'+'★'.repeat(r.stars)+'</span></div>'+
+        '<div style="font-size:13.5px;color:#374151;margin-top:4px;line-height:1.55">'+r.text+'</div></div></div>'
+      ).join('');
+    } else {
+      revsEl.innerHTML = '<p style="font-size:13.5px;color:var(--mu);font-style:italic">Aún no hay reseñas. Sé el primero en reservar y compartir tu experiencia.</p>';
+    }
+  }
   openOv('ov-ficha');
+  // Reset scroll to top
+  const scrollEl=document.querySelector('#ov-ficha .ab-scroll');
+  if(scrollEl) scrollEl.scrollTop=0;
   setTimeout(async ()=>{
     const el = document.getElementById('fichaMap');
     if(!el) return;
     el.innerHTML = '';
-    el.style.height = '170px';
     if(!Number.isFinite(c.lat) || !Number.isFinite(c.lng)) return;
     try{
       await loadGoogleMaps();
