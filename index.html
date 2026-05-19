@@ -161,32 +161,41 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 .nl-name b{color:var(--g);}
 .nl-badge{background:var(--gl);color:var(--gd);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:7px;border:1px solid #bbf7d0;}
 
-/* Search pill: centrado absolutamente respecto al nav */
-.nav-pill{
+/* Nav tabs centrales — estilo Airbnb (Deportes / Packs / Alojamiento …) */
+.nav-tabs{
   position:absolute;
   left:50%;
   transform:translateX(-50%);
-  display:flex;align-items:center;
-  border:1px solid #ddd;
-  border-radius:40px;
-  height:46px;
+  display:flex;align-items:center;gap:2px;
   background:#fff;
-  cursor:pointer;
-  transition:box-shadow .2s;
-  min-width:340px;max-width:460px;
-  width:38%;
+  border:1px solid #e5e7eb;
+  border-radius:999px;
+  padding:4px;
+  height:44px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
 }
-.nav-pill:hover{box-shadow:0 2px 16px rgba(0,0,0,.12);}
-.np-seg{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:0 16px;border-right:1px solid #ddd;height:100%;flex:1;
-  min-width:0;
+.nav-tab{
+  border:none;background:transparent;cursor:pointer;
+  padding:0 18px;height:36px;
+  border-radius:999px;
+  font-family:inherit;font-size:14.5px;font-weight:700;color:#374151;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .18s, color .18s, transform .15s;
+  white-space:nowrap;
 }
-.np-seg:last-of-type{border-right:none;flex:none;padding-right:8px;}
-.np-label{font-size:11px;font-weight:700;color:var(--dk);white-space:nowrap;}
-.np-val{font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.np-btn{width:36px;height:36px;border-radius:50%;background:var(--g);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;margin-right:5px;flex-shrink:0;}
-.np-btn:hover{background:var(--gd);}
+.nav-tab:hover{background:#f3f4f6;color:var(--dk);}
+.nav-tab.on{background:var(--dk);color:#fff;}
+.nav-tab.on:hover{background:#000;color:#fff;}
+.nav-tab.soon{color:#9ca3af;position:relative;}
+.nav-tab.soon::after{
+  content:'pronto';
+  position:absolute;top:-4px;right:6px;
+  font-size:8.5px;font-weight:800;letter-spacing:.3px;
+  background:linear-gradient(135deg,#c9a24a,#a8843a);color:#fff;
+  padding:1px 5px;border-radius:6px;text-transform:uppercase;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+}
+.nav-tab.soon:hover{color:#6b7280;}
 
 /* Botones derecha: absolute right */
 .nav-right{
@@ -1041,14 +1050,14 @@ tr:hover td{background:#fafafa;}
 .mbt-btn.on{background:var(--dk);color:#fff;border-color:var(--dk);}
 
 /* ═══ RESPONSIVE ═══ */
-@media(max-width:1280px){.nav-pill{min-width:300px;}.nl-badge{display:none;}.btn-host{display:none;}}
-@media(max-width:1024px){.nav-pill{min-width:240px;width:34%;}.np-seg:nth-child(2){display:none;}}
+@media(max-width:1280px){.nav-tabs{padding:3px;}.nav-tab{padding:0 14px;font-size:13.5px;}.nl-badge{display:none;}.btn-host{display:none;}}
+@media(max-width:1024px){.nav-tabs{gap:0;}.nav-tab{padding:0 10px;font-size:13px;}.nav-tab[data-tab="restaurantes"]{display:none;}}
 
 /* Tablet & mobile */
 @media(max-width:900px){
   :root{--ANH:32px;--NH:56px;--CTBH:46px;--CBH:68px;}
   /* Nav */
-  .nav-pill{display:none;}
+  .nav-tabs{display:none;}
   .nav-inner{padding:0 16px;}
   .nl-icon svg{width:30px;height:30px;}
   .nl-name{font-size:15px;}
@@ -1381,21 +1390,13 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
         <div class="nl-badge">Nº1 España 🇪🇸</div>
       </div>
     </a>
-    <div class="nav-pill" onclick="scrollToMap()">
-      <div class="np-seg">
-        <div class="np-label">¿Qué actividad?</div>
-        <div class="np-val">Surf, Kitesurf, Rafting...</div>
-      </div>
-      <div class="np-seg">
-        <div class="np-label">¿Dónde?</div>
-        <div class="np-val">País Vasco, Cádiz...</div>
-      </div>
-      <div class="np-seg" style="border-right:none;flex:none;padding-right:8px;">
-        <div class="np-label">¿Cuántos?</div>
-        <div class="np-val">Solo yo</div>
-      </div>
-      <button class="np-btn" aria-label="Buscar actividades">🔍</button>
-    </div>
+    <nav class="nav-tabs" aria-label="Categorías principales">
+      <button type="button" class="nav-tab on" data-tab="deportes" onclick="setNavTab(this,'deportes')" aria-current="page">Deportes</button>
+      <button type="button" class="nav-tab soon" data-tab="packs" onclick="setNavTab(this,'packs')">Packs</button>
+      <button type="button" class="nav-tab soon" data-tab="alojamiento" onclick="setNavTab(this,'alojamiento')">Alojamiento</button>
+      <button type="button" class="nav-tab soon" data-tab="transporte" onclick="setNavTab(this,'transporte')">Transporte</button>
+      <button type="button" class="nav-tab soon" data-tab="restaurantes" onclick="setNavTab(this,'restaurantes')">Restaurantes</button>
+    </nav>
     <div class="nav-right">
       <button class="btn-host" onclick="openPartner()">Hazte partner</button>
       <div class="nav-menu" onclick="toggleDD()" role="button" tabindex="0" aria-label="Abrir menú de usuario" aria-haspopup="menu">
@@ -1554,185 +1555,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   </div>
 </div>
 
-<!-- PACKS -->
-<div class="section" style="background:#fff" id="packs-s">
-  <div class="sec-head">
-    <div>
-      <div class="sec-ey">🚀 Packs Todo Incluido · Deporte + Hotel + Transporte + Restaurante</div>
-      <div class="sec-title">Un precio. Cero estrés.<br>La aventura completa.</div>
-      <div class="sec-sub">Cada pack incluye la actividad, alojamiento, transporte y un restaurante con experiencia gastronómica extrema. Solo tienes que aparecer.</div>
-    </div>
-    <button class="sec-link">Ver todos los packs →</button>
-  </div>
-  <div class="packs-grid">
-
-    <!-- PACK 1: Surf Zarautz -->
-    <div class="pack-card pack-feat">
-      <div class="pack-best">MAS VENDIDO</div>
-      <div class="pack-hero ph-a">
-        <div class="pack-hero-icons"><span>🏄</span><span>🏨</span><span>🚐</span><span>🍽️</span></div>
-        <div class="pack-tag">💧 Agua</div><div class="pack-hot">🔥 Nº1</div><div class="pack-dur">3 días / 2 noches</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Surf Total Zarautz</div>
-        <div class="pack-loc">📍 Zarautz, País Vasco</div>
-        <div class="pack-desc">3 sesiones de surf con instructor, hotel surf house, transfer desde Bilbao y cena en asador vasco con parrilla al rojo vivo.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">🏄</div><div class="pr-label">Deporte</div><div class="pr-val">3 sesiones surf</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transfer</div><div class="pr-val">Desde Bilbao</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Surf House 2 noch.</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🔥</div><div class="pr-label">Restaurante</div><div class="pr-val">Asador vasco</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">189€</span><span class="pack-old">290€</span></div><div class="pack-save">Ahorras 101€ (35%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Surf Total Zarautz','Zarautz, País Vasco')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">🔥 Solo 3 plazas · 12 personas lo miran ahora</div>
-      </div>
-    </div>
-
-    <!-- PACK 2: Kitesurf Tarifa -->
-    <div class="pack-card">
-      <div class="pack-hero ph-b">
-        <div class="pack-hero-icons"><span>🪁</span><span>🏖️</span><span>✈️</span><span>🐙</span></div>
-        <div class="pack-tag">🌬️ Agua + Viento</div><div class="pack-dur">5 días / 4 noches</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Kitesurf Tarifa Premium</div>
-        <div class="pack-loc">📍 Tarifa, Cádiz</div>
-        <div class="pack-desc">5 días de kite en la meca del viento. Hotel boutique frente al mar, transfer desde aeropuerto y cena marisquería con atún rojo de almadraba.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">🪁</div><div class="pr-label">Deporte</div><div class="pr-val">5 clases kite</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">✈️</div><div class="pr-label">Transfer</div><div class="pr-val">Aeropuerto</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏖️</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel boutique 4n</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🐙</div><div class="pr-label">Restaurante</div><div class="pr-val">Marisquería</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">399€</span><span class="pack-old">560€</span></div><div class="pack-save">Ahorras 161€ (29%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Kitesurf Tarifa Premium','Tarifa, Cádiz')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">⏰ Precio especial caduca el domingo</div>
-      </div>
-    </div>
-
-    <!-- PACK 3: Paracaidismo + Aventura Empuriabrava -->
-    <div class="pack-card">
-      <div class="pack-hero ph-f">
-        <div class="pack-hero-icons"><span>🛩️</span><span>🏨</span><span>🚗</span><span>🥩</span></div>
-        <div class="pack-tag">⚡ Adrenalina máxima</div><div class="pack-hot">EXTREMO</div><div class="pack-dur">2 días / 1 noche</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Paracaidismo Empuriabrava</div>
-        <div class="pack-loc">📍 Empuriabrava, Girona</div>
-        <div class="pack-desc">Salto tándem desde 4000m con vídeo 4K. Noche en hotel rural, transfer y cena BBQ extrema con carne a la brasa y cerveza artesana.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">🛩️</div><div class="pr-label">Deporte</div><div class="pr-val">Salto 4000m</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🚗</div><div class="pr-label">Transfer</div><div class="pr-val">Barcelona</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel rural 1n</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🥩</div><div class="pr-label">Restaurante</div><div class="pr-val">BBQ extrema</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">249€</span><span class="pack-old">350€</span></div><div class="pack-save">Ahorras 101€ (29%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Paracaidismo Empuriabrava','Empuriabrava, Girona')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">🔥 1 plaza restante · muy demandado</div>
-      </div>
-    </div>
-
-    <!-- PACK 4: Nieve Baqueira -->
-    <div class="pack-card">
-      <div class="pack-hero ph-e">
-        <div class="pack-hero-icons"><span>⛷️</span><span>🏔️</span><span>🚐</span><span>🧀</span></div>
-        <div class="pack-tag">❄️ Nieve</div><div class="pack-dur">4 días / 3 noches</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Freeride Baqueira</div>
-        <div class="pack-loc">📍 Baqueira-Beret, Lleida</div>
-        <div class="pack-desc">Freeride con guía UIAGM, hotel de montaña con spa, transfer desde Barcelona y cena fondue en refugio de alta montaña con vistas al valle.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">⛷️</div><div class="pr-label">Deporte</div><div class="pr-val">3 jornadas freeride</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transfer</div><div class="pr-val">Barcelona</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏔️</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel + spa</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🧀</div><div class="pr-label">Restaurante</div><div class="pr-val">Fondue refugio</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">449€</span><span class="pack-old">640€</span></div><div class="pack-save">Ahorras 191€ (30%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Freeride Baqueira','Baqueira-Beret, Lleida')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">❄️ Temporada alta · plazas limitadas</div>
-      </div>
-    </div>
-
-    <!-- PACK 5: Multi-Aventura España -->
-    <div class="pack-card pack-feat">
-      <div class="pack-best">MEJOR VALORADO</div>
-      <div class="pack-hero ph-c">
-        <div class="pack-hero-icons"><span>🏄</span><span>🪂</span><span>🧗</span><span>🍷</span></div>
-        <div class="pack-tag">🌍 Multi-aventura</div><div class="pack-hot">TOP</div><div class="pack-dur">7 días / 6 noches</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Aventura Total España</div>
-        <div class="pack-loc">📍 País Vasco → Valencia → Barcelona</div>
-        <div class="pack-desc">La ruta definitiva: surf en Zarautz, parapente en Gandía y escalada en Montserrat. Van equipada, hostales con encanto y ruta gastro con cata de vinos extrema.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">🏄</div><div class="pr-label">Deportes</div><div class="pr-val">Surf+Para+Escal</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🚐</div><div class="pr-label">Transporte</div><div class="pr-val">Van equipada</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏕️</div><div class="pr-label">Alojamiento</div><div class="pr-val">6 noches hostales</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🍷</div><div class="pr-label">Restaurante</div><div class="pr-val">Ruta gastro</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">699€</span><span class="pack-old">1.050€</span></div><div class="pack-save">Ahorras 351€ (33%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Aventura Total España','Multi-ubicación')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">🏆 42 grupos lo reservaron este mes</div>
-      </div>
-    </div>
-
-    <!-- PACK 6: Canarias Volcánica -->
-    <div class="pack-card">
-      <div class="pack-hero ph-f">
-        <div class="pack-hero-icons"><span>🛞</span><span>🤿</span><span>🏨</span><span>🌶️</span></div>
-        <div class="pack-tag">🌋 Volcánica</div><div class="pack-hot">NUEVO</div><div class="pack-dur">5 días / 4 noches</div>
-      </div>
-      <div class="pack-body">
-        <div class="pack-title">Pack Canarias Volcánica</div>
-        <div class="pack-loc">📍 Lanzarote + Fuerteventura</div>
-        <div class="pack-desc">Ruta en quad por volcanes, buceo en reserva marina, hotel boutique con vistas y cena en restaurante El Diablo donde cocinan con calor volcánico real.</div>
-        <div class="pack-route">
-          <div class="pr-step"><div class="pr-icon">🛞</div><div class="pr-label">Deportes</div><div class="pr-val">Quad + Buceo</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">⛴️</div><div class="pr-label">Transporte</div><div class="pr-val">Ferry inter-islas</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🏨</div><div class="pr-label">Alojamiento</div><div class="pr-val">Hotel boutique 4n</div></div>
-          <div class="pr-arrow">→</div>
-          <div class="pr-step"><div class="pr-icon">🌋</div><div class="pr-label">Restaurante</div><div class="pr-val">El Diablo</div></div>
-        </div>
-        <div class="pack-foot">
-          <div><div class="pack-from">Desde</div><div class="pack-pr"><span class="pack-price">529€</span><span class="pack-old">740€</span></div><div class="pack-save">Ahorras 211€ (29%)</div></div>
-          <button class="btn-g" onclick="openWaitlist('Pack Canarias Volcánica','Lanzarote + Fuerteventura')">Quiero este pack →</button>
-        </div>
-        <div class="pack-urg">🌴 Disponible todo el año</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 <!-- HOW IT WORKS -->
 <div class="how-bg">
   <div style="max-width:460px">
@@ -1744,22 +1566,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
     <div class="how-step"><div class="how-num">2</div><div class="how-icon">📅</div><div class="how-title">Selecciona fecha</div><div class="how-text">Ve disponibilidad real y reserva cuando más te convenga.</div></div>
     <div class="how-step"><div class="how-num">3</div><div class="how-icon">💳</div><div class="how-title">Paga seguro</div><div class="how-text">Tarjeta, PayPal o Bizum. Cobro seguro y confirmación instantánea.</div></div>
     <div class="how-step"><div class="how-num">4</div><div class="how-icon">🎉</div><div class="how-title">Vive la aventura</div><div class="how-text">El partner te escribe en menos de 2h. Solo tienes que aparecer.</div></div>
-  </div>
-</div>
-
-<!-- TESTIMONIALS -->
-<div class="section" style="background:#fff">
-  <div class="sec-head">
-    <div>
-      <div class="sec-ey">💬 +1.847 reseñas verificadas · Media 4.9★</div>
-      <div class="sec-title">No lo decimos nosotros.<br>Lo dicen ellos.</div>
-    </div>
-    <div style="text-align:right"><div style="font-family:'Bebas Neue',sans-serif;font-size:42px;font-weight:900;color:var(--dk)">4.9</div><div style="font-size:18px;color:var(--o)">★★★★★</div></div>
-  </div>
-  <div class="test-grid">
-    <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"Llevaba años queriendo hacer paracaidismo. TripXtrem lo puso tan fácil que reservé en 3 minutos. ¡Experiencia alucinante!"</div><div class="test-quote">"</div><div class="test-author"><div class="test-av" style="background:#3b82f6">C</div><div><div class="test-name">Carlos Bermúdez</div><div class="test-sub">Paracaidismo · Empuriabrava</div><div class="test-ok">✓ Compra verificada · mar 2025</div></div></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"Organicé la despedida de soltera con el Pack Surf Zarautz. 8 chicas, todo perfecto. ¡Repetiremos!"</div><div class="test-quote">"</div><div class="test-author"><div class="test-av" style="background:#ef4444">L</div><div><div class="test-name">Laura Martínez</div><div class="test-sub">Pack Surf · 8 personas</div><div class="test-ok">✓ Compra verificada · feb 2025</div></div></div></div>
-    <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"El proceso fue rapidísimo y el seguro me dio tranquilidad total. Kitesurf en Tarifa 4 días — la mejor experiencia de nuestra vida."</div><div class="test-quote">"</div><div class="test-author"><div class="test-av" style="background:#8b5cf6">A</div><div><div class="test-name">Ana Rodríguez</div><div class="test-sub">Pack Kitesurf · 2 personas</div><div class="test-ok">✓ Compra verificada · ene 2025</div></div></div></div>
   </div>
 </div>
 
@@ -1810,7 +1616,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
     <div class="tx-foot-col">
       <h4>Explorar</h4>
       <a href="#mapSection">Experiencias</a>
-      <a href="#packs-s">Packs</a>
       <a href="#" onclick="openPartner();return false">Hazte partner</a>
     </div>
     <div class="tx-foot-col">
@@ -2006,15 +1811,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
       <div class="fb-note">⚡ Plataforma en pre-lanzamiento: tu reserva queda en lista prioritaria. Te confirmamos por email en menos de 24 h.</div>
     </div>
     <div class="ficha-map-w"><div id="fichaMap"></div></div>
-    <div class="ficha-upsell">
-      <h5>💡 Completa tu experiencia</h5>
-      <p>Añade alojamiento y ahorra 61€</p>
-      <span style="font-size:12px;color:var(--mu)">Con nuestros packs, todo organizado en un clic.</span>
-      <div class="ficha-upsell-btns">
-        <button class="btn-g" style="font-size:12.5px;padding:8px 16px" onclick="closeOv('ov-ficha');document.getElementById('packs-s').scrollIntoView({behavior:'smooth'})">Ver Pack completo →</button>
-        <button class="btn-ol" style="font-size:12.5px;padding:8px 16px" onclick="openPay()">Solo la actividad</button>
-      </div>
-    </div>
     <div class="ficha-revs"><h4>Lo que dicen otros aventureros</h4><div id="f-revs"></div></div>
   </div>
   <div class="ficha-bar">
@@ -2416,6 +2212,26 @@ function goPage(id){
   if(id==='admin')renderAdm('dashboard');
   if(id==='profile'){renderBadges();setPTab(document.querySelector('.ptab'),'trips');}
   window.scrollTo(0,0);
+}
+
+// ════ NAV TABS (Deportes / Packs / Alojamiento / Transporte / Restaurantes) ════
+const COMING_SOON_MSG = {
+  packs:        '📦 Packs llegan en julio — actividad + hotel + transporte + cena, en un clic',
+  alojamiento:  '🏨 Alojamientos curados llegan después del verano',
+  transporte:   '🚐 Transporte puerta a puerta · próximo trimestre',
+  restaurantes: '🍽️ Restaurantes con experiencia local · próximo trimestre'
+};
+function setNavTab(el, tab){
+  if(tab && tab!=='deportes'){
+    if(typeof toast==='function') toast(COMING_SOON_MSG[tab] || '🚧 Próximamente', 'ok');
+    return;   // No cambia el tab activo — Deportes se queda seleccionado
+  }
+  document.querySelectorAll('.nav-tab').forEach(b=>{
+    b.classList.remove('on');
+    b.removeAttribute('aria-current');
+  });
+  el.classList.add('on');
+  el.setAttribute('aria-current','page');
 }
 
 // ════ CATEGORY TABS ════
