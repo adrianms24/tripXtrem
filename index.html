@@ -546,8 +546,7 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .tx-pin-wrap.tx-pin-baja .tx-pin-circle{border-color:#22c55e;}
 .tx-pin-wrap.tx-pin-urg .tx-pin-circle{border-color:var(--brand);animation:urgpulse 1.8s infinite;}
 .mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;}
-.mp-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative;background-size:cover;background-position:center;}
-.mp-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.35));pointer-events:none;}
+.mp-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;filter:drop-shadow(0 3px 10px rgba(0,0,0,.08));}
 .mp-urg{position:absolute;top:8px;left:8px;background:var(--r);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.3px;text-transform:uppercase;z-index:1;}
 .mp-sport-tag{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.95);color:var(--dk);font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;z-index:1;letter-spacing:.2px;text-transform:uppercase;}
 .mp-body{padding:11px 13px 13px;}
@@ -2516,10 +2515,6 @@ function renderFiltered(){
       return '<article class="ec'+(isL?' lc':'')+'" id="ec'+i+'" role="button" tabindex="0" aria-label="'+sportE+' en '+locE+', desde '+price+' euros" onclick="openFicha('+cardJson+')">'+
         '<div class="ec-thumb '+bg+'">'+
           '<span class="ec-thumb-fb" aria-hidden="true">'+iconE+'</span>'+
-          (imgUrl
-            ? '<img class="ec-thumb-img" src="'+_esc(imgUrl)+'" alt="'+sportE+' en '+locE+'" loading="lazy" decoding="async" onerror="this.remove()"><div class="ec-thumb-overlay"></div>'
-            : ''
-          )+
           (b?'<div class="ec-badge '+b.cls+'">'+_esc(b.txt)+'</div>':'')+
           '<button class="ec-like'+(isL?' on':'')+'" aria-label="'+(isL?'Quitar de':'Añadir a')+' favoritos" onclick="event.stopPropagation();togLike('+_attrJSON(id)+',this)">♥</button>'+
           (c.spots<=3 && c.spots>0 ? '<div class="ec-spots-pill" aria-label="Quedan '+c.spots+' plazas">🔥 '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
@@ -2693,18 +2688,14 @@ function buildMarkerPopup(c){
   const sportE = _esc(c.sport||'');
   const locE = _esc(c.loc||'');
   const titleE = _esc(c.title||sportE);
-  const imgUrl = c.img && /^https?:\/\//i.test(c.img) ? _esc(c.img) : '';
   const price = Number.isFinite(c.price) ? c.price : 0;
   const rating = Number.isFinite(c.rating) && c.rating>0 ? Number(c.rating).toFixed(1) : null;
   const urgent = Number.isFinite(c.spots) && c.spots>0 && c.spots<=2;
   const cardJson = _attrJSON(c);
-  const imgStyle = imgUrl
-    ? 'background-image:url(\''+imgUrl+'\')'
-    : '';
   return '<div class="mp">'+
-    '<div class="mp-img '+(imgUrl?'':bg)+'"'+(imgStyle?' style="'+imgStyle+'"':'')+'>'+
+    '<div class="mp-img '+bg+'">'+
       (urgent?'<div class="mp-urg">Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
-      (!imgUrl?'<span aria-hidden="true">'+(c.icon||'🌍')+'</span>':'')+
+      '<span aria-hidden="true">'+(c.icon||'🌍')+'</span>'+
       '<div class="mp-sport-tag">'+(c.icon||'')+' '+sportE+'</div>'+
     '</div>'+
     '<div class="mp-body">'+
