@@ -2753,7 +2753,6 @@ function buildMarkerPopup(c){
   const price = Number.isFinite(c.price) ? c.price : 0;
   const rating = Number.isFinite(c.rating) && c.rating>0 ? Number(c.rating).toFixed(1) : null;
   const urgent = Number.isFinite(c.spots) && c.spots>0 && c.spots<=2;
-  const cardJson = _attrJSON(c);
   return '<div class="mp mp-open-ficha" data-action="open-ficha" role="button" tabindex="0">'+
     '<div class="mp-img '+bg+'">'+
       (urgent?'<div class="mp-urg">Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
