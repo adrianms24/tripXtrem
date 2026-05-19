@@ -2674,15 +2674,16 @@ function updateMarkers(cards){
   cards.forEach((c,i)=>{
     if(!Number.isFinite(c.lat) || !Number.isFinite(c.lng)) return;
     const content = makePinEl(c);
+    content.style.cursor = 'pointer';
     const m = new AdvancedMarker({
       map: mainMap,
       position: { lat: c.lat, lng: c.lng },
       content,
-      title: (c.sport||'') + ' · ' + (c.loc||'')
+      title: (c.sport||'') + ' · ' + (c.loc||''),
+      gmpClickable: true                       // ← needed in new API for click events to fire
     });
 
     // Hover: solo highlight visual en la card de la lista, SIN scroll
-    // (el scrollIntoView automático provocaba sensación de mareo al pasear por el mapa)
     content.addEventListener('mouseenter', ()=>{
       document.querySelectorAll('.ec.map-hover').forEach(e=>e.classList.remove('map-hover'));
       const ec = document.getElementById('ec'+i);
@@ -2692,15 +2693,25 @@ function updateMarkers(cards){
       const ec = document.getElementById('ec'+i);
       if(ec) ec.classList.remove('map-hover');
     });
-    // Click: estilo Airbnb — abre tarjeta flotante sobre el mapa, SIN reordenar
-    // ni hacer scroll de la lista lateral. Solo pan suave al pin.
-    m.addListener('click', ()=>{
-      window._activeMapCard = c;            // refer for popup delegation
-      mainMap.panTo({ lat: c.lat, lng: c.lng });
+
+    // Handler único: abre popup flotante con la sportcard
+    const openPopup = (ev)=>{
+      if(ev && ev.domEvent && ev.domEvent.stopPropagation) ev.domEvent.stopPropagation();
+      if(ev && ev.stopPropagation) ev.stopPropagation();
+      if(!gInfoWindow || !mainMap) return;
+      window._activeMapCard = c;
+      try{ mainMap.panTo({ lat: c.lat, lng: c.lng }); }catch(_){}
       const html = buildMarkerPopup(c);
       gInfoWindow.setContent(html);
       gInfoWindow.open({ anchor: m, map: mainMap });
-    });
+    };
+    // Triple-bind para máxima compatibilidad entre versiones del Maps API:
+    //   1) 'click' del AdvancedMarker (legacy)
+    //   2) 'gmp-click' del nuevo API (2024+)
+    //   3) click directo en el DOM del content (fallback total — siempre funciona)
+    try{ m.addListener('click', openPopup); }catch(_){}
+    try{ m.addListener('gmp-click', openPopup); }catch(_){}
+    content.addEventListener('click', openPopup);
 
     markers.push(m);
     markerMap[i] = m;
