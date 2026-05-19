@@ -442,10 +442,11 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .ec:hover{border-color:var(--g);box-shadow:var(--sh-md);transform:translateY(-2px);}
 .ec.hl{border-color:var(--g);box-shadow:0 0 0 3px rgba(34,197,94,.2);}
 /* ── Image Carousel ── */
-.ec-thumb{position:relative;width:100%;height:200px;flex-shrink:0;overflow:hidden;}
-.ec-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
-.ec:hover .ec-thumb img{transform:scale(1.05);}
-.ec-thumb-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35) 0%,transparent 50%);}
+.ec-thumb{position:relative;width:100%;height:200px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.ec-thumb-fb{font-size:54px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.12));z-index:0;line-height:1;}
+.ec-thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s;z-index:1;}
+.ec:hover .ec-thumb-img{transform:scale(1.05);}
+.ec-thumb-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35) 0%,transparent 50%);z-index:2;pointer-events:none;}
 .ec-img-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;backdrop-filter:blur(4px);}
 .th-a{background:linear-gradient(145deg,#dbeafe,#bfdbfe);}
 .th-b{background:linear-gradient(145deg,#dcfce7,#bbf7d0);}
@@ -497,7 +498,7 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .ec-tag-alta{background:#fef2f2;color:#dc2626;}
 /* ── Card↔Map hover sync ── */
 .ec.map-hover{border-color:var(--g);box-shadow:0 0 0 3px rgba(34,197,94,.25);transform:translateY(-2px);}
-.ec-thumb{position:relative;width:100%;height:190px;flex-shrink:0;overflow:hidden;}
+.ec-thumb{position:relative;width:100%;height:190px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 /* ── Price range pills ── */
 .fchip-range{display:flex;gap:4px;}
 .fpill{padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--mu);transition:all .2s;}
@@ -2513,10 +2514,11 @@ function renderFiltered(){
       const sportJson = _attrJSON(c.sport||'');
       const locJson   = _attrJSON(c.loc||'');
       return '<article class="ec'+(isL?' lc':'')+'" id="ec'+i+'" role="button" tabindex="0" aria-label="'+sportE+' en '+locE+', desde '+price+' euros" onclick="openFicha('+cardJson+')">'+
-        '<div class="ec-thumb '+(imgUrl?'':bg)+'">'+
+        '<div class="ec-thumb '+bg+'">'+
+          '<span class="ec-thumb-fb" aria-hidden="true">'+iconE+'</span>'+
           (imgUrl
-            ? '<img src="'+_esc(imgUrl)+'" alt="'+sportE+' en '+locE+'" loading="lazy" decoding="async"><div class="ec-thumb-overlay"></div>'
-            : '<span aria-hidden="true" style="font-size:44px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))">'+iconE+'</span>'
+            ? '<img class="ec-thumb-img" src="'+_esc(imgUrl)+'" alt="'+sportE+' en '+locE+'" loading="lazy" decoding="async" onerror="this.remove()"><div class="ec-thumb-overlay"></div>'
+            : ''
           )+
           (b?'<div class="ec-badge '+b.cls+'">'+_esc(b.txt)+'</div>':'')+
           '<button class="ec-like'+(isL?' on':'')+'" aria-label="'+(isL?'Quitar de':'Añadir a')+' favoritos" onclick="event.stopPropagation();togLike('+_attrJSON(id)+',this)">♥</button>'+
