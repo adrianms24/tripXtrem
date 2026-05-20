@@ -91,7 +91,7 @@
   /* ── Radii ── */
   --r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:18px;--r-pill:100px;
   /* ── Layout heights ── */
-  --ANH:36px;--NH:64px;--CTBH:48px;--CBH:76px;
+  --ANH:0px;--NH:64px;--CTBH:48px;--CBH:76px;
   /* ── Category colors (ajustadas a la paleta A) ── */
   --c-agua:#1e6ea5;--c-agua-bg:#dbeafe;--c-agua-dk:#0f4872;
   --c-aire:#c9a24a;--c-aire-bg:#fdf4e6;--c-aire-dk:#a8843a;
@@ -103,7 +103,7 @@
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--dk);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
 input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 /* Red Bull-style display: Bebas Neue all-caps con tracking moderno */
-.nl-name,.pc-title,.tx-foot-logo,.pct-title,.sb-brand,.sb-row1 h3,.hero-h1,.modal-h h3,.wl-title{
+.nl-name,.pc-title,.tx-foot-logo,.pct-title,.sb-row1 h3,.hero-h1,.modal-h h3,.wl-title{
   font-family:'Bebas Neue','Impact','Arial Narrow',sans-serif;
   letter-spacing:.02em;
   text-transform:uppercase;
@@ -118,19 +118,6 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 @keyframes urgpulse{0%,100%{box-shadow:0 0 0 0 rgba(139,31,43,.5);}50%{box-shadow:0 0 0 10px rgba(139,31,43,0);}}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .pulse{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--g);animation:pulse 1.8s infinite;}
-
-/* ═══ ANNOUNCEMENT BAR ═══ */
-#ann-bar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:var(--ANH);
-  background:linear-gradient(90deg,#0f172a,#1e1b4b,#0f172a);
-  display:flex;align-items:center;justify-content:center;
-  padding:0 44px;font-size:12.5px;color:#fff;gap:8px;
-}
-#ann-bar b{color:var(--g);}
-.ann-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite;flex-shrink:0;}
-.ann-close{position:absolute;right:14px;background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:18px;padding:4px 8px;line-height:1;}
-.ann-close:hover{color:#fff;}
 
 /* ═══ NAV ═══ */
 #nav{
@@ -433,9 +420,6 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 .sort-cnt{font-size:12.5px;color:var(--mu);}
 .sort-cnt b{color:var(--dk);}
 .sort-sel{border:none;background:transparent;font-size:12.5px;font-weight:600;color:var(--dk);cursor:pointer;outline:none;}
-.sb-ticker{background:#f0fdf4;border-top:1px solid #bbf7d0;padding:7px 15px;font-size:12px;color:#166534;font-weight:600;display:flex;align-items:center;gap:5px;flex-shrink:0;}
-#ticker-text{transition:opacity .3s;}
-.ticker-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:blink 1.5s infinite;}
 .card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:14px 14px 80px;}
 .card-list:empty{min-height:60vh;}
 /* A11Y · focus visible */
@@ -658,15 +642,6 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .pct-btns{display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
 
 /* Sticky bar */
-.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:800;background:#fff;border-top:1px solid var(--border);padding:10px 40px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(0,0,0,.1);transform:translateY(100%);transition:transform .3s;}
-.sticky-bar.show{transform:translateY(0);}
-.sb-brand{font-family:'Bebas Neue',sans-serif;font-size:15px;font-weight:900;color:var(--dk);}
-.sb-brand b{color:var(--g);}
-.sb-trust{display:flex;gap:10px;font-size:12.5px;color:var(--mu);}
-.sb-trust span{display:flex;align-items:center;gap:3px;}
-.sb-right{display:flex;gap:8px;align-items:center;}
-.sb-input{background:#f9fafb;border:1.5px solid var(--border);border-radius:20px;padding:8px 14px;font-size:13px;outline:none;width:200px;}
-.sb-cta{background:var(--r);color:#fff;border:none;border-radius:20px;padding:10px 22px;font-size:13.5px;font-weight:700;cursor:pointer;}
 
 /* ═══ MODALS ═══ */
 .ov{position:fixed;inset:0;background:rgba(10,10,20,.55);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;}
@@ -1117,15 +1092,13 @@ tr:hover td{background:#fafafa;}
 
 /* Tablet & mobile */
 @media(max-width:900px){
-  :root{--ANH:32px;--NH:56px;--CTBH:46px;--CBH:68px;}
+  :root{--ANH:0px;--NH:56px;--CTBH:46px;--CBH:68px;}
   /* Nav */
   .nav-tabs{display:none;}
   .nav-inner{padding:0 16px;}
   .nl-icon svg{width:30px;height:30px;}
   .nl-name{font-size:15px;}
   /* Announcement bar */
-  #ann-bar{font-size:11px;padding:0 36px;}
-  #ann-bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;max-width:calc(100vw - 80px);}
   /* Cat tabs */
   #cat-tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 12px;gap:4px;}
   #cat-tabs::-webkit-scrollbar{display:none;}
@@ -1221,8 +1194,7 @@ tr:hover td{background:#fafafa;}
 
 /* Phone only */
 @media(max-width:480px){
-  :root{--ANH:28px;--NH:54px;--CTBH:42px;--CBH:62px;}
-  #ann-bar{font-size:10.5px;padding:0 32px;}
+  :root{--ANH:0px;--NH:54px;--CTBH:42px;--CBH:62px;}
   .ct-btn{padding:5px 10px;font-size:11.5px;gap:4px;}
   .ct-icon{font-size:13px;}
   .sp-box{width:34px;height:34px;border-radius:8px;font-size:20px;}
@@ -1405,12 +1377,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 <body>
 <a href="#mapSection" class="tx-skip">Saltar al contenido</a>
 
-<!-- ═══ ANNOUNCEMENT BAR ═══ -->
-<div id="ann-bar">
-  <div class="ann-dot"></div>
-  <span>⚡ <b>Oferta flash:</b> 15% en todos los packs esta semana · <b id="ann-n">47 personas</b> reservaron hoy · <span id="ann-cd" style="color:#fbbf24;font-weight:700">Quedan 3 días</span></span>
-  <button class="ann-close" onclick="closeAnn()" aria-label="Cerrar anuncio">×</button>
-</div>
 
 <!-- ═══ NAV ═══ -->
 <div id="nav">
@@ -2104,18 +2070,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 </div>
 </div>
 
-<!-- STICKY BAR -->
-<div class="sticky-bar" id="sticky-bar">
-  <div>
-    <div class="sb-brand">Trip<b>Xtrem</b></div>
-    <div class="sb-trust"><span>⭐ 4.9</span><span>🛡️ Seguro</span><span>💳 Pago seguro</span><span>🔄 Cancelación gratis</span></div>
-  </div>
-  <div class="sb-right">
-    <input class="sb-input" type="text" placeholder="🔍 Buscar actividad...">
-    <button class="sb-cta" onclick="scrollToMap()">⚡ Ver plazas →</button>
-  </div>
-</div>
-
 <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <script>
@@ -2230,17 +2184,6 @@ const BADGES=[
   {icon:'❄️',name:'Maestro de la Nieve',desc:'2 actividades de nieve',done:false},
   {icon:'🏆',name:'Leyenda TripXtrem',desc:'10 viajes completados',done:false}
 ];
-const TICKER_MSGS=[
-  'Miguel A. reservó Surf en Zarautz · hace 2 min',
-  'Grupo de 4 reservó Kitesurf en Tarifa · hace 5 min',
-  'Sara L. reservó Paracaidismo en Girona · hace 9 min',
-  '⚠️ Solo 1 plaza en Heliesquí Candanchú esta semana',
-  'Carlos B. reservó Pack Surf+Alojamiento · hace 11 min',
-  '⚠️ Kitesurf Tarifa: última plaza disponible',
-  'Ana R. reservó Escalada en Montserrat · hace 14 min',
-  'Pablo M. reservó Pack Aventura Total · hace 18 min'
-];
-
 // ════ STATE ════
 let curCat='__ALL__', curSport=null, liked=new Set(), curCard=null;
 let activeDiffs=new Set(), maxPrice=400, sortMode='rating';
@@ -2262,19 +2205,6 @@ function closeOv(id){
 document.addEventListener('click',e=>{
   if(e.target.classList.contains('ov')) closeOv(e.target.id);
 });
-
-// ════ ANN BAR ════
-function closeAnn(){
-  const b=document.getElementById('ann-bar');
-  if(b)b.style.display='none';
-  // Shift everything up by removing ann bar height
-  document.documentElement.style.setProperty('--ANH','0px');
-  // Recalculate all heights
-  document.querySelectorAll('.page-content').forEach(el=>el.style.marginTop='calc(var(--NH) + var(--CTBH) + var(--CBH))');
-  // Update ddm top
-  const ddm=document.getElementById('ddm');
-  if(ddm)ddm.style.top='calc(0px + var(--NH) + 6px)';
-}
 
 // ════ NAV ════
 function toggleDD(){document.getElementById('ddm').classList.toggle('open');}
@@ -3465,76 +3395,11 @@ function renderAdm(sec){
   }
 }
 
-// ════ LIVE FEATURES ════
-function startCountdown(){
-  const now=new Date(),sun=new Date(now);
-  sun.setDate(now.getDate()+(7-now.getDay())%7||7);sun.setHours(23,59,59,0);
-  function upd(){
-    const diff=sun-new Date();if(diff<0)return;
-    const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),mn=Math.floor((diff%3600000)/60000);
-    const el=document.getElementById('ann-cd');
-    if(el)el.textContent='Quedan '+(d>0?d+'d '+h+'h':h+'h '+mn+'min');
-  }
-  upd();setInterval(upd,60000);
-}
-
-function startLiveCounter(){
-  let n=47;
-  setInterval(()=>{
-    if(Math.random()>.65){n++;
-      const e1=document.getElementById('ann-n'),e2=document.getElementById('tb-n');
-      if(e1)e1.textContent=n+' personas';
-      if(e2)e2.textContent=n+' reservas hoy · en vivo';
-    }
-  },45000);
-}
-
-const NOTIFS=[
-  '🏄 Miguel A. acaba de reservar Surf en Zarautz',
-  '🔥 Solo 1 plaza disponible en Kitesurf Tarifa',
-  '🛩️ Sara L. reservó Paracaidismo en Empuriabrava',
-  '👥 Grupo de 6 reservó Escalada Montserrat',
-  '🏔️ Pablo M. reservó el Pack Aventura Total',
-];
-function startNotifs(){
-  NOTIFS.forEach((msg,i)=>setTimeout(()=>toast(msg),8000+(i*22000)));
-  setInterval(()=>{
-    const names=['Ana R.','Carlos B.','Lucía M.','David P.','Sara T.'];
-    const acts=['Surf en Zarautz','Kitesurf en Tarifa','Paracaidismo en Girona','Escalada Montserrat','Parapente en Gandía'];
-    toast('🎉 '+names[Math.floor(Math.random()*names.length)]+' acaba de reservar '+acts[Math.floor(Math.random()*acts.length)]);
-  },120000);
-}
-
-let tickIdx=0;
-function startTicker(){
-  setInterval(()=>{
-    const el=document.getElementById('ticker-text');if(!el)return;
-    tickIdx=(tickIdx+1)%TICKER_MSGS.length;
-    el.style.opacity='0';
-    setTimeout(()=>{el.textContent=TICKER_MSGS[tickIdx];el.style.opacity='1';},300);
-  },6000);
-}
-
-// ════ STICKY ════
-window.addEventListener('scroll',()=>{
-  document.getElementById('sticky-bar').classList.toggle('show',window.scrollY>600);
-},{passive:true});
-
-// ════ EXIT INTENT ════
-let exitShown=false;
-document.addEventListener('mouseleave',e=>{
-  if(e.clientY<20&&!exitShown){exitShown=true;toast('🎁 Antes de irte: código AUTO15 → 15% en packs');}
-});
-
 // ════ INIT ════
 document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(initMainMap,300);
   loadExperiences();
   renderFiltered();
-  startCountdown();
-  startLiveCounter();
-  startNotifs();
-  startTicker();
   updateCBArrows();
   updAdmBadge();
   setTimeout(updateCBArrows,500);
@@ -3731,7 +3596,7 @@ document.addEventListener('mouseout',e=>{
       });
     });
     // Magnetic on main CTAs
-    document.querySelectorAll('.btn-g.btn-lg-g, .hs-btn, .wl-submit, .sb-cta, .ec-book').forEach(b=>{
+    document.querySelectorAll('.btn-g.btn-lg-g, .hs-btn, .wl-submit').forEach(b=>{
       if(!b.classList.contains('tx-magnet')) b.classList.add('tx-magnet');
     });
     // Pulse glow on primary waitlist CTAs
