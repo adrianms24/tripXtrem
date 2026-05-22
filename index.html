@@ -1406,114 +1406,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 .tx-skel-line{height:12px;margin:10px 14px 0;border-radius:6px;background:linear-gradient(90deg,#f4ecd8 0%,#faf4e8 50%,#f4ecd8 100%);background-size:800px 100%;animation:txShimmer 1.4s linear infinite;}
 
 /* ═══════════════════════════════════════════════════════════════════
-   SPRINT 1 · A.3 mockup tipográfico (Syne + Outfit) — HERO solamente
-   El resto del sitio mantiene Bebas/Inter hasta validar visualmente.
-   ═══════════════════════════════════════════════════════════════════ */
-.tx-hero{
-  background:linear-gradient(165deg, var(--cream) 0%, #f4ecd8 100%);
-  padding:var(--s-8) var(--s-3) var(--s-6);
-  border-bottom:1px solid var(--border);
-  font-family:var(--ff-body);
-  position:relative;
-  overflow:hidden;
-  /* Clear sticky bars (nav + cat-tabs + cat-bar) */
-  margin-top:calc(var(--ANH) + var(--NH) + var(--CTBH) + var(--CBH));
-}
-/* Cuando hay hero antes del split, el split ya no necesita su propio
-   margin-top (lo aporta el hero). Solo aplica dentro de #page-landing. */
-#page-landing .tx-hero + .mbtoggle + .split,
-#page-landing .tx-hero + .split{ margin-top:0; }
-/* Acento decorativo: silueta dorada difusa abajo-derecha */
-.tx-hero::after{
-  content:'';
-  position:absolute;
-  right:-80px;bottom:-100px;
-  width:380px;height:380px;
-  background:radial-gradient(circle, rgba(201,162,74,.18) 0%, transparent 70%);
-  pointer-events:none;
-}
-.tx-hero-inner{
-  max-width:1080px;margin:0 auto;
-  position:relative;z-index:1;
-}
-.tx-hero-eyebrow{
-  font-family:var(--ff-mono);
-  font-size:11px;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:var(--mu);
-  margin-bottom:var(--s-2);
-}
-.tx-hero-title{
-  font-family:var(--ff-display);
-  font-weight:800;
-  font-size:clamp(40px, 7vw, 96px);
-  line-height:.95;
-  letter-spacing:-0.035em;
-  color:var(--navy);
-  margin:0 0 var(--s-2);
-  text-wrap:balance;
-}
-.tx-hero-title em{
-  font-style:normal;
-  color:var(--brand);          /* vinoso #8B1F2B sobre crema */
-  position:relative;
-  display:inline-block;
-}
-/* Subrayado dorado bajo "adrenalina" */
-.tx-hero-title em::after{
-  content:'';
-  position:absolute;
-  left:0;right:0;bottom:.05em;
-  height:.18em;
-  background:var(--gold);
-  opacity:.45;
-  z-index:-1;
-  border-radius:2px;
-}
-.tx-hero-title-2{
-  display:inline-block;
-  color:var(--gold-dk);
-  font-weight:700;
-}
-.tx-hero-sub{
-  font-family:var(--ff-body);
-  font-size:clamp(15px, 1.4vw, 18px);
-  font-weight:400;
-  line-height:1.55;
-  color:var(--mu);
-  max-width:640px;
-  margin:0 0 var(--s-3);
-}
-.tx-hero-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--navy);color:var(--cream);
-  padding:14px 24px;
-  border-radius:999px;
-  font-family:var(--ff-body);
-  font-size:14.5px;font-weight:600;
-  text-decoration:none;
-  letter-spacing:.3px;
-  box-shadow:0 6px 18px rgba(26,43,74,.18);
-  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
-}
-.tx-hero-cta:hover{
-  background:#0f1b35;
-  transform:translateY(-1px);
-  box-shadow:0 10px 24px rgba(26,43,74,.28);
-}
-.tx-hero-cta-arrow{
-  font-size:18px;line-height:1;
-  transition:transform .2s ease;
-}
-.tx-hero-cta:hover .tx-hero-cta-arrow{transform:translateY(3px);}
-
-@media (max-width:900px){
-  .tx-hero{padding:var(--s-4) var(--s-2) var(--s-4);}
-  .tx-hero-title{font-size:clamp(36px, 9vw, 64px);}
-  .tx-hero-sub{font-size:15px;}
-}
-
-/* ═══════════════════════════════════════════════════════════════════
    SPRINT 1 · A.2 acentos funcionales aplicados a CTAs / badges
    ═══════════════════════════════════════════════════════════════════ */
 /* CTA principal de reservar en la ficha → coral (urgente, adrenalina) */
@@ -1706,22 +1598,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 
 <!-- ═══ PAGE LANDING ═══ -->
 <div class="page active" id="page-landing">
-
-<!-- ═══ HERO (Sprint 1 · A.1 slogan + A.3 mockup tipográfico) ═══ -->
-<section class="tx-hero" aria-labelledby="hero-title">
-  <div class="tx-hero-inner">
-    <p class="tx-hero-eyebrow">Marketplace nº1 de aventura en España</p>
-    <h1 class="tx-hero-title" id="hero-title">
-      Reserva la <em>adrenalina</em>.<br>
-      <span class="tx-hero-title-2">Vívela después.</span>
-    </h1>
-    <p class="tx-hero-sub">+85 experiencias verificadas · partners certificados · seguro y cancelación gratuita incluidos.</p>
-    <a class="tx-hero-cta" href="#mapSection" onclick="scrollToMap();return false">
-      <span>Explora el mapa</span>
-      <span class="tx-hero-cta-arrow" aria-hidden="true">↓</span>
-    </a>
-  </div>
-</section>
 
 <!-- MOBILE VIEW TOGGLE (Lista / Mapa) — solo visible en m\u00f3vil -->
 <div class="mbtoggle" role="tablist" aria-label="Vista">
