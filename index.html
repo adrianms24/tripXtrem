@@ -10,7 +10,7 @@
 <meta name="tx-build" content="v2026-04-28-pin-fix">
 <meta name="google-site-verification" content="_g16aCg0xH54Qp1IHMLZ3x-PdE7bHstKoAascy2EPv4">
 <title>TripXtrem — Marketplace Nº1 de Turismo de Aventura en España</title>
-<meta name="description" content="Reserva deportes extremos en España: surf, kitesurf, paracaidismo, parapente, escalada, rafting y más. +40 actividades, packs completos con alojamiento y transporte. Apúntate para acceso anticipado.">
+<meta name="description" content="Reserva la adrenalina. Vívela después. Marketplace nº1 de aventura en España: surf, kitesurf, paracaidismo, parapente, escalada, rafting y +40 actividades verificadas.">
 <meta name="keywords" content="turismo aventura España, deportes extremos, surf Zarautz, kitesurf Tarifa, paracaidismo Empuriabrava, parapente, escalada, rafting Lleida, heliesquí, packs aventura">
 <meta name="author" content="TripXtrem">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -23,7 +23,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="TripXtrem">
 <meta property="og:title" content="TripXtrem — Marketplace Nº1 de Turismo de Aventura en España">
-<meta property="og:description" content="Reserva deportes extremos en España: surf, kitesurf, paracaidismo, parapente, escalada y más. Packs completos con alojamiento y transporte.">
+<meta property="og:description" content="Reserva la adrenalina. Vívela después. Marketplace nº1 de aventura y deportes extremos en España.">
 <meta property="og:url" content="https://tripxtrem.com/">
 <meta property="og:image" content="https://tripxtrem.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://maps.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://plausible.io">
 <link rel="dns-prefetch" href="https://places.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- Google Maps JS se carga dinámicamente via /api/config (ver loadGoogleMaps) -->
 <!-- Analytics (Plausible — no cookies, GDPR-friendly) -->
 <script defer data-domain="tripxtrem.com" src="https://plausible.io/js/script.tagged-events.js"></script>
@@ -99,6 +99,38 @@
   --c-tierra:#8b1f2b;--c-tierra-bg:#fde8ea;--c-tierra-dk:#6d1722;
   /* ── Buttons ── */
   --btn-sm:var(--sp-1) var(--sp-3);--btn-md:var(--sp-2) var(--sp-5);--btn-lg:var(--sp-3) var(--sp-6);
+
+  /* ──────────────────────────────────────────────────────────────
+     SPRINT 1 · BLOQUE A · Tokens nuevos (paleta + tipo + espacio)
+     ────────────────────────────────────────────────────────────── */
+
+  /* Accent colors funcionales (sobre la paleta base navy/dorado/vinoso/crema) */
+  --coral:#FF4A2B;            /* CTAs urgentes, dificultad 4-5, badges adrenalina */
+  --coral-dk:#E33A1E;
+  --coral-glow:rgba(255,74,43,.22);
+  --mint:#00C896;             /* éxito, verificado, confirmado */
+  --mint-dk:#00A07A;
+  --mint-glow:rgba(0,200,150,.18);
+  --amber:#FFB627;            /* warnings, plazas escasas, hitos, urgencia */
+  --amber-dk:#E59E12;
+  --amber-glow:rgba(255,182,39,.22);
+
+  /* Sistema de espaciado 8px — usar progresivamente, no romper layouts */
+  --s-1:8px;
+  --s-2:16px;
+  --s-3:24px;
+  --s-4:32px;
+  --s-5:40px;
+  --s-6:48px;
+  --s-8:64px;
+  --s-10:80px;
+  --s-12:96px;
+  --s-16:128px;
+
+  /* Familias tipográficas (mockup; aplicar progresivamente) */
+  --ff-display:'Syne','Bebas Neue','Impact',system-ui,sans-serif;
+  --ff-body:'Outfit','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --ff-mono:'JetBrains Mono','SF Mono','Menlo','Consolas',monospace;
 }
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--dk);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
 input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
@@ -1372,6 +1404,173 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 }
 .tx-skel-img{height:200px;background:linear-gradient(90deg,#f4ecd8 0%,#faf4e8 50%,#f4ecd8 100%);background-size:800px 100%;animation:txShimmer 1.4s linear infinite;}
 .tx-skel-line{height:12px;margin:10px 14px 0;border-radius:6px;background:linear-gradient(90deg,#f4ecd8 0%,#faf4e8 50%,#f4ecd8 100%);background-size:800px 100%;animation:txShimmer 1.4s linear infinite;}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SPRINT 1 · A.3 mockup tipográfico (Syne + Outfit) — HERO solamente
+   El resto del sitio mantiene Bebas/Inter hasta validar visualmente.
+   ═══════════════════════════════════════════════════════════════════ */
+.tx-hero{
+  background:linear-gradient(165deg, var(--cream) 0%, #f4ecd8 100%);
+  padding:var(--s-8) var(--s-3) var(--s-6);
+  border-bottom:1px solid var(--border);
+  font-family:var(--ff-body);
+  position:relative;
+  overflow:hidden;
+  /* Clear sticky bars (nav + cat-tabs + cat-bar) */
+  margin-top:calc(var(--ANH) + var(--NH) + var(--CTBH) + var(--CBH));
+}
+/* Cuando hay hero antes del split, el split ya no necesita su propio
+   margin-top (lo aporta el hero). Solo aplica dentro de #page-landing. */
+#page-landing .tx-hero + .mbtoggle + .split,
+#page-landing .tx-hero + .split{ margin-top:0; }
+/* Acento decorativo: silueta dorada difusa abajo-derecha */
+.tx-hero::after{
+  content:'';
+  position:absolute;
+  right:-80px;bottom:-100px;
+  width:380px;height:380px;
+  background:radial-gradient(circle, rgba(201,162,74,.18) 0%, transparent 70%);
+  pointer-events:none;
+}
+.tx-hero-inner{
+  max-width:1080px;margin:0 auto;
+  position:relative;z-index:1;
+}
+.tx-hero-eyebrow{
+  font-family:var(--ff-mono);
+  font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mu);
+  margin-bottom:var(--s-2);
+}
+.tx-hero-title{
+  font-family:var(--ff-display);
+  font-weight:800;
+  font-size:clamp(40px, 7vw, 96px);
+  line-height:.95;
+  letter-spacing:-0.035em;
+  color:var(--navy);
+  margin:0 0 var(--s-2);
+  text-wrap:balance;
+}
+.tx-hero-title em{
+  font-style:normal;
+  color:var(--brand);          /* vinoso #8B1F2B sobre crema */
+  position:relative;
+  display:inline-block;
+}
+/* Subrayado dorado bajo "adrenalina" */
+.tx-hero-title em::after{
+  content:'';
+  position:absolute;
+  left:0;right:0;bottom:.05em;
+  height:.18em;
+  background:var(--gold);
+  opacity:.45;
+  z-index:-1;
+  border-radius:2px;
+}
+.tx-hero-title-2{
+  display:inline-block;
+  color:var(--gold-dk);
+  font-weight:700;
+}
+.tx-hero-sub{
+  font-family:var(--ff-body);
+  font-size:clamp(15px, 1.4vw, 18px);
+  font-weight:400;
+  line-height:1.55;
+  color:var(--mu);
+  max-width:640px;
+  margin:0 0 var(--s-3);
+}
+.tx-hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--navy);color:var(--cream);
+  padding:14px 24px;
+  border-radius:999px;
+  font-family:var(--ff-body);
+  font-size:14.5px;font-weight:600;
+  text-decoration:none;
+  letter-spacing:.3px;
+  box-shadow:0 6px 18px rgba(26,43,74,.18);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.tx-hero-cta:hover{
+  background:#0f1b35;
+  transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(26,43,74,.28);
+}
+.tx-hero-cta-arrow{
+  font-size:18px;line-height:1;
+  transition:transform .2s ease;
+}
+.tx-hero-cta:hover .tx-hero-cta-arrow{transform:translateY(3px);}
+
+@media (max-width:900px){
+  .tx-hero{padding:var(--s-4) var(--s-2) var(--s-4);}
+  .tx-hero-title{font-size:clamp(36px, 9vw, 64px);}
+  .tx-hero-sub{font-size:15px;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SPRINT 1 · A.2 acentos funcionales aplicados a CTAs / badges
+   ═══════════════════════════════════════════════════════════════════ */
+/* CTA principal de reservar en la ficha → coral (urgente, adrenalina) */
+.ab-bk-cta{
+  background:linear-gradient(135deg, var(--coral), var(--coral-dk)) !important;
+  box-shadow:0 4px 14px var(--coral-glow) !important;
+}
+.ab-bk-cta:hover{
+  box-shadow:0 8px 22px var(--coral-glow) !important;
+}
+/* Badge "Partner verificado" en highlights → mint */
+.ab-hl:first-child .ab-hl-icon{
+  color:var(--mint-dk);
+  background:var(--mint-glow);
+  border-radius:8px;
+  width:32px;height:32px;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:0;font-size:18px;
+}
+/* Trust footer del booking card → mint accent en "Verificado" */
+.ab-bk-trust{color:var(--mint-dk);font-weight:600;}
+.ab-bk-trust span:nth-child(3){color:var(--mu);font-weight:500;}
+/* Plazas escasas (badge urgente en card) → amber */
+.ec-spots-pill{
+  background:linear-gradient(135deg, var(--amber), var(--amber-dk)) !important;
+  color:#fff !important;
+  font-weight:700 !important;
+}
+/* "Solo X plazas" en map popup → amber */
+.mp-urg{
+  background:var(--amber) !important;
+  color:var(--navy) !important;
+}
+/* Slogan motivacional en el modal partner (A.1) */
+.pf-hd h2 .pf-hd-em{font-style:normal;color:var(--brand);font-weight:800;}
+.pf-hd-sub{
+  font-family:var(--ff-body);
+  font-size:13.5px;font-weight:400;
+  color:var(--mu);
+  margin:6px 0 10px;
+  line-height:1.5;
+}
+/* Slogan decorativo en el footer (A.1) */
+.tx-foot-tagline{
+  font-family:var(--ff-display);
+  font-size:22px !important;
+  font-weight:700 !important;
+  line-height:1.1;
+  color:var(--cream) !important;
+  margin:14px 0 12px !important;
+  letter-spacing:-0.02em;
+}
+.tx-foot-tagline em{
+  font-style:normal;
+  color:var(--gold);
+  font-weight:800;
+}
 </style>
 </head>
 <body>
@@ -1508,6 +1707,22 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 <!-- ═══ PAGE LANDING ═══ -->
 <div class="page active" id="page-landing">
 
+<!-- ═══ HERO (Sprint 1 · A.1 slogan + A.3 mockup tipográfico) ═══ -->
+<section class="tx-hero" aria-labelledby="hero-title">
+  <div class="tx-hero-inner">
+    <p class="tx-hero-eyebrow">Marketplace nº1 de aventura en España</p>
+    <h1 class="tx-hero-title" id="hero-title">
+      Reserva la <em>adrenalina</em>.<br>
+      <span class="tx-hero-title-2">Vívela después.</span>
+    </h1>
+    <p class="tx-hero-sub">+85 experiencias verificadas · partners certificados · seguro y cancelación gratuita incluidos.</p>
+    <a class="tx-hero-cta" href="#mapSection" onclick="scrollToMap();return false">
+      <span>Explora el mapa</span>
+      <span class="tx-hero-cta-arrow" aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>
+
 <!-- MOBILE VIEW TOGGLE (Lista / Mapa) — solo visible en m\u00f3vil -->
 <div class="mbtoggle" role="tablist" aria-label="Vista">
   <button class="mbt-btn on" role="tab" aria-selected="true" data-view="list" onclick="setMView('list',this)">📋 Lista</button>
@@ -1567,7 +1782,8 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
         </svg>
         <span>TRIP<b>X</b>TREM</span>
       </div>
-      <p>Marketplace Nº1 de turismo de aventura en España. Reserva deportes extremos con garantía total.</p>
+      <p class="tx-foot-tagline">Reserva la adrenalina.<br><em>Vívela después.</em></p>
+      <p>Marketplace nº1 de aventura en España · partners verificados · seguro y cancelación gratuita.</p>
       <div class="tx-foot-social">
         <a href="#" aria-label="Instagram" rel="noopener">📷</a>
         <a href="#" aria-label="Twitter/X" rel="noopener">𝕏</a>
@@ -1922,7 +2138,8 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
 <div class="modal">
   <button class="modal-close" onclick="closeOv('ov-partner')" aria-label="Cerrar registro partner">✕</button>
   <div class="pf-hd">
-    <h2>Únete como partner de TripXtrem</h2>
+    <h2>Que reserven la adrenalina. <em class="pf-hd-em">Tú la das.</em></h2>
+    <p class="pf-hd-sub">Únete como partner. Sin cuota de alta, 0 % comisión durante 90 días.</p>
     <div class="pf-prog-wrap"><div class="pf-prog" id="pf-prog"></div></div>
     <div class="pf-step-info"><span id="pf-step-lbl">Paso 1 de 6</span><span style="cursor:pointer;color:var(--mu)" onclick="closeOv('ov-partner')">Guardar y salir</span></div>
   </div>
