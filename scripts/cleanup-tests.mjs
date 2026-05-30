@@ -46,7 +46,7 @@ async function api(path, method = 'GET') {
   const r = await api('/api/admin/experiences');
   const all = r.items || [];
   const targets = all.filter(e =>
-    typeof e.title === 'string' && /^\[TEST [AB]\]/.test(e.title) && e.active
+    typeof e.title === 'string' && /^\[TEST [A-W]\]/.test(e.title) && e.active
   );
 
   console.log(`📦 Experiencias activas totales: ${all.length}`);
