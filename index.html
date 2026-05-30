@@ -169,15 +169,20 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
   position:relative;
 }
 .nav-logo{
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:11px;
   cursor:pointer;text-decoration:none;
   flex-shrink:0;z-index:1;position:relative;
 }
 .nl-icon{display:inline-flex;flex-shrink:0;}
 .nl-icon svg{display:block;}
-.nl-name{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;font-weight:400;color:var(--navy);line-height:1;letter-spacing:1.2px;}
-.nl-name b{color:var(--brand);font-weight:400;}
-.nl-name b{color:var(--g);}
+.nl-name{
+  font-family:'Bebas Neue','Impact',sans-serif;
+  font-size:30px;font-weight:400;
+  color:var(--navy);line-height:.92;
+  letter-spacing:1.6px;
+  position:relative;top:2px;     /* compensa baseline para alinear visualmente con el SVG */
+}
+.nl-name b{color:var(--g);font-weight:400;}
 
 /* Nav tabs centrales — estilo Airbnb (Deportes / Packs / Alojamiento …) */
 .nav-tabs{
@@ -1128,7 +1133,7 @@ tr:hover td{background:#fafafa;}
   .nav-tabs{display:none;}
   .nav-inner{padding:0 16px;}
   .nl-icon svg{width:30px;height:30px;}
-  .nl-name{font-size:15px;}
+  .nl-name{font-size:22px;letter-spacing:1.4px;}
   /* Announcement bar */
   /* Cat tabs */
   #cat-tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 12px;gap:4px;}
