@@ -178,7 +178,6 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 .nl-name{font-family:'Bebas Neue','Impact',sans-serif;font-size:22px;font-weight:400;color:var(--navy);line-height:1;letter-spacing:1.2px;}
 .nl-name b{color:var(--brand);font-weight:400;}
 .nl-name b{color:var(--g);}
-.nl-badge{background:var(--gl);color:var(--gd);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:7px;border:1px solid #bbf7d0;}
 
 /* Nav tabs centrales — estilo Airbnb (Deportes / Packs / Alojamiento …) */
 .nav-tabs{
@@ -1119,7 +1118,7 @@ tr:hover td{background:#fafafa;}
 .mbt-btn.on{background:var(--dk);color:#fff;border-color:var(--dk);}
 
 /* ═══ RESPONSIVE ═══ */
-@media(max-width:1280px){.nav-tabs{padding:3px;}.nav-tab{padding:0 14px;font-size:13.5px;}.nl-badge{display:none;}.btn-host{display:none;}}
+@media(max-width:1280px){.nav-tabs{padding:3px;}.nav-tab{padding:0 14px;font-size:13.5px;}.btn-host{display:none;}}
 @media(max-width:1024px){.nav-tabs{gap:0;}.nav-tab{padding:0 10px;font-size:13px;}.nav-tab[data-tab="restaurantes"]{display:none;}}
 
 /* Tablet & mobile */
@@ -1480,10 +1479,7 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
           <path d="M90 30 L30 90" stroke="#c9a24a" stroke-width="18"/>
         </svg>
       </span>
-      <div>
-        <div class="nl-name">TRIP<b>X</b>TREM</div>
-        <div class="nl-badge">Nº1 España 🇪🇸</div>
-      </div>
+      <div class="nl-name">TRIP<b>X</b>TREM</div>
     </a>
     <nav class="nav-tabs" aria-label="Categorías principales">
       <button type="button" class="nav-tab on" data-tab="deportes" onclick="setNavTab(this,'deportes')" aria-current="page">Deportes</button>
