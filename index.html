@@ -1226,6 +1226,18 @@ tr:hover td{background:#fafafa;}
   /* Larger touch targets */
   button,.btn-g,.btn-dk,.btn-ol{min-height:40px;}
   .ec-book,.ec-like,.mp-btn{min-height:36px;}
+  /* sb-row1 (cabecera "X experiencias · En vivo · Valorados") sin wrap raro */
+  .sb-row1{flex-wrap:wrap;gap:6px;}
+  .sb-row1 > div{flex-shrink:0;}
+  /* Sort select más compacto en móvil */
+  .sort-sel{font-size:12px;padding:5px 8px;}
+  /* Card-list: padding inferior para que la última card no quede tapada por .mbtoggle */
+  .card-list{padding-bottom:80px;}
+  /* Map-side en móvil debe tener position relative para que los pins/overlays se posicionen bien */
+  .map-side{position:relative;}
+  /* Modal partner: header con menos padding en móvil */
+  .pf-hd h2{font-size:16px;line-height:1.25;}
+  .pf-hd-sub{font-size:12px;}
 }
 
 /* Phone only */
@@ -1526,8 +1538,19 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   .split.map-hidden .card-list{grid-template-columns:repeat(4, minmax(0, 1fr)) !important;}
 }
 @media (max-width:900px){
-  /* En móvil no se muestra el toggle — ya existe .mbtoggle (Lista/Mapa) */
+  /* En móvil deshabilitamos el estado map-hidden por completo:
+     1) El toggle desktop no se ve (ya está la .mbtoggle Lista/Mapa).
+     2) Si quedó memoria en localStorage del estado oculto, no debe
+        contaminar el layout móvil (causa cards en 4-7 columnas
+        + map-side con visibility:hidden, bloqueando la vista Mapa). */
   .map-toggle-pill{display:none !important;}
+  .split.map-hidden{grid-template-columns:1fr !important;}
+  .split.map-hidden .map-side{visibility:visible !important;pointer-events:auto !important;}
+  .split.map-hidden .card-list{
+    grid-template-columns:1fr !important;
+    padding:12px !important;
+    gap:12px !important;
+  }
 }
 
 /* Slogan motivacional en el modal partner (A.1) */
@@ -3637,8 +3660,11 @@ document.addEventListener('keydown', e=>{
   }
 });
 
-// Restaurar preferencia entre recargas
+// Restaurar preferencia entre recargas — solo aplica en desktop (>900px).
+// En móvil ignoramos el flag para que la .mbtoggle (Lista/Mapa) controle la vista.
 (function(){
+  const isMobile = window.matchMedia('(max-width:900px)').matches;
+  if(isMobile) return;
   if(localStorage.getItem('tx_map_hidden') === '1'){
     const split = document.querySelector('.split');
     if(split) split.classList.add('map-hidden');
