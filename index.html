@@ -1443,6 +1443,93 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   background:var(--amber) !important;
   color:var(--navy) !important;
 }
+/* ═══════════════════════════════════════════════════════════════════
+   TOGGLE OCULTAR/MOSTRAR MAPA (centro-inferior del mapa)
+   ═══════════════════════════════════════════════════════════════════ */
+.map-toggle-pill{
+  position:absolute;
+  left:50%;bottom:20px;
+  transform:translateX(-50%);
+  z-index:600;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--navy);color:#fff;
+  border:none;border-radius:999px;
+  padding:11px 20px;
+  font-family:'Inter',-apple-system,sans-serif;
+  font-size:14px;font-weight:600;letter-spacing:.2px;
+  cursor:pointer;
+  box-shadow:0 6px 22px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.12);
+  transition:transform .18s ease, box-shadow .2s ease, background .18s ease;
+  white-space:nowrap;
+}
+.map-toggle-pill:hover{
+  transform:translateX(-50%) translateY(-2px);
+  box-shadow:0 10px 28px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);
+  background:#0f1b35;
+}
+.map-toggle-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.map-toggle-pill svg{display:block;flex-shrink:0;}
+.mtp-label-show{display:none;}
+.mtp-label-hide{display:inline;}
+.mtp-kbd{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:4px;
+  background:rgba(255,255,255,.18);color:rgba(255,255,255,.85);
+  font-family:'JetBrains Mono','SF Mono',monospace;
+  font-size:10px;font-weight:600;
+  margin-left:2px;
+}
+
+/* Estado: mapa oculto */
+.split.map-hidden{grid-template-columns:1fr 0fr;}
+.split.map-hidden .map-side{visibility:hidden;pointer-events:none;}
+.split.map-hidden .card-list{
+  grid-template-columns:repeat(7, minmax(0, 1fr)) !important;
+  gap:12px;
+  padding:14px 20px 80px;
+}
+/* Botón pasa a fixed top-right cuando el mapa está oculto */
+.split.map-hidden .map-toggle-pill{
+  position:fixed;
+  top:calc(var(--ANH) + var(--NH) + var(--CTBH) + var(--CBH) + 16px);
+  right:24px;left:auto;bottom:auto;
+  transform:none;
+  visibility:visible;pointer-events:auto;
+  background:#fff;color:var(--navy);
+  border:1px solid var(--border);
+}
+.split.map-hidden .map-toggle-pill:hover{
+  transform:translateY(-2px);
+  background:var(--navy);color:#fff;
+}
+.split.map-hidden .map-toggle-pill .mtp-kbd{
+  background:rgba(0,0,0,.06);color:var(--mu);
+}
+.split.map-hidden .map-toggle-pill:hover .mtp-kbd{
+  background:rgba(255,255,255,.18);color:rgba(255,255,255,.85);
+}
+.split.map-hidden .map-toggle-pill .mtp-label-hide{display:none;}
+.split.map-hidden .map-toggle-pill .mtp-label-show{display:inline;}
+
+/* Animación suave de la grid */
+.split{transition:grid-template-columns .32s cubic-bezier(.4,0,.2,1);}
+.card-list{transition:grid-template-columns .32s cubic-bezier(.4,0,.2,1);}
+
+/* Responsive del grid de 7 columnas según ancho disponible */
+@media (max-width:1500px){
+  .split.map-hidden .card-list{grid-template-columns:repeat(6, minmax(0, 1fr)) !important;}
+}
+@media (max-width:1280px){
+  .split.map-hidden .card-list{grid-template-columns:repeat(5, minmax(0, 1fr)) !important;}
+}
+@media (max-width:1024px){
+  .split.map-hidden .card-list{grid-template-columns:repeat(4, minmax(0, 1fr)) !important;}
+}
+@media (max-width:900px){
+  /* En móvil no se muestra el toggle — ya existe .mbtoggle (Lista/Mapa) */
+  .map-toggle-pill{display:none !important;}
+}
+
 /* Slogan motivacional en el modal partner (A.1) */
 .pf-hd h2 .pf-hd-em{font-style:normal;color:var(--brand);font-weight:800;}
 .pf-hd-sub{
@@ -1633,6 +1720,17 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
   </div>
   <div class="map-side">
     <div id="mainMap" style="width:100%;height:100%;"></div>
+    <!-- Toggle bottom-center: ocultar/mostrar mapa (Airbnb-style) -->
+    <button class="map-toggle-pill" id="mapTogglePill" type="button" onclick="toggleMapView()" aria-pressed="false" aria-label="Ocultar mapa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+        <line x1="9" y1="3" x2="9" y2="18"/>
+        <line x1="15" y1="6" x2="15" y2="21"/>
+      </svg>
+      <span class="mtp-label-hide">Ocultar mapa</span>
+      <span class="mtp-label-show">Mostrar mapa</span>
+      <span class="mtp-kbd" aria-hidden="true">M</span>
+    </button>
     <div class="map-bot" style="position:absolute;bottom:12px;left:12px;z-index:500;">
       <div style="display:flex;gap:7px">
         <div class="mb-pill"><span style="width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;animation:blink 1.5s infinite"></span><span id="map-cnt">20 activas</span></div>
@@ -3503,6 +3601,54 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.body.classList.add('mv-list');
   }
 });
+
+// ════ DESKTOP MAP TOGGLE (ocultar/mostrar mapa con M) ════
+function toggleMapView(){
+  const split = document.querySelector('.split');
+  if(!split) return;
+  const wasHidden = split.classList.contains('map-hidden');
+  const nowHidden = !wasHidden;
+  split.classList.toggle('map-hidden', nowHidden);
+  localStorage.setItem('tx_map_hidden', nowHidden ? '1' : '0');
+  const btn = document.getElementById('mapTogglePill');
+  if(btn){
+    btn.setAttribute('aria-pressed', nowHidden ? 'true' : 'false');
+    btn.setAttribute('aria-label', nowHidden ? 'Mostrar mapa' : 'Ocultar mapa');
+  }
+  // Al mostrar el mapa de nuevo, forzar resize + re-fit bounds
+  if(!nowHidden && mainMap && window.google){
+    setTimeout(()=>{
+      try{
+        google.maps.event.trigger(mainMap,'resize');
+        if(cardsBounds){ mainMap.fitBounds(cardsBounds,{top:60,right:60,bottom:60,left:60}); }
+      }catch(_){}
+    }, 340);  // espera a que termine la transición CSS
+  }
+}
+
+// Atajo de teclado M (ignora cuando el foco está en un input)
+document.addEventListener('keydown', e=>{
+  const t = e.target;
+  if(t && /^(INPUT|TEXTAREA|SELECT)$/i.test(t.tagName)) return;
+  if(t && t.isContentEditable) return;
+  if(e.key === 'm' || e.key === 'M'){
+    e.preventDefault();
+    toggleMapView();
+  }
+});
+
+// Restaurar preferencia entre recargas
+(function(){
+  if(localStorage.getItem('tx_map_hidden') === '1'){
+    const split = document.querySelector('.split');
+    if(split) split.classList.add('map-hidden');
+    const btn = document.getElementById('mapTogglePill');
+    if(btn){
+      btn.setAttribute('aria-pressed','true');
+      btn.setAttribute('aria-label','Mostrar mapa');
+    }
+  }
+})();
 
 // ════ MOBILE VIEW TOGGLE ════
 function setMView(v, btn){
