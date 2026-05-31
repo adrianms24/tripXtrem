@@ -423,9 +423,6 @@ input,select,textarea,button{font-family:'Inter',-apple-system,sans-serif;}
 
 /* ═══ HERO ═══ */
 /* ═══ MAP LEGEND ═══ */
-.ml-item{display:flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:600;color:var(--dk);margin-bottom:4px;}
-.ml-item:last-child{margin-bottom:0;}
-.ml-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 
 /* ═══ TRUST BAR ═══ */
 
@@ -540,8 +537,6 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 #mainMap{width:100%;height:100%;min-height:400px;}
 .map-ctrl{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px;z-index:20;}
 .mc-btn{background:rgba(255,255,255,.97);border-radius:10px;box-shadow:var(--sh);padding:8px 13px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:6px;}
-.map-bot{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,10,20,.6));padding:20px 16px 14px;z-index:20;display:flex;align-items:center;justify-content:space-between;}
-.mb-pill{background:rgba(255,255,255,.96);border-radius:18px;padding:6px 13px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;box-shadow:var(--sh);}
 
 /* Google Maps InfoWindow */
 .gm-style .gm-style-iw-c{padding:0!important;border-radius:14px!important;box-shadow:0 8px 30px rgba(0,0,0,.2)!important;}
@@ -1768,17 +1763,6 @@ button:focus-visible,a:focus-visible,[role=button]:focus-visible{
       <span class="mtp-label-show">Mostrar mapa</span>
       <span class="mtp-kbd" aria-hidden="true">M</span>
     </button>
-    <div class="map-bot" style="position:absolute;bottom:12px;left:12px;z-index:500;">
-      <div style="display:flex;gap:7px">
-        <div class="mb-pill"><span style="width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;animation:blink 1.5s infinite"></span><span id="map-cnt">20 activas</span></div>
-        <div class="mb-pill">⚡ En vivo</div>
-      </div>
-    </div>
-    <div style="position:absolute;bottom:12px;right:12px;z-index:500;display:flex;gap:6px;">
-      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#1a2b4a"></div>Baja</div>
-      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#f59e0b"></div>Media</div>
-      <div class="ml-item" style="background:rgba(255,255,255,.9);padding:3px 8px;border-radius:6px;font-size:10px;"><div class="ml-dot" style="background:#8b1f2b"></div>Alta</div>
-    </div>
   </div>
 </div>
 
@@ -2580,9 +2564,7 @@ function renderFiltered(){
   const cards=getCards();
   const cl=document.getElementById('card-list');
   const sc=document.getElementById('sort-cnt');
-  const mc=document.getElementById('map-cnt');
   if(sc)sc.innerHTML='<b>'+cards.length+'</b> experiencia'+(cards.length!==1?'s':'');
-  if(mc)mc.textContent=cards.length+' activa'+(cards.length!==1?'s':'');
   if(!cl)return;
   if(!cards.length){
     const noData = ALL.length===0;
