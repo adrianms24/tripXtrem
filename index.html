@@ -574,7 +574,21 @@ button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px s
 .tx-pin-wrap.tx-pin-media .tx-pin-circle{border-color:var(--gold);}
 .tx-pin-wrap.tx-pin-baja .tx-pin-circle{border-color:#22c55e;}
 .tx-pin-wrap.tx-pin-urg .tx-pin-circle{border-color:var(--brand);animation:urgpulse 1.8s infinite;}
-.mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;cursor:pointer;}
+.mp{width:240px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:14px;cursor:pointer;position:relative;}
+/* Botón ✕ esquina superior derecha del popup */
+.mp-close{
+  position:absolute;top:8px;right:8px;z-index:2;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.95);color:#1a2b4a;
+  border:none;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+  transition:background .15s, transform .15s, color .15s;
+  padding:0;
+}
+.mp-close:hover{background:#1a2b4a;color:#fff;transform:scale(1.06);}
+.mp-close:focus-visible{outline:2px solid #c9a24a;outline-offset:2px;}
+.mp-close svg{display:block;}
 .mp:hover .mp-btn{filter:brightness(1.06);}
 .mp-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;filter:drop-shadow(0 3px 10px rgba(0,0,0,.08));}
 .mp-urg{position:absolute;top:8px;left:8px;background:var(--r);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:.3px;text-transform:uppercase;z-index:1;}
@@ -2797,6 +2811,9 @@ function buildMarkerPopup(c){
   const rating = Number.isFinite(c.rating) && c.rating>0 ? Number(c.rating).toFixed(1) : null;
   const urgent = Number.isFinite(c.spots) && c.spots>0 && c.spots<=2;
   return '<div class="mp mp-open-ficha" data-action="open-ficha" role="button" tabindex="0">'+
+    '<button type="button" class="mp-close" data-action="close-popup" aria-label="Cerrar tarjeta">'+
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>'+
+    '</button>'+
     '<div class="mp-img '+bg+'">'+
       (urgent?'<div class="mp-urg">Solo '+c.spots+' plaza'+(c.spots>1?'s':'')+'</div>':'')+
       '<span aria-hidden="true">'+(c.icon||'🌍')+'</span>'+
@@ -2813,8 +2830,20 @@ function buildMarkerPopup(c){
   '</div>';
 }
 
-// Delegación global: cualquier click en .mp-open-ficha abre la ficha del card activo
+// Delegación global:
+//   · click en .mp-close → cierra popup (NO abre ficha)
+//   · click en cualquier otra parte de .mp-open-ficha → abre ficha
 document.addEventListener('click', function(ev){
+  // 1) Cerrar popup
+  const closeBtn = ev.target.closest && ev.target.closest('.mp-close');
+  if(closeBtn){
+    ev.stopPropagation();
+    ev.preventDefault();
+    if(gInfoWindow && gInfoWindow.close) gInfoWindow.close();
+    window._activeMapCard = null;
+    return;
+  }
+  // 2) Abrir ficha
   const t = ev.target.closest && ev.target.closest('.mp-open-ficha');
   if(!t) return;
   const card = window._activeMapCard;
